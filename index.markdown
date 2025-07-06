@@ -1,6 +1,6 @@
 ---
 layout: home
-title: "Dahsboard Mark Eijbaard"
+title: "Dashboard Mark Eijbaard"
 ---
 
 Dit is een test
