@@ -29,7 +29,7 @@ twitter_username: meijbaard
 github_username:  meijbaard
 
 # Build settings
-theme: jekyll-theme-cayman
+theme: cayman
 plugins:
   - jekyll-feed
 
