@@ -29,7 +29,7 @@ github_username: meijbaard
 
 # Build settings
 #remote_theme: pages-themes/cayman
-remote_theme: mmistakes/minimal-mistakes
+remote_theme: "mmistakes/minimal-mistakes@4.27.1"
 #theme: cayman
 plugins:
   - jekyll-remote-theme
