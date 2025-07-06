@@ -28,11 +28,13 @@ twitter_username: meijbaard
 github_username: meijbaard
 
 # Build settings
-remote_theme: pages-themes/cayman
+#remote_theme: pages-themes/cayman
+remote_theme: mmistakes/minimal-mistakes
 #theme: cayman
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
+  - jekyll-include-cache
   
 # Exclude from processing.
 # The following items will not be processed, by default.
