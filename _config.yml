@@ -22,10 +22,11 @@ title: Mark Eijbaard
 email: info@markeijbaard.nl
 description: >- # this means to ignore newlines until "baseurl:"
   Dit wordt mijn persoonlijke website via Github Pages
-baseurl: "/meijbaard.github.io" # the subpath of your site, e.g. /blog
+domain: "meijbaard.github.io"
 url: "https://meijbaard.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+baseurl: "/meijbaard.github.io/" # the subpath of your site, e.g. /blog
+twitter_username: meijbaard
+github_username:  meijbaard
 
 # Build settings
 theme: jekyll-theme-cayman
