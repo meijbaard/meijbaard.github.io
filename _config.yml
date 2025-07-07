@@ -14,7 +14,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 locale: "nl-NL"
-title: "Mark Eijbaard"
+title: "Mark Eijbaard | Met een Baarnse blik..."
 subtitle: "Met een Baarnse blik..."
 name: "Mark Eijbaard"
 email: "info@markeijbaard.nl"
