@@ -30,8 +30,8 @@ search: true
 masthead_title: "Mark Eijbaard" # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs: true #false (default)
 
-copyright: "copyright" name, defaults to site.title
-copyright_url: "copyright" URL, defaults to site.url
+# copyright: "copyright" name, defaults to site.title
+# copyright_url: "copyright" URL, defaults to site.url
 
 # Build settings
 markdown: kramdown
