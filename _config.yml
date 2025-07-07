@@ -70,6 +70,7 @@ author:
   name   : "Mark Eijbaard"
   avatar : "/assets/images/meijbaard.jpg"
   bio    : "My **awesome** biography constrained to a sentence or two goes here."
+  location: "Baarn"
   links:
     - label: "Website"
       icon: "fas fa-fw fa-link"
