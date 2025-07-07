@@ -75,6 +75,9 @@ author:
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://markeijbaard.nl"
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/markeijbaard/"
     - label: "X"
       icon: "fab fa-fw fa-x-twitter"
       url: "https://x.com/meijbaard"
@@ -87,6 +90,9 @@ author:
 
 footer:
   links:
+    - label: "Linkedin"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/markeijbaard/"
     - label: "X"
       icon: "fab fa-fw fa-x-twitter"
       url: "https://x.com/meijbaard"
