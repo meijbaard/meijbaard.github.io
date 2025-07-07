@@ -14,16 +14,21 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 locale: "nl-NL"
-title: MM
-email:
+title: Mark Eijbaard
+subtitle: Met een Baarnse blik...
+name: Mark Eijbaard
+email: info@markeijbaard.nl
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
-twitter_username: username
-github_username: username
-minimal_mistakes_skin: default
+twitter_username: meijbaard
+github_username: meijbaard
+minimal_mistakes_skin: dirt
 search: true
+
+copyright: "copyright" name, defaults to site.title
+copyright_url: "copyright" URL, defaults to site.url
 
 # Build settings
 markdown: kramdown
