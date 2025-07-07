@@ -5,13 +5,14 @@
 layout: home
 author_profile: true
 
+excerpt: "This post should display a **header with an overlay image**, if the theme supports it."
 header:
   overlay_image: /assets/images/header_baarn.jpeg
   caption: "**De Baarnse Brink**"
   # actions:
   #  - label: "More Info"
   #    url: "https://unsplash.com"
-  - excerpt: "This post should display a **header with an overlay image**, if the theme supports it."
+  
 
 intro: 
   - excerpt: 'Nullam suscipit et nam, tellus velit pellentesque at malesuada, enim eaque. Quis nulla, netus tempor in diam gravida tincidunt, *proin faucibus* voluptate felis id sollicitudin. Centered with `type="center"`'
@@ -59,7 +60,7 @@ feature_row4:
     btn_class: "btn--primary"
 ---
 
-{% include feature_row id="intro"  %}
+{% include feature_row id="intro" type="wide" %}
 
 <!--  {% include feature_row type="wide" %} -->
 
