@@ -27,6 +27,9 @@ github_username: meijbaard
 minimal_mistakes_skin: dirt
 search: true
 
+masthead_title: " " # overrides the website title displayed in the masthead, use " " for no title
+breadcrumbs: true, false (default)
+
 copyright: "copyright" name, defaults to site.title
 copyright_url: "copyright" URL, defaults to site.url
 
