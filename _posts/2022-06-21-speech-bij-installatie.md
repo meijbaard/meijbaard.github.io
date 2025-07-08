@@ -1,3 +1,10 @@
+---
+layout: post
+title: "Speech bij installatie"
+date: 2022-06-21 21:00:00 +0200
+categories: speech
+---
+
 <!-- wp:paragraph -->
 <p>Mijn naam is Mark Eijbaard, 38 jaar en sinds 2006 actief in de lokale politiek. De eerste 4 jaar vanaf de zijlijn, als voorzitter van de Baarnse jongerenraad. En vanaf 2010 in de “politieke arena” als steunfractielid en raadslid voor de Partij van de Arbeid. Ik ben getrouwd met Carola en wij hebben twee kinderen. Tijmen van 4 en onze sterrendochter Carlijn.</p>
 <!-- /wp:paragraph -->
