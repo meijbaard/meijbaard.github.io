@@ -1,9 +1,9 @@
 main:
-  - title: "Posts"
+  - title: "Blog"
     url: /posts/
-  - title: "Categories"
+  - title: "Projecten"
     url: /categories/
-  - title: "Tags"
+  - title: "Onderwerpen"
     url: /tags/
-  - title: "About"
+  - title: "Over mij"
     url: /about/
