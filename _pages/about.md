@@ -1,6 +1,6 @@
 ---
-permalink: /about/
-title: "About"
+permalink: /over-mij/
+title: "Over mij"
 ---
 
 ## Over Mij
