@@ -1,8 +1,10 @@
 ---
-layout: post
 title: "Speech bij installatie"
 date: 2022-06-21 21:00:00 +0200
-categories: speech
+categories:
+  - blog
+tags:
+  - speech
 ---
 
 <!-- wp:paragraph -->
