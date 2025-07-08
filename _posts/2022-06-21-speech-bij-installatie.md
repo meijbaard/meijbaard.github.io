@@ -1,5 +1,5 @@
 ---
-title: "Speech bij installatie"
+title: "Speech bij mijn installatie"
 date: 2022-06-21 21:00:00 +0200
 categories:
   - blog
