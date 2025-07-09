@@ -1,5 +1,5 @@
 ---
-permalink: /over-mij/
+permalink: /over/
 title: "Over mij"
 ---
 
