@@ -5,7 +5,9 @@ title: SpotConverter
 author_profile: false
 ---
 
-    <!-- Laad-overlay -->
+<!-- Laad-overlay -->
+<div class="container">
+    
     <div id="loader-overlay">
         <div class="spinner"></div>
         <p class="text-lg font-semibold text-slate-600">Data laden vanaf GitHub...</p>
@@ -86,3 +88,4 @@ author_profile: false
         </footer>
 
     </div>
+</div>
