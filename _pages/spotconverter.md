@@ -1,6 +1,7 @@
 ---
 layout: spotconverter
 title: SpotConverter
+author_profile: false
 ---
 
     <!-- Laad-overlay -->
