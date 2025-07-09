@@ -4,7 +4,7 @@ layout: spotconverter
 title: SpotConverter
 author_profile: false
 ---
-<!DOCTYPE html>
+
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
