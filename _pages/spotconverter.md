@@ -1,4 +1,5 @@
 ---
+permalink: /spotconverter/
 layout: spotconverter
 title: SpotConverter
 author_profile: false
