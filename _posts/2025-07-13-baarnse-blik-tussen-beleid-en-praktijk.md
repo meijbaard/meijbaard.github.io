@@ -1,3 +1,4 @@
+---
 title: "Een vroege ochtend in Eemland: Tussen beleidsplannen en de praktijk 🚜"
 date: 2025-07-13 12:30:00 +0200
 categories:
