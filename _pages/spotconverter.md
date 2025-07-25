@@ -181,7 +181,7 @@ author_profile: false
 
     <script>
         // --- Globale variabelen en Constanten ---
-        let stationData = [], distanceData = {}, trajectories = {}, debounceTimer;
+        let stationData = [], distanceData = {}, trajectories = {}, pathData = {}, debounceTimer;
         
         const spotterAbbr = {
             'A': 'Aankomst', 'V': 'Vertrek', 'D': 'Doorrijden',
@@ -210,16 +210,19 @@ author_profile: false
             loader.style.display = 'flex';
 
             try {
-                const [stationResponse, distanceResponse] = await Promise.all([
+                const [stationResponse, distanceResponse, pathResponse] = await Promise.all([
                     fetch('https://raw.githubusercontent.com/meijbaard/SpotConverter/main/stations.csv'),
-                    fetch('https://raw.githubusercontent.com/meijbaard/SpotConverter/main/afstanden.csv')
+                    fetch('https://raw.githubusercontent.com/meijbaard/SpotConverter/main/afstanden.csv'),
+                    fetch('https://raw.githubusercontent.com/meijbaard/SpotConverter/main/goederenpaden.csv')
                 ]);
 
                 if (!stationResponse.ok) throw new Error(`Fout bij laden stations.csv: ${stationResponse.statusText}`);
                 if (!distanceResponse.ok) throw new Error(`Fout bij laden afstanden.csv: ${distanceResponse.statusText}`);
+                if (!pathResponse.ok) throw new Error(`Fout bij laden goederenpaden.csv: ${pathResponse.statusText}`);
 
                 const stationCsvText = await stationResponse.text();
                 const distanceCsvText = await distanceResponse.text();
+                const pathCsvText = await pathResponse.text();
                 
                 // Parse stations
                 const stationLines = stationCsvText.trim().split('\n');
@@ -251,6 +254,25 @@ author_profile: false
                     });
                 });
                 
+                // Parse goederenpaden
+                const pathLines = pathCsvText.trim().split('\n');
+                const pathHeaders = pathLines.shift().split(',').map(h => h.replace(/"/g, '').trim());
+                const stationCodeIndex = pathHeaders.indexOf('stationscode');
+                const directionIndex = pathHeaders.indexOf('rijrichting');
+                const pathMinutesIndex = pathHeaders.indexOf('pad_minuten');
+                pathData = {};
+                pathLines.forEach(line => {
+                    const values = line.split(',').map(v => v.replace(/"/g, '').trim());
+                    const stationCode = values[stationCodeIndex];
+                    const direction = values[directionIndex];
+                    const pathMinutes = values[pathMinutesIndex].split(';').map(Number);
+                    
+                    if (!pathData[stationCode]) {
+                        pathData[stationCode] = {};
+                    }
+                    pathData[stationCode][direction] = pathMinutes;
+                });
+
                 // Definieer trajecten
                 trajectories = {
                     "Duitsland-Amersfoort": ["RHEINE", "SALZBERGEN", "BH", "ODZ", "HGLO", "HGL", "BN", "AMRI", "AML", "WDN", "RSN", "HON", "DVC", "DV", "TWL", "APDO", "APD", "STO", "BNVA", "BNV", "AMF"],
@@ -397,23 +419,32 @@ author_profile: false
                 const passesTarget = doesTrajectoryPassStation(trajectoryAnalysis, parsedData.routeCodes[0], parsedData.routeCodes[1], targetStationCode);
                 
                 let generalDirection = "Onbekend";
+                let directionKey = "";
                 if (trajectoryAnalysis.direction === 'forward') {
-                    if (trajectoryAnalysis.name.includes('Duitsland-Amersfoort')) generalDirection = 'Nederland in';
-                    else generalDirection = 'Westwaarts';
+                    if (trajectoryAnalysis.name.includes('Duitsland-Amersfoort')) {
+                        generalDirection = 'Nederland in';
+                        directionKey = 'WEST';
+                    } else {
+                        generalDirection = 'Westwaarts';
+                        directionKey = 'WEST';
+                    }
                 } else {
-                    if (trajectoryAnalysis.name.includes('Duitsland-Amersfoort')) generalDirection = 'Nederland uit';
-                    else generalDirection = 'Oostwaarts';
+                    if (trajectoryAnalysis.name.includes('Duitsland-Amersfoort')) {
+                        generalDirection = 'Nederland uit';
+                        directionKey = 'OOST';
+                    } else {
+                        generalDirection = 'Oostwaarts';
+                        directionKey = 'OOST';
+                    }
                 }
                 passageHtml = `Rijrichting: 🚂 <strong>${generalDirection}</strong> | Passage ${targetStationName}: <strong>${passesTarget ? '✅ Ja' : '❌ Nee'}</strong>`;
                 
-                // Bereken de tijd alleen als de trein daadwerkelijk het doelstation passeert.
                 if (passesTarget) {
                     if (parsedData.spotLocation && parsedData.timestamp && targetStationCode) {
                         const firstSpottedStationName = stationData.find(s => s.afkorting === parsedData.spotLocation)?.naam || parsedData.spotLocation;
                         let arrivalTime;
-                        let isSpecialCalc = false;
+                        let timeBlurb = "";
 
-                        // Stap 1: Bereken een ruwe aankomsttijd op basis van afstand en snelheid
                         const distance = distanceData[parsedData.spotLocation]?.[targetStationCode];
                         let roughArrivalDate;
                         if (distance !== undefined) {
@@ -428,73 +459,29 @@ author_profile: false
                         if (!roughArrivalDate) {
                              timeHtml = `<p>Geen afstandsdata gevonden tussen <span class="font-bold">${firstSpottedStationName}</span> en <span class="font-bold">${targetStationName}</span>.</p>`;
                         } else {
-                            // Stap 2: Pas speciale Baarn-logica toe indien van toepassing
-                            let directionForBaarn = null;
-                            if (targetStationName === 'Baarn' && parsedData.spotLocation) {
-                                const spotLocation = parsedData.spotLocation;
+                            const pathInfo = pathData[targetStationCode]?.[directionKey];
 
-                                // Check of de spotlocatie op een aanvoerend traject ligt (richting Amsterdam)
-                                const isFromEastOrSouth = 
-                                    trajectories["Duitsland-Amersfoort"].includes(spotLocation) ||
-                                    trajectories["Amersfoort-Rotterdam"].includes(spotLocation);
-
-                                if (isFromEastOrSouth) {
-                                    directionForBaarn = 'ASD';
-                                } else {
-                                    // Check het Amersfoort-Amsterdam traject voor de specifieke positie
-                                    const amfToAsdTrajectory = trajectories["Amersfoort-Amsterdam"];
-                                    const spotIndex = amfToAsdTrajectory.indexOf(spotLocation);
-                                    const baarnIndex = amfToAsdTrajectory.indexOf(targetStationCode); // targetStationCode is 'BRN'
-
-                                    if (spotIndex !== -1 && baarnIndex !== -1) {
-                                        if (spotIndex < baarnIndex) {
-                                            // Gespot voor Baarn (vanaf Amersfoort), dus rijdt richting Amsterdam
-                                            directionForBaarn = 'ASD'; 
-                                        } else if (spotIndex > baarnIndex) {
-                                            // Gespot na Baarn (vanaf Amsterdam), dus rijdt richting Amersfoort
-                                            directionForBaarn = 'AMF'; 
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (directionForBaarn) { // Als een richting voor de speciale Baarn-logica is gevonden
-                                isSpecialCalc = true;
+                            if (pathInfo && pathInfo.length === 2) {
+                                timeBlurb = " (volgens goederenpad)";
                                 let arrivalDate = new Date(roughArrivalDate.getTime());
-                                let targetMinutes;
-                                
-                                if (directionForBaarn === 'AMF') { // Richting Amersfoort (:08 / :38)
-                                    if (arrivalDate.getMinutes() <= 8) {
-                                        targetMinutes = 8;
-                                    } else if (arrivalDate.getMinutes() <= 38) {
-                                        targetMinutes = 38;
-                                    } else {
-                                        targetMinutes = 8;
-                                        arrivalDate.setHours(arrivalDate.getHours() + 1);
-                                    }
-                                    arrivalDate.setMinutes(targetMinutes, 0, 0);
-                                    arrivalTime = arrivalDate.toTimeString().substring(0, 5);
-                                } else if (directionForBaarn === 'ASD') { // Richting Amsterdam (:21 / :51)
-                                    if (arrivalDate.getMinutes() <= 21) {
-                                        targetMinutes = 21;
-                                    } else if (arrivalDate.getMinutes() <= 51) {
-                                        targetMinutes = 51;
-                                    } else {
-                                        targetMinutes = 21;
-                                        arrivalDate.setHours(arrivalDate.getHours() + 1);
-                                    }
-                                    arrivalDate.setMinutes(targetMinutes, 0, 0);
-                                    arrivalTime = arrivalDate.toTimeString().substring(0, 5);
+                                const [minute1, minute2] = pathInfo.sort((a,b) => a-b);
+                                const currentMinutes = arrivalDate.getMinutes();
+
+                                if (currentMinutes <= minute1) {
+                                    arrivalDate.setMinutes(minute1);
+                                } else if (currentMinutes <= minute2) {
+                                    arrivalDate.setMinutes(minute2);
+                                } else {
+                                    arrivalDate.setHours(arrivalDate.getHours() + 1);
+                                    arrivalDate.setMinutes(minute1);
                                 }
-                            }
-                            
-                            // Stap 3: Gebruik de ruwe berekening als de speciale logica niet van toepassing was
-                            if (!isSpecialCalc) {
+                                arrivalDate.setSeconds(0, 0);
+                                arrivalTime = arrivalDate.toTimeString().substring(0, 5);
+                            } else {
+                                timeBlurb = " (ruwe schatting)";
                                 arrivalTime = roughArrivalDate.toTimeString().substring(0, 5);
                             }
-
-                            // Stap 4: Genereer de HTML output
-                            const timeBlurb = isSpecialCalc ? " (goederenpad)" : "";
+                            
                             timeHtml = `⏰ Geschatte doorkomsttijd in <span class="font-bold">${targetStationName}</span>${timeBlurb}: <strong class="highlight-estimation">${arrivalTime}</strong> <br> <span class="text-sm text-slate-500">(vanaf ${firstSpottedStationName})</span>`;
                         }
                     } else {
