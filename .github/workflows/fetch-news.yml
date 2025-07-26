@@ -22,7 +22,7 @@ jobs:
       - name: Fetch news and save to file
         run: |
           # Roep de API aan met de geheime sleutel en sla de 'results' op in een data-bestand
-          curl "https://newsdata.io/api/1/news?apikey=${{ secrets.NEWSDATA_API_KEY }}&q=Mark%20Eijbaard&language=nl" | jq '.results' > _data/news.json
+          curl "https://newsdata.io/api/1/news?apikey=${{ secrets.NEWSDATA_API_KEY }}&q=Mark%20Eijbaard&language=nl" | jq '.results' > output/news.json
 
       - name: Commit and push if there are changes
         run: |
