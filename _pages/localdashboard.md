@@ -5,7 +5,6 @@ author_profile: false
 permalink: /localdashboard/
 ---
 
-<!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
