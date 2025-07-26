@@ -8,5 +8,5 @@ layout: dashboard
 <h1>Mark Eijbaard in het nieuws</h1>
 <div id="nieuws-dashboard"></div>
 
-<link rel="stylesheet" href="/assets/css/style.css">
-<script type="module" src="/assets/js/main.js"></script>
+<link rel="stylesheet" href="/assets/css/index-D8b4DHJx.css">
+<script type="module" src="/assets/js/index-DK-xQhXp.js"></script>
