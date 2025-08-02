@@ -1,3 +1,10 @@
+---
+permalink: /spotconverter/
+layout: spotconverter
+title: SpotConverter
+author_profile: false
+---
+
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
