@@ -36,7 +36,7 @@ intro:
   - excerpt: "Als onderdeel van mijn streven naar **transparantie en datagedreven werken**, ontwikkel ik _open-source dashboards_ om complexe informatie toegankelijk te maken. Deze tools bieden unieke inzichten, van **lokale statistieken** tot **verkiezingsdata** en zelfs de **analyse van specialistisch jargon**. Duik in de data en ontdek de verhalen die de cijfers vertellen."
 ---
 
-{% include feature_row id="intro" type="wide" %}
+{% include feature_row id="intro" type="center" %}
 
 <!-- {% include feature_row type="wide" %} -->
 
