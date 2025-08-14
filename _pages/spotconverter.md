@@ -1,7 +1,7 @@
 ---
-show_navigation: false
 author_profile: false
 permalink: /spotconverter/
+show_navigation: false
 layout: spotconverter
 title: SpotConverter
 ---
