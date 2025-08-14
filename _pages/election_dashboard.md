@@ -2,6 +2,7 @@
 title: Election Dashboard
 author_profile: false
 layout: Election
+show_navigation: false
 permalink: /electiondashboard/
 ---
 
