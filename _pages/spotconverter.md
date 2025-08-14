@@ -2,6 +2,7 @@
 permalink: /spotconverter/
 layout: spotconverter
 title: SpotConverter
+show_navigation: false
 author_profile: false
 ---
 
