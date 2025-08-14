@@ -3,6 +3,7 @@ title: "Wijkdata Dashboard Baarn"
 layout: localdashboard
 author_profile: false
 permalink: /localdashboard/
+show_navigation: false
 ---
 
 <html lang="nl">
