@@ -1,9 +1,17 @@
 main:
   - title: "Blog"
     url: /posts/
-  - title: "Projecten"
-    url: /categories/
-  - title: "Onderwerpen"
-    url: /tags/
+  - title: "Dashboards"
+    children:
+      - title: "Spotconverter"
+        url: /spotconverter/
+      - title: "Verkiezingen"
+        url: /electiondashboard/
+      - title: "CBS-gegevens"
+        url: /localdashboard/
+      - title: "MeetingParser"
+        url: /meetingparser/
+      - title: "Nieuws dashboard"
+        url: /nieuwsdashboard/
   - title: "Over mij"
     url: /over/
