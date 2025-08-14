@@ -2,7 +2,7 @@
 author_profile: false
 permalink: /spotconverter/
 show_navigation: false
-layout: spotconverter
+layout: electiondashboard
 title: SpotConverter
 ---
 
