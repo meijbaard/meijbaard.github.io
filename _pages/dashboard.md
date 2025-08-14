@@ -4,7 +4,6 @@ author_profile: false
 title: Dashboards
 permalink: /dashboards/
 
-
 feature_row2:
   - image_path: /assets/images/dashboard_spotconverter.png
     alt: "Spotconverter voor de Bentheimer-whatsappgroep"
@@ -19,7 +18,7 @@ feature_row3:
     alt: "Dashboard met verkiezingsgegevens van Baarn"
     title: "Verkiezingsdashboard Baarn"
     excerpt: 'Analyseer de uitslagen van de verkiezingen in Baarn met dit **interactieve dashboard**. Vergelijk de resultaten tussen verschillende partijen en stembureaus binnen de gemeente. Dit instrument maakt de lokale democratie visueel en helpt om de politieke verschuivingen beter te begrijpen.'
-    url: "/electiondashboard/
+    url: "/electiondashboard/"
     btn_label: "Verkiezingsdashboard"
     btn_class: "btn--primary"
 
