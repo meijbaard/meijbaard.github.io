@@ -1,6 +1,6 @@
 ---
 permalink: /meetingparser/
-layout: default
+layout: dashboard
 title: MeetingParser
 author_profile: false
 ---
