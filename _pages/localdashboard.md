@@ -1,6 +1,6 @@
 ---
 title: "Wijkdata Dashboard Baarn"
-layout: localdashboard
+layout: dashboard
 author_profile: false
 permalink: /localdashboard/
 show_navigation: false
