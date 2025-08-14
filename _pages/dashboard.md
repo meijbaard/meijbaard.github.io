@@ -4,52 +4,37 @@ author_profile: false
 title: Dashboards
 permalink: /dashboards/
 
-feature_row:
-
-  - image_path: assets/images/meijbaard.jpg
-    alt: "Mark Eijbaard"
-    title: "Mark Eijbaard"
-    excerpt: "This is some sample content that goes here with **Markdown** formatting."
-
-  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
-    image_caption: "Image courtesy of [Unsplash](https://unsplash.com/)"
-    alt: "placeholder image 2"
-    title: "Placeholder 2"
-    excerpt: "This is some sample content that goes here with **Markdown** formatting."
-    url: "#test-link"
-    btn_label: "Read More"
-    btn_class: "btn--primary"
-
-  - image_path: /assets/images/unsplash-gallery-image-3-th.jpg
-    title: "Placeholder 3"
-    excerpt: "This is some sample content that goes here with **Markdown** formatting."
 
 feature_row2:
-  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
-    alt: "placeholder image 2"
-    title: "Placeholder Image Left Aligned"
-    excerpt: 'This is some sample content that goes here with **Markdown** formatting. Left aligned with `type="left"`'
-    url: "#test-link"
-    btn_label: "Read More"
+  - image_path: /assets/images/dashboard_spotconverter.png
+    alt: "Spotconverter voor de Bentheimer-whatsappgroep"
+    title: "Spotconverter Pro"
+    excerpt: 'Transformeer **cryptische WhatsApp-berichten** van treinspotters in heldere, bruikbare informatie. Deze tool analyseert jargon en routes, berekent een geschatte passage-tijd voor een gekozen station en helpt u zo beter te anticiperen op naderende treinen. Alle data wordt live van een centrale locatie geladen, zodat u altijd over de meest actuele informatie beschikt.'
+    url: "/spotconverter/"
+    btn_label: "Spotconverter"
     btn_class: "btn--primary"
 
 feature_row3:
-  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
-    alt: "placeholder image 2"
-    title: "Placeholder Image Right Aligned"
-    excerpt: 'This is some sample content that goes here with **Markdown** formatting. Right aligned with `type="right"`'
-    url: "#test-link"
-    btn_label: "Read More"
+  - image_path: /assets/images/dashboard_verkiezingen.png
+    alt: "Dashboard met verkiezingsgegevens van Baarn"
+    title: "Verkiezingsdashboard Baarn"
+    excerpt: 'Analyseer de uitslagen van de verkiezingen in Baarn met dit **interactieve dashboard**. Vergelijk de resultaten tussen verschillende partijen en stembureaus binnen de gemeente. Dit instrument maakt de lokale democratie visueel en helpt om de politieke verschuivingen beter te begrijpen.'
+    url: "/electiondashboard/
+    btn_label: "Verkiezingsdashboard"
     btn_class: "btn--primary"
 
 feature_row4:
-  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
-    alt: "placeholder image 2"
-    title: "Placeholder Image Center Aligned"
-    excerpt: 'This is some sample content that goes here with **Markdown** formatting. Centered with `type="center"`'
-    url: "#test-link"
-    btn_label: "Read More"
+  - image_path: /assets/images/dashboard_lokaal.png
+    alt: "CBS gegevens Baarn 2024"
+    title: "CBS gegevens Baarn 2024"
+    excerpt: 'Krijg een helder beeld van **de demografische en sociaal-economische samenstelling** van Baarn met data van het CBS. Dit dashboard toont belangrijke indicatoren over bevolking, wonen en economie op een overzichtelijke kaart. Ideaal voor iedereen die geïnteresseerd is in de feiten en cijfers achter het lokale beleid.'
+    url: "/localdashboard/"
+    btn_label: "Lokaal dashboard"
     btn_class: "btn--primary"
+
+intro: 
+  - excerpt: "###  :chart_with_upwards_trend: Check deze handige tools!"
+  - excerpt: "Als onderdeel van mijn streven naar **transparantie en datagedreven werken**, ontwikkel ik _open-source dashboards_ om complexe informatie toegankelijk te maken. Deze tools bieden unieke inzichten, van **lokale statistieken** tot **verkiezingsdata** en zelfs de **analyse van specialistisch jargon**. Duik in de data en ontdek de verhalen die de cijfers vertellen."
 ---
 
 {% include feature_row id="intro" type="wide" %}
@@ -60,4 +45,4 @@ feature_row4:
 
 {% include feature_row id="feature_row3" type="right" %}
 
-{% include feature_row id="feature_row4" type="center" %}
+{% include feature_row id="feature_row4" type="left" %}
