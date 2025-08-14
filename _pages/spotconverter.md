@@ -1,9 +1,9 @@
 ---
+show_navigation: false
+author_profile: false
 permalink: /spotconverter/
 layout: spotconverter
 title: SpotConverter
-show_navigation: false
-author_profile: false
 ---
 
 <html lang="nl">
