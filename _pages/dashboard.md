@@ -6,7 +6,7 @@ permalink: /dashboards/
 
 feature_row:
 
-  - image_path: assets/images/meijbaard.jpg
+  - image_path: assets/images/meijbaard.jpg {:.style="width: 150px;"}
     alt: "Mark Eijbaard"
     title: "Mark Eijbaard"
     excerpt: "This is some sample content that goes here with **Markdown** formatting."
@@ -34,7 +34,7 @@ feature_row2:
     btn_class: "btn--primary"
 
 feature_row3:
-  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg
+  - image_path: /assets/images/unsplash-gallery-image-2-th.jpg{:.align-center style="width: 500px;"}
     alt: "placeholder image 2"
     title: "Placeholder Image Right Aligned"
     excerpt: 'This is some sample content that goes here with **Markdown** formatting. Right aligned with `type="right"`'
