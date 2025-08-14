@@ -2,7 +2,7 @@
 title: "Mark Eijbaard in het nieuws"
 permalink: /nieuwsdashboard/
 author_profile: false
-layout: nieuwsdashboard
+layout: dashboard
 show_navigation: false
 ---
 
