@@ -335,10 +335,25 @@ permalink: /electiondashboard/
             document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             document.querySelector(`.tab-button[data-tab="${tabId}"]`).classList.add('active');
+
             const isAnalysisTab = tabId === 'analyse';
-            partyFilterContainer.style.display = (tabId === 'kaart' || tabId === 'overzicht') ? 'block' : 'none';
-            mainFilterContainer.style.display = isAnalysisTab ? 'none' : 'block';
-            analysisFilterContainer.style.display = isAnalysisTab ? 'block' : 'none';
+            const isMapOrOverviewTab = tabId === 'kaart' || tabId === 'overzicht';
+
+            // Toggle visibility using Tailwind's 'hidden' class for robustness
+            if (isMapOrOverviewTab) {
+                partyFilterContainer.classList.remove('hidden');
+            } else {
+                partyFilterContainer.classList.add('hidden');
+            }
+
+            if (isAnalysisTab) {
+                mainFilterContainer.classList.add('hidden');
+                analysisFilterContainer.classList.remove('hidden');
+            } else {
+                mainFilterContainer.classList.remove('hidden');
+                analysisFilterContainer.classList.add('hidden');
+            }
+
             if (tabId === 'kaart' && map) setTimeout(() => { map.invalidateSize(); }, 10);
             updateDashboard();
         }
@@ -739,4 +754,5 @@ permalink: /electiondashboard/
     </script>
 </body>
 </html>
+
 
