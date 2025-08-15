@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: single
 title: "Privacybeleid"
 permalink: /privacy/
 author_profile: false
@@ -10,10 +10,11 @@ author_profile: false
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+    text-align: left; /* Zorgt voor betere leesbaarheid */
   }
 </style>
 
-<div style="content-wrapper">
+<div class="content-wrapper">
 
 **Laatst bijgewerkt: 16 augustus 2025**
 
