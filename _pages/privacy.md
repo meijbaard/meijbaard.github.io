@@ -2,6 +2,7 @@
 layout: default
 title: "Privacybeleid"
 permalink: /privacy/
+author_profile: false
 ---
 
 <div style="text-align: left;">
