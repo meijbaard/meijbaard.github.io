@@ -12,23 +12,28 @@ layout: default
     padding: 20px;
   }
   .news-item {
-    display: flex; /* Maakt het mogelijk om afbeelding en tekst naast elkaar te zetten */
-    align-items: flex-start; /* Lijn de bovenkanten uit */
-    margin-bottom: 2em; /* Ruimte tussen de nieuwsitems */
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 2em;
     list-style-type: none;
+    padding-left: 0; /* Zorgt dat de <ul> geen extra witruimte links heeft */
   }
   .news-image {
     width: 150px;
     height: 150px;
-    object-fit: cover; /* Zorgt dat de afbeelding mooi wordt bijgesneden */
+    object-fit: cover;
     margin-right: 20px;
     border-radius: 8px;
+    flex-shrink: 0; /* Voorkomt dat de afbeelding krimpt */
   }
   .news-content {
-    flex: 1; /* Neemt de resterende ruimte in */
+    flex: 1;
   }
   .news-content h3 {
-    margin-top: 0; /* Verwijdert de standaard witruimte boven de titel */
+    margin-top: 0;
+  }
+  ul {
+    padding-left: 0; /* Verwijdert de standaard witruimte voor de hele lijst */
   }
 </style>
 
@@ -41,7 +46,7 @@ layout: default
         {%- for item in site.data.news -%}
           <li class="news-item" data-pubdate="{{ item.pubDate }}">
             
-            {% if item.image_url %}
+            {% if item.image_url and item.image_url != "" %}
               <img src="{{ item.image_url }}" alt="Beeld bij artikel: {{ item.title }}" class="news-image">
             {% endif %}
 
@@ -49,7 +54,7 @@ layout: default
               <h3><a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h3>
               <p>
                 <strong>Bron:</strong> {{ item.source_id }} 
-                {% if item.creator %}
+                {% if item.creator and item.creator.size > 0 %}
                   | <strong>Auteur:</strong> {{ item.creator | join: ", " }}
                 {% endif %}
                 <br>
@@ -61,7 +66,7 @@ layout: default
         {%- endfor -%}
       </ul>
     {%- else -%}
-      <p>Er is geen nieuws gevonden.</p>
+      <p>Er worden momenteel geen nieuwsberichten gevonden. De data wordt elke ochtend bijgewerkt.</p>
     {%- endif -%}
   </div>
 
