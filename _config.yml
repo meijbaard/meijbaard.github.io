@@ -87,6 +87,9 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://instagram.com/markvandegemeente"
+    - label: "Privacybeleid"
+      icon: "fas fa-fw fa-shield-alt"
+      url: "/privacy/"
 
 footer:
   links:
