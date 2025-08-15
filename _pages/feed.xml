@@ -1,0 +1,21 @@
+---
+layout: null
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mark Eijbaard in het nieuws</title>
+    <description>Recente nieuwsberichten waarin Mark Eijbaard wordt genoemd, automatisch verzameld.</description>
+    <link>{{ site.url }}{{ site.baseurl }}/inhetnieuws/</link>
+    <atom:link href="{{ site.url }}{{ site.baseurl }}/feed.xml" rel="self" type="application/rss+xml" />
+    {% for item in site.data.news[0] limit:20 %}
+      <item>
+        <title>{{ item.title | xml_escape }}</title>
+        <description>{{ item.description | xml_escape }}</description>
+        <pubDate>{{ item.pubDate | date_to_rfc822 }}</pubDate>
+        <link>{{ item.link }}</link>
+        <guid isPermaLink="true">{{ item.link }}</guid>
+      </item>
+    {% endfor %}
+  </channel>
+</rss>
