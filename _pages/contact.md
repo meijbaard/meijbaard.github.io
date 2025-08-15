@@ -10,6 +10,8 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
 <form action="https://formspree.io/f/mwpqzjab" method="POST">
   
   <input type="hidden" name="_next" value="https://markeijbaard.nl/bedankt/">
+  
+  <input type="hidden" name="_gotcha" style="display:none !important">
 
   <div style="margin-bottom: 15px;">
     <label for="name">Naam:</label><br>
