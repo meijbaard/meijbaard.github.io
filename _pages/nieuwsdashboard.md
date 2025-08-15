@@ -5,23 +5,34 @@ author_profile: false
 layout: default
 ---
 
-<h1>Mark Eijbaard in het nieuws</h1>
-<div id="nieuws-dashboard">
-  {%- if site.data.news and site.data.news.size > 0 -%}
-    <ul>
-      {%- for item in site.data.news -%}
-        <li data-pubdate="{{ item.pubDate }}">
-          <h3><a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h3>
-          <p><strong>Bron:</strong> {{ item.source_id }} | <strong>Publicatiedatum:</strong> {{ item.pubDate | date: "%d-%m-%Y %H:%M" }}</p>
-          <p>{{ item.description }}</p>
-        </li>
-      {%- endfor -%}
-    </ul>
-  {%- else -%}
-    <p>Er is geen nieuws gevonden.</p>
-  {%- endif -%}
-</div>
+<style>
+  .content-wrapper {
+    max-width: 800px; /* Adjust this width as you see fit */
+    margin: 0 auto;   /* This centers the container */
+    padding: 20px;    /* Optional: adds some space around the content */
+  }
+</style>
 
+<div class="content-wrapper">
+
+  <h1>Mark Eijbaard in het nieuws</h1>
+  <div id="nieuws-dashboard">
+    {%- if site.data.news and site.data.news.size > 0 -%}
+      <ul>
+        {%- for item in site.data.news -%}
+          <li data-pubdate="{{ item.pubDate }}">
+            <h3><a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h3>
+            <p><strong>Bron:</strong> {{ item.source_id }} | <strong>Publicatiedatum:</strong> {{ item.pubDate | date: "%d-%m-%Y %H:%M" }}</p>
+            <p>{{ item.description }}</p>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <p>Er is geen nieuws gevonden.</p>
+    {%- endif -%}
+  </div>
+
+</div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     // Stel de tijd in voor 25 uur geleden (iets ruimer voor de zekerheid)
