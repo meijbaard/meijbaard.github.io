@@ -2,7 +2,7 @@ main:
   - title: "Blog"
     url: /posts/
   - title: "In het nieuws"
-    url /inhetnieuws/
+    url: /inhetnieuws/
     description: 'Vind hier een overzicht van alle artikelen die online zijn verschenen op verschillende nieuwssites.'
   - title: "Dashboards"
     url: /dashboards/
