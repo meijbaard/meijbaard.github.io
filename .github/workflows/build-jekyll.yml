@@ -17,8 +17,11 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Gebruikt een moderne Ruby-versie
-          bundler-cache: true # Versnelt de installatie van dependencies
+          ruby-version: '3.1'
+          bundler-cache: true # Versnelt de installatie
+
+      - name: Install dependencies
+        run: bundle install # Zorgt dat alle gems geïnstalleerd worden
 
       - name: Build site
         run: bundle exec jekyll build
@@ -26,14 +29,14 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './_site' # De map waar Jekyll de site bouwt
+          path: './_site'
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      pages: write      # Toestemming om naar GitHub Pages te schrijven
-      id-token: write   # Nodig voor authenticatie
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
