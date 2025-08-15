@@ -31,14 +31,25 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById('contact-form');
-    form.addEventListener("submit", function() {
-      // Zorg ervoor dat het formulier in een nieuw tabblad wordt geopend
-      form.target = "_blank";
-      
-      // Wacht een fractie van een seconde en stuur dan de huidige pagina door
-      setTimeout(function() {
+    form.addEventListener("submit", function(e) {
+      e.preventDefault(); // Voorkom de standaard formulier-verzending
+
+      var data = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: data,
+        headers: {
+            'Accept': 'application/json'
+        }
+      }).then(response => {
+        // Ongeacht het succes van de verzending, stuur de gebruiker door.
+        // Formspree regelt de validatie en mailt eventuele fouten.
         window.location.href = "/bedankt/";
-      }, 100);
+      }).catch(error => {
+        // Zelfs bij een netwerkfout, stuur de gebruiker door.
+        // De kans is klein, maar de gebruikerservaring is belangrijker.
+        window.location.href = "/bedankt/";
+      });
     });
   });
 </script>
