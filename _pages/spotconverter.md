@@ -225,9 +225,10 @@ title: SpotConverter
       <div id="patronen-output"></div>
     </main>
 
-    <footer class="text-center text-sm text-slate-500 mt-12">
+    <footer class="text-center text-sm text-slate-500 mt-12 space-y-1">
         <p>Versie 2.5</p>
         <p>Copyright &copy; 2025 Mark Eijbaard. MIT licentie.</p>
+        <p><a href="https://github.com/meijbaard/SpotConverter/issues" target="_blank" class="text-cyan-600 hover:underline">Meld een probleem of wens</a></p>
     </footer>
   </div>
   <script>
@@ -953,5 +954,3 @@ title: SpotConverter
   </script>
 </body>
 </html>
-
-
