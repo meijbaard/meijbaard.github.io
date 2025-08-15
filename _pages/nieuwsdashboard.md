@@ -16,7 +16,7 @@ layout: default
     align-items: flex-start;
     margin-bottom: 2em;
     list-style-type: none;
-    padding-left: 0; /* Zorgt dat de <ul> geen extra witruimte links heeft */
+    padding-left: 0;
   }
   .news-image {
     width: 150px;
@@ -24,7 +24,7 @@ layout: default
     object-fit: cover;
     margin-right: 20px;
     border-radius: 8px;
-    flex-shrink: 0; /* Voorkomt dat de afbeelding krimpt */
+    flex-shrink: 0;
   }
   .news-content {
     flex: 1;
@@ -33,13 +33,32 @@ layout: default
     margin-top: 0;
   }
   ul {
-    padding-left: 0; /* Verwijdert de standaard witruimte voor de hele lijst */
+    padding-left: 0;
+  }
+  .debug-box {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+  .debug-box pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 </style>
 
 <div class="content-wrapper">
 
   <h1>Mark Eijbaard in het nieuws</h1>
+
+  <div class="debug-box">
+    <p><b>Debug Informatie:</b></p>
+    <p>Aantal nieuwsitems gevonden door Jekyll: <b>{{ site.data.news.size }}</b></p>
+    <hr>
+    <p>Volledige data-inhoud:</p>
+    <pre><code>{{ site.data.news | inspect }}</code></pre>
+  </div>
   <div id="nieuws-dashboard">
     {%- if site.data.news and site.data.news.size > 0 -%}
       <ul>
@@ -54,7 +73,7 @@ layout: default
               <h3><a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h3>
               <p>
                 <strong>Bron:</strong> {{ item.source_id }} 
-                {% if item.creator and item.creator.size > 0 %}
+                {% if item.creator and item.creator.size > 0 and item.creator[0] != "" %}
                   | <strong>Auteur:</strong> {{ item.creator | join: ", " }}
                 {% endif %}
                 <br>
