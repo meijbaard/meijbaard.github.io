@@ -72,9 +72,9 @@ author:
   bio    : "**Wethouder Gemeente Baarn** \ _Betrokken bestuurder met oog voor pragmatische en toekomstgerichte oplossingen_"
   location: "Baarn"
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://markeijbaard.nl"
+    - label: "Contact"
+      icon: "fas fa-fw fa-comment-dots"
+      url: /contact/
     - label: "Linkedin"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/markeijbaard/"
