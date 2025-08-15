@@ -7,12 +7,7 @@ author_profile: false
 
 Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo snel mogelijk contact met u op.
 
-<form action="https://formspree.io/f/mwpqzjab" method="POST">
-  
-  <input type="hidden" name="_next" value="https://markeijbaard.nl/bedankt/">
-  
-  <input type="hidden" name="_gotcha" style="display:none !important">
-
+<form id="contact-form" action="https://formspree.io/f/mwpqzjab" method="POST">
   <div style="margin-bottom: 15px;">
     <label for="name">Naam:</label><br>
     <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
@@ -32,3 +27,18 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
     <button type="submit" style="padding: 10px 20px; border: none; background-color: #52adc8; color: white; cursor: pointer; border-radius: 4px;">Verzenden</button>
   </div>
 </form>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById('contact-form');
+    form.addEventListener("submit", function() {
+      // Zorg ervoor dat het formulier in een nieuw tabblad wordt geopend
+      form.target = "_blank";
+      
+      // Wacht een fractie van een seconde en stuur dan de huidige pagina door
+      setTimeout(function() {
+        window.location.href = "/bedankt/";
+      }, 100);
+    });
+  });
+</script>
