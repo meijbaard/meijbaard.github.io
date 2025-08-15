@@ -3,14 +3,12 @@ name: Fetch Daily News
 
 on:
   schedule:
-    # Draait elke dag om 7:00 UTC (is 8:00 of 9:00 in NL)
     - cron: '0 7 * * *'
-  workflow_dispatch: # Maakt het mogelijk om handmatig te starten
+  workflow_dispatch:
 
 jobs:
   fetch-news:
     runs-on: ubuntu-latest
-    # Geef de workflow schrijfrechten op de repository
     permissions:
       contents: write
     steps:
@@ -22,18 +20,17 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Fetch news and save to _data folder
+      - name: Fetch, merge, and sort news
         run: |
-          # Maak de _data map aan als deze niet bestaat
           mkdir -p _data
-          # Roep de API aan en sla de 'results' op in de juiste map
-          curl "https://newsdata.io/api/1/news?apikey=${{ secrets.NEWSDATA_API_KEY }}&q=Mark%20Eijbaard&language=nl" | jq '.results' > _data/news.json
+          # Stap 1: Haal nieuwe artikelen op en sla ze tijdelijk op
+          curl "https://newsdata.io/api/1/news?apikey=${{ secrets.NEWSDATA_API_KEY }}&q=Mark%20Eijbaard&language=nl" | jq '.results' > new_articles.json
 
-      - name: Commit and push if there are changes
-        run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add _data/news.json
-          # Commit alleen als er wijzigingen zijn
-          git diff --staged --quiet || git commit -m "Update daily news"
-          git push
+          # Stap 2: Controleer of er al een nieuwsbestand bestaat
+          if [ -f "_data/news.json" ]; then
+            # Stap 3a: Voeg oud en nieuw samen, verwijder duplicaten (op basis van de link), en sorteer op datum (nieuwste eerst)
+            jq -s '.[0] + .[1] | unique_by(.link) | sort_by(.pubDate) | reverse' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
+          else
+            # Stap 3b: Als er geen oud bestand is, gebruik dan alleen de nieuwe artikelen, gesorteerd
+            jq 'sort_by(.pubDate) | reverse' new_articles.json > _data/news.json
+          fi
