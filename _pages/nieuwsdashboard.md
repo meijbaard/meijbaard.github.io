@@ -35,34 +35,16 @@ layout: default
   ul {
     padding-left: 0;
   }
-  .debug-box {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-  }
-  .debug-box pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
 </style>
 
 <div class="content-wrapper">
 
   <h1>Mark Eijbaard in het nieuws</h1>
 
-  <div class="debug-box">
-    <p><b>Debug Informatie:</b></p>
-    <p>Aantal nieuwsitems gevonden door Jekyll: <b>{{ site.data.news.size }}</b></p>
-    <hr>
-    <p>Volledige data-inhoud:</p>
-    <pre><code>{{ site.data.news | inspect }}</code></pre>
-  </div>
   <div id="nieuws-dashboard">
-    {%- if site.data.news and site.data.news.size > 0 -%}
+    {%- if site.data.news[0] and site.data.news[0].size > 0 -%}
       <ul>
-        {%- for item in site.data.news -%}
+        {%- for item in site.data.news[0] -%}
           <li class="news-item" data-pubdate="{{ item.pubDate }}">
             
             {% if item.image_url and item.image_url != "" %}
@@ -92,7 +74,7 @@ layout: default
 </div>
 
 <script>
-  // Het script om "Nieuw" labels toe te voegen blijft hetzelfde
+  // Script om "Nieuw" labels toe te voegen
   document.addEventListener('DOMContentLoaded', function() {
     const twentyFiveHoursAgo = new Date();
     twentyFiveHoursAgo.setHours(twentyFiveHoursAgo.getHours() - 25);
