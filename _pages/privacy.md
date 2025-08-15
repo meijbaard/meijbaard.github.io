@@ -14,7 +14,7 @@ author_profile: false
   }
 </style>
 
-<div class="content-wrapper">
+<div class="content-wrapper" markdown="1">
 
 **Laatst bijgewerkt: 16 augustus 2025**
 
@@ -25,12 +25,11 @@ Mark Eijbaard is de verwerkingsverantwoordelijke voor de persoonsgegevens die vi
 
 ### Welke gegevens worden verwerkt?
 Deze website maakt gebruik van Google Analytics om inzicht te krijgen in het websiteverkeer. Google Analytics verzamelt de volgende gegevens:
-<ul>
-  <li>Anoniem gemaakte IP-adressen (het laatste deel van het IP-adres wordt gemaskeerd).</li>
-  <li>Gegevens over uw browser en apparaat (zoals type browser en schermresolutie).</li>
-  <li>De webpagina's die u op deze site bezoekt en hoe lang u op elke pagina blijft.</li>
-  <li>De website waar u vandaan kwam voordat u markeijbaard.nl bezocht.</li>
-</ul>
+* Anoniem gemaakte IP-adressen (het laatste deel van het IP-adres wordt gemaskeerd).
+* Gegevens over uw browser en apparaat (zoals type browser en schermresolutie).
+* De webpagina's die u op deze site bezoekt en hoe lang u op elke pagina blijft.
+* De website waar u vandaan kwam voordat u markeijbaard.nl bezocht.
+
 Deze gegevens zijn niet direct herleidbaar tot u als individu.
 
 ### Doel van de gegevensverwerking
