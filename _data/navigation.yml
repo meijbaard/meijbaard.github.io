@@ -1,6 +1,9 @@
 main:
   - title: "Blog"
     url: /posts/
+  - title: "In het nieuws"
+    url /nieuwsdashboard/
+    description: 'Vind hier een overzicht van alle artikelen die online zijn verschenen op verschillende nieuwssites.'
   - title: "Dashboards"
     url: /dashboards/
     description: 'Ontdek de verhalen achter de cijfers met mijn open-source dashboards, die vanuit een streven naar transparantie complexe data over lokale statistieken, verkiezingen en jargon toegankelijk maken.'
