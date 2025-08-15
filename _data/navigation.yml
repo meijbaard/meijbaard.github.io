@@ -9,3 +9,5 @@ main:
     description: 'Ontdek de verhalen achter de cijfers met mijn open-source dashboards, die vanuit een streven naar transparantie complexe data over lokale statistieken, verkiezingen en jargon toegankelijk maken.'
   - title: "Over mij"
     url: /over/
+  - title: "Contact"
+    url: /contact/
