@@ -62,7 +62,7 @@ layout: default
 
 <div class="content-wrapper">
 
-  <h1>In het nieuws</h1>
+  <h1>:newspaper: In het nieuws</h1>
 
   <div class="news-controls">
     <p id="article-counter">Artikelen aan het laden...</p>
