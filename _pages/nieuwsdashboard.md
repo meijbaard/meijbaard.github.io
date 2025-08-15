@@ -1,15 +1,34 @@
 ---
 title: "Mark Eijbaard in het nieuws"
-permalink: /nieuwsdashboard/
+permalink: /inhetnieuws/
 author_profile: false
 layout: default
 ---
 
 <style>
   .content-wrapper {
-    max-width: 800px; /* Adjust this width as you see fit */
-    margin: 0 auto;   /* This centers the container */
-    padding: 20px;    /* Optional: adds some space around the content */
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .news-item {
+    display: flex; /* Maakt het mogelijk om afbeelding en tekst naast elkaar te zetten */
+    align-items: flex-start; /* Lijn de bovenkanten uit */
+    margin-bottom: 2em; /* Ruimte tussen de nieuwsitems */
+    list-style-type: none;
+  }
+  .news-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover; /* Zorgt dat de afbeelding mooi wordt bijgesneden */
+    margin-right: 20px;
+    border-radius: 8px;
+  }
+  .news-content {
+    flex: 1; /* Neemt de resterende ruimte in */
+  }
+  .news-content h3 {
+    margin-top: 0; /* Verwijdert de standaard witruimte boven de titel */
   }
 </style>
 
@@ -20,10 +39,24 @@ layout: default
     {%- if site.data.news and site.data.news.size > 0 -%}
       <ul>
         {%- for item in site.data.news -%}
-          <li data-pubdate="{{ item.pubDate }}">
-            <h3><a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h3>
-            <p><strong>Bron:</strong> {{ item.source_id }} | <strong>Publicatiedatum:</strong> {{ item.pubDate | date: "%d-%m-%Y %H:%M" }}</p>
-            <p>{{ item.description }}</p>
+          <li class="news-item" data-pubdate="{{ item.pubDate }}">
+            
+            {% if item.image_url %}
+              <img src="{{ item.image_url }}" alt="Beeld bij artikel: {{ item.title }}" class="news-image">
+            {% endif %}
+
+            <div class="news-content">
+              <h3><a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h3>
+              <p>
+                <strong>Bron:</strong> {{ item.source_id }} 
+                {% if item.creator %}
+                  | <strong>Auteur:</strong> {{ item.creator | join: ", " }}
+                {% endif %}
+                <br>
+                <strong>Publicatiedatum:</strong> {{ item.pubDate | date: "%d-%m-%Y %H:%M" }}
+              </p>
+              <p>{{ item.description }}</p>
+            </div>
           </li>
         {%- endfor -%}
       </ul>
@@ -33,22 +66,18 @@ layout: default
   </div>
 
 </div>
+
 <script>
+  // Het script om "Nieuw" labels toe te voegen blijft hetzelfde
   document.addEventListener('DOMContentLoaded', function() {
-    // Stel de tijd in voor 25 uur geleden (iets ruimer voor de zekerheid)
     const twentyFiveHoursAgo = new Date();
     twentyFiveHoursAgo.setHours(twentyFiveHoursAgo.getHours() - 25);
-
-    // Zoek alle nieuws-items op de pagina
     const newsItems = document.querySelectorAll('#nieuws-dashboard li');
     
     newsItems.forEach(item => {
-      // Haal de publicatiedatum op die we in de HTML hebben gezet
       const pubDateString = item.dataset.pubdate;
       if (pubDateString) {
-        const pubDate = new Date(pubDateString.replace(" ", "T") + "Z"); // Maak datum compatibel
-        
-        // Als het bericht recent is, voeg een "Nieuw" label toe
+        const pubDate = new Date(pubDateString.replace(" ", "T") + "Z");
         if (pubDate > twentyFiveHoursAgo) {
           const newBadge = document.createElement('span');
           newBadge.textContent = '✨ Nieuw';
