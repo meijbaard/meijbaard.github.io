@@ -1,5 +1,5 @@
 ---
-title: "Mark Eijbaard in het nieuws"
+title: "In het nieuws"
 permalink: /inhetnieuws/
 author_profile: false
 layout: default
@@ -62,7 +62,7 @@ layout: default
 
 <div class="content-wrapper">
 
-  <h1>Mark Eijbaard in het nieuws</h1>
+  <h1>In het nieuws</h1>
 
   <div class="news-controls">
     <p id="article-counter">Artikelen aan het laden...</p>
