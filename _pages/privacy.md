@@ -5,7 +5,15 @@ permalink: /privacy/
 author_profile: false
 ---
 
-<div style="text-align: left;">
+<style>
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+</style>
+
+<div style="content-wrapper">
 
 **Laatst bijgewerkt: 16 augustus 2025**
 
