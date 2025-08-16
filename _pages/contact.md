@@ -29,48 +29,49 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
 </form>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var form = document.getElementById('contact-form');
-    var submitButton = document.getElementById('submit-button');
+async function handleSubmit(event) {
+  event.preventDefault();
+  var form = event.target;
+  var data = new FormData(form);
+  var submitButton = document.getElementById('submit-button');
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault(); // Voorkom de standaard formulier-verzending
+  // Visuele feedback voor de gebruiker
+  submitButton.disabled = true;
+  submitButton.innerText = "Bezig met verzenden...";
 
-      // Toon een 'verzenden...' status aan de gebruiker
-      submitButton.disabled = true;
-      submitButton.innerText = "Bezig met verzenden...";
-
-      var data = new FormData(form);
-      fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: {
-            'Accept': 'application/json'
-        }
-      }).then(response => {
-        if (response.ok) {
-          // Verzending gelukt! Stuur nu door.
-          window.location.href = "/bedankt/";
-        } else {
-          // Er ging iets mis bij Formspree. Geef een foutmelding.
-          response.json().then(data => {
-            if (Object.hasOwn(data, 'errors')) {
-              alert(data["errors"].map(error => error["message"]).join(", "));
-            } else {
-              alert("Er is een onbekende fout opgetreden. Probeer het later opnieuw.");
-            }
-            // Heractiveer de knop
-            submitButton.disabled = false;
-            submitButton.innerText = "Verzenden";
-          })
-        }
-      }).catch(error => {
-        // Er ging iets mis met de netwerkverbinding.
-        alert("Verzenden mislukt. Controleer uw internetverbinding en probeer het opnieuw.");
-        // Heractiveer de knop
-        submitButton.disabled = false;
-        submitButton.innerText = "Verzenden";
-      });
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: {
+          'Accept': 'application/json'
+      }
     });
-  });
+
+    if (response.ok) {
+      // Alles ging goed, stuur door
+      window.location.href = "/bedankt/";
+    } else {
+      // Formspree geeft een fout terug
+      const responseData = await response.json();
+      if (Object.hasOwn(responseData, 'errors')) {
+        alert("Fout: " + responseData["errors"].map(error => error["message"]).join(", "));
+      } else {
+        alert("Er is een onbekende fout opgetreden bij het verzenden.");
+      }
+      // Heractiveer de knop
+      submitButton.disabled = false;
+      submitButton.innerText = "Verzenden";
+    }
+  } catch (error) {
+    // Netwerk of andere fout
+    alert("Verzenden mislukt. Controleer uw internetverbinding.");
+    // Heractiveer de knop
+    submitButton.disabled = false;
+    submitButton.innerText = "Verzenden";
+  }
+}
+
+const form = document.getElementById('contact-form');
+form.addEventListener("submit", handleSubmit);
 </script>
