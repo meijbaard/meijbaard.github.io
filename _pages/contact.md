@@ -34,7 +34,49 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script>
-async function handleSubmit(event) {
-  event.preventDefault();
-  var form = event.target;
-  var data = new FormData
+window.addEventListener("load", function() {
+  const form = document.getElementById('contact-form');
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    const action = e.target.action;
+    const submitButton = document.getElementById('submit-button');
+    
+    // Visuele feedback
+    submitButton.disabled = true;
+    submitButton.innerText = "Bezig met verzenden...";
+
+    fetch(action, {
+      method: 'POST',
+      body: data,
+      headers: {
+          'Accept': 'application/json'
+      }
+    }).then(response => {
+      if (response.ok) {
+        // Succes! Stuur door naar de bedankpagina.
+        window.location.href = '/bedankt/';
+      } else {
+        response.json().then(data => {
+          if (Object.hasOwn(data, 'errors')) {
+            // Specifieke foutmelding van Formspree, vaak "reCAPTCHA validation failed"
+            alert(data["errors"].map(error => error["message"]).join(", "));
+          } else {
+            alert("Er is een fout opgetreden. Controleer of de reCAPTCHA is aangevinkt.");
+          }
+          // Heractiveer de knop
+          submitButton.disabled = false;
+          submitButton.innerText = "Verzenden";
+          // Belangrijk: reset de reCAPTCHA zodat de gebruiker het opnieuw kan proberen
+          grecaptcha.reset();
+        })
+      }
+    }).catch(error => {
+      alert("Verzenden mislukt. Controleer uw internetverbinding.");
+      submitButton.disabled = false;
+      submitButton.innerText = "Verzenden";
+      grecaptcha.reset();
+    });
+  });
+});
+</script>
