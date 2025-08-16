@@ -24,15 +24,21 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
   </div>
   
   <div>
-    <button type="submit" style="padding: 10px 20px; border: none; background-color: #52adc8; color: white; cursor: pointer; border-radius: 4px;">Verzenden</button>
+    <button id="submit-button" type="submit" style="padding: 10px 20px; border: none; background-color: #52adc8; color: white; cursor: pointer; border-radius: 4px;">Verzenden</button>
   </div>
 </form>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById('contact-form');
+    var submitButton = document.getElementById('submit-button');
+
     form.addEventListener("submit", function(e) {
       e.preventDefault(); // Voorkom de standaard formulier-verzending
+
+      // Toon een 'verzenden...' status aan de gebruiker
+      submitButton.disabled = true;
+      submitButton.innerText = "Bezig met verzenden...";
 
       var data = new FormData(form);
       fetch(form.action, {
@@ -42,13 +48,28 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
             'Accept': 'application/json'
         }
       }).then(response => {
-        // Ongeacht het succes van de verzending, stuur de gebruiker door.
-        // Formspree regelt de validatie en mailt eventuele fouten.
-        window.location.href = "/bedankt/";
+        if (response.ok) {
+          // Verzending gelukt! Stuur nu door.
+          window.location.href = "/bedankt/";
+        } else {
+          // Er ging iets mis bij Formspree. Geef een foutmelding.
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              alert(data["errors"].map(error => error["message"]).join(", "));
+            } else {
+              alert("Er is een onbekende fout opgetreden. Probeer het later opnieuw.");
+            }
+            // Heractiveer de knop
+            submitButton.disabled = false;
+            submitButton.innerText = "Verzenden";
+          })
+        }
       }).catch(error => {
-        // Zelfs bij een netwerkfout, stuur de gebruiker door.
-        // De kans is klein, maar de gebruikerservaring is belangrijker.
-        window.location.href = "/bedankt/";
+        // Er ging iets mis met de netwerkverbinding.
+        alert("Verzenden mislukt. Controleer uw internetverbinding en probeer het opnieuw.");
+        // Heractiveer de knop
+        submitButton.disabled = false;
+        submitButton.innerText = "Verzenden";
       });
     });
   });
