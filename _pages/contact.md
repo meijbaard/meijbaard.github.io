@@ -23,10 +23,17 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
     <textarea id="message" name="message" required rows="6" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
   </div>
   
+  <!-- GOOGLE reCAPTCHA WIDGET -->
+  <div class="g-recaptcha" data-sitekey="6Lc_wKcrAAAAAGS4J2TW9abGVOnWULJVI71k81CF"></div>
+  <br>
+  
   <div>
     <button id="submit-button" type="submit" style="padding: 10px 20px; border: none; background-color: #52adc8; color: white; cursor: pointer; border-radius: 4px;">Verzenden</button>
   </div>
 </form>
+
+<!-- GOOGLE reCAPTCHA SCRIPT -->
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <script>
   // Dit script zorgt voor een naadloze verzending en doorverwijzing naar de bedankpagina
