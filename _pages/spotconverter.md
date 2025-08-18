@@ -1,11 +1,4 @@
----
-author_profile: false
-permalink: /spotconverter/
-show_navigation: false
-layout: dashboard
-title: SpotConverter
----
-
+<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
@@ -271,11 +264,11 @@ title: SpotConverter
     const conflictingAbbrs = ['EN', 'DE', 'D', 'A', 'V', 'OP', 'ALS'];
     
     const carrierUrlMap = {
-        'RFO': 'RFO', 'DBC': 'DB_Cargo', 'HSL': 'HSL_Logistik', 'RTB': 'RTB_Cargo',
-        'RTBC': 'RTB_Cargo', 'LNS': 'Lineas', 'SR': 'Strukton_Rail', 'VR': 'VolkerRail',
-        'TCS': 'Train_Charter_Services', 'PKP': 'PKP_Cargo', 'MTR': 'Metrans',
-        'FLP': 'Freightliner_PL', 'RRF': 'Rail_Rush', 'RXP': 'RailExperts',
-        'SBB': 'SBB_Cargo_International', 'CDC': 'CD_Cargo', 'LTE': 'LTE'
+        'RFO': 'RFO', 'DBC': 'DBC', 'HSL': 'HSL', 'RTB': 'RTB',
+        'RTBC': 'RTBC', 'LNS': 'Lineas', 'SR': 'SR', 'VR': 'VR',
+        'TCS': 'TCS', 'PKP': 'PKP', 'MTR': 'Metrans',
+        'FLP': 'FLP', 'RRF': 'Rail_Rush', 'RXP': 'RailExperts',
+        'SBB': 'SBB', 'CDC': 'CDC', 'LTE': 'LTE'
     };
 
     // --- Helper function to get station data by code ---
