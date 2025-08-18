@@ -1,5 +1,6 @@
 ---
-title: "Mark Eijbaard in het nieuws"
+title: "In het Nieuws | Mark Eijbaard | Media-overzicht"
+description: "Een compleet overzicht van nieuwsartikelen en media-optredens. Volg mijn werk als wethouder in Baarn via de lokale en regionale pers."
 permalink: /inhetnieuws/
 author_profile: false
 layout: default
