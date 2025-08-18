@@ -1,6 +1,7 @@
 ---
 layout: single
-title: "Contact"
+title: "Contact | Mark Eijbaard | Vragen of opmerkingen?"
+description: "Heb je een vraag, opmerking of wil je in gesprek gaan? Neem direct contact op via het formulier. Ik hoor graag van je."
 permalink: /contact/
 author_profile: false
 ---
