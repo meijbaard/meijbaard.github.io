@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+---
+author_profile: false
+permalink: /spotconverter/
+show_navigation: false
+layout: dashboard
+title: SpotConverter
+---
+
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
