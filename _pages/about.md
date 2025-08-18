@@ -1,6 +1,8 @@
 ---
 permalink: /over/
-title: "Over mij"
+title: "Over Mij | Mark Eijbaard | Wethouder in Baarn"
+description: "Maak kennis met Mark Eijbaard. Ontdek mijn achtergrond, mijn pragmatische aanpak als wethouder en mijn passie voor een toekomstgericht Baarn. Neem contact op."
+layout: default
 ---
 
 ## Over Mij
