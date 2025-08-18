@@ -1,7 +1,8 @@
 ---
 layout: default
 author_profile: false
-title: Dashboards
+title: "Open-Source Dashboards | Data & Inzichten over Baarn | Mark Eijbaard"
+description: "Ontdek de verhalen achter de cijfers. Verken mijn interactieve, open-source dashboards over verkiezingsdata, CBS-statistieken en meer. Transparant en datagedreven."
 permalink: /dashboards/
 
 feature_row2:
