@@ -2,11 +2,10 @@
 permalink: /over/
 title: "Over Mij | Mark Eijbaard | Wethouder in Baarn"
 description: "Maak kennis met Mark Eijbaard. Ontdek mijn achtergrond, mijn pragmatische aanpak als wethouder en mijn passie voor een toekomstgericht Baarn. Neem contact op."
+pagetitle: "Over mij"
 layout: single
 author_profile: true
 ---
-
-## Over Mij
 
 Als wethouder in Baarn zet ik mij met hart en ziel in voor 'Het Beste voor Baarn'Ik ben geboren en getogen in onze prachtige gemeente en voel een diepe verbinding met onze inwoners en de unieke kwaliteiten van onze leefomgeving. Mijn aanpak is pragmatisch en analytisch; ik ben een benaderbare aanjager die graag rust en structuur brengt in complexe dossiers.Voor mij is een afspraak een afspraak. Ik sta voor het nakomen van beloftes en het vinden van structurele oplossingen die onze gemeente ook op de lange termijn vooruithelpen.
 
