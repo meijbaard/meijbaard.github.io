@@ -1,4 +1,4 @@
-# Welcome to Jekyll!
+e# Welcome to Jekyll!
 #
 # This config file is meant for settings that affect your whole blog, values
 # which you are expected to set up once and rarely edit after that. If you find
@@ -27,7 +27,7 @@ github_username: meijbaard
 minimal_mistakes_skin: dirt
 search: true
 
-masthead_title: "Mark Eijbaard" # overrides the website title displayed in the masthead, use " " for no title
+masthead_title: "Met een Baarnse Blik..." # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs: true #false (default)
 
 # copyright: "copyright" name, defaults to site.title
