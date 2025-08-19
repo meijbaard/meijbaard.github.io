@@ -15,7 +15,7 @@
 # in the templates via {{ site.myvariable }}.
 locale: "nl-NL"
 title: ""Mark Eijbaard | Wethouder Gemeente Baarn | Persoonlijke Blog & Inzichten"
-#subtitle: "Mark Eijbaard"
+subtitle: "Mark Eijbaard"
 name: "Mark Eijbaard"
 email: "info@markeijbaard.nl"
 description: >- # this means to ignore newlines until "baseurl:"
@@ -27,7 +27,7 @@ github_username: meijbaard
 minimal_mistakes_skin: dirt
 search: true
 
-masthead_title: "Mark Eijbaard" # overrides the website title displayed in the masthead, use " " for no title
+masthead_title: "Met een Baarnse blik..." # overrides the website title displayed in the masthead, use " " for no title
 breadcrumbs: true #false (default)
 
 # copyright: "copyright" name, defaults to site.title
