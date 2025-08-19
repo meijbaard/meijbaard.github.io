@@ -1,0 +1,29 @@
+{%- assign post = include.post | default: post -%}
+{%- assign type = include.type | default: "list" -%}
+ 
+{% if type == "grid" %}
+  <div class="archive__item">
+    <article class="archive__item-inner" itemscope itemtype="https://schema.org/CreativeWork">
+      {%- if post.header.teaser -%}
+        <div class="archive__item-teaser">
+          <img src="{{ post.header.teaser | relative_url }}" alt="">
+        </div>
+      {%- endif -%}
+      <h2 class="archive__item-title no_toc" itemprop="headline">
+        <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.pagetitle | default: post.title }}</a>
+      </h2>
+      {%- include page__meta.html -%}
+      {%- if post.excerpt -%}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{%- endif -%}
+    </article>
+  </div>
+{% else %}
+  <div class="list__item">
+    <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+      <h2 class="archive__item-title no_toc" itemprop="headline">
+        <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.pagetitle | default: post.title }}</a>
+      </h2>
+      {%- include page__meta.html -%}
+      {%- if post.excerpt -%}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{%- endif -%}
+    </article>
+  </div>
+{% endif %}
