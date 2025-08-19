@@ -1,27 +1,23 @@
-# Minimal Mistakes remote theme starter
+## Welkom bij de repository van markeijbaard.nl
 
-Click [**Use this template**](https://github.com/mmistakes/mm-github-pages-starter/generate) button above for the quickest method of getting started with the [Minimal Mistakes Jekyll theme](https://github.com/mmistakes/minimal-mistakes).
+Dit is de officiële GitHub-repository voor de persoonlijke website en blog van **Mark Eijbaard**, wethouder in de gemeente Baarn. Deze site dient als een platform voor het delen van inzichten, beleidsreflecties en datagedreven projecten.
 
-Contains basic configuration to get you a site with:
+## Over de website 🏛️
 
-- Sample posts.
-- Sample top navigation.
-- Sample author sidebar with social links.
-- Sample footer links.
-- Paginated home page.
-- Archive pages for posts grouped by year, category, and tag.
-- Sample about page.
-- Sample 404 page.
-- Site wide search.
+De website is gebouwd om een transparante en persoonlijke blik te geven op het werk van een lokale bestuurder. Het doel is om de dialoog te bevorderen en te laten zien hoe we samen werken aan **'Het Beste voor Baarn'**.
 
-Replace sample content with your own and [configure as necessary](https://mmistakes.github.io/minimal-mistakes/docs/configuration/).
+De belangrijkste onderdelen van de site zijn:
 
----
+* **Blog:** Persoonlijke artikelen en reflecties over lokaal bestuur, beleidskeuzes en de toekomst van Baarn.
+* **Dashboards:** Een verzameling interactieve, open-source dashboards die complexe data toegankelijk maken. Voorbeelden zijn de **Spotconverter Pro** voor treinspotters, het **Verkiezingsdashboard** en een dashboard met lokale **CBS-data**.
+* **Nieuwsarchief:** Een overzicht van media-artikelen waarin het werk als wethouder wordt belicht.
 
-## Troubleshooting
+## Technische details 👨‍💻
 
-If you have a question about using Jekyll, start a discussion on the [Jekyll Forum](https://talk.jekyllrb.com/) or [StackOverflow](https://stackoverflow.com/questions/tagged/jekyll). Other resources:
+Deze website is gebouwd met **Jekyll** en maakt gebruik van het **Minimal Mistakes** thema. De code wordt beheerd in deze repository en automatisch gepubliceerd via GitHub Actions.
 
-- [Ruby 101](https://jekyllrb.com/docs/ruby-101/)
-- [Setting up a Jekyll site with GitHub Pages](https://jekyllrb.com/docs/github-pages/)
-- [Configuring GitHub Metadata](https://github.com/jekyll/github-metadata/blob/master/docs/configuration.md#configuration) to work properly when developing locally and avoid `No GitHub API authentication could be found. Some fields may be missing or have incorrect data.` warnings.
+De site bevat ook enkele aangepaste projecten, zoals:
+* Een **GitHub Actions workflow** die automatisch nieuwsartikelen ophaalt en de website bijwerkt.
+* Een **dynamische nieuws-feed** die wordt gegenereerd vanuit een JSON-bestand.
+
+Voel je vrij om de code te verkennen.
