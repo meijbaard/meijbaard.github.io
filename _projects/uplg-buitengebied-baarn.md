@@ -48,7 +48,7 @@ De nationale en provinciale overheden hebben de taak om hierop te sturen. Het Ri
 
 Om te begrijpen hoe het UPLG zich verhoudt tot andere programma's en overlegstructuren, heb ik onderstaand overzicht gemaakt. Dit diagram toont de complexe samenhang tussen nationaal, regionaal en lokaal beleid. Het laat zien waar de besluiten worden genomen en welke overleggen input leveren.
 
-{% draw %}
+{% raw %}
 ```mermaid
 flowchart TB
 
