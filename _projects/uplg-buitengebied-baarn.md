@@ -50,8 +50,6 @@ De nationale en provinciale overheden hebben de taak om hierop te sturen. Het Ri
 
 Om te begrijpen hoe het UPLG zich verhoudt tot andere programma's en overlegstructuren, heb ik onderstaand overzicht gemaakt. Dit diagram toont de complexe samenhang tussen nationaal, regionaal en lokaal beleid. Het laat zien waar de besluiten worden genomen en welke overleggen input leveren.
 
-{% raw %}
-```mermaid
 flowchart TB
 
     %% grafiek nationale programma's
@@ -212,8 +210,6 @@ flowchart TB
     click NPLG "[https://www.rijksoverheid.nl/onderwerpen/aanpak-stikstof-natuur-water-en-klimaat/gebiedsgerichte-en-samenhangende-aanpak-landelijk-gebied](https://www.rijksoverheid.nl/onderwerpen/aanpak-stikstof-natuur-water-en-klimaat/gebiedsgerichte-en-samenhangende-aanpak-landelijk-gebied)" "Nationaal Programma Landelijk Gebied" _blank
     click UPLG,UPLG3 href "[https://www.provincie-utrecht.nl/onderwerpen/toekomst-landelijk-gebied/utrechts-programma-landelijk-gebied](https://www.provincie-utrecht.nl/onderwerpen/toekomst-landelijk-gebied/utrechts-programma-landelijk-gebied)" "Utrechts Programma Landelijk Gebied" _blank
     click GGM "[https://www.provincie-utrecht.nl/onderwerpen/ruimtelijke-ontwikkeling/groen-groeit-mee](https://www.provincie-utrecht.nl/onderwerpen/ruimtelijke-ontwikkeling/groen-groeit-mee)" "Groen Groeit Mee
-
-{% endraw %}
 
 ---
 
