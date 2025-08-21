@@ -57,6 +57,9 @@ include:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+# Activate Mermaid diagrams
+mermaid: true
+
 # Plugins (previously gems:)
 plugins:
   - jekyll-paginate
