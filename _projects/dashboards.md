@@ -5,7 +5,7 @@ title: "Open-Source Dashboards | Data & Inzichten over Baarn | Mark Eijbaard"
 # Nette, korte titel die op de pagina zelf wordt getoond
 pagetitle: "Data Dashboards"
 # Permanente link
-# permalink: /dashboards/
+permalink: /dashboards/
 # Gebruikte layout
 layout: splash
 # Toon je profiel in de sidebar
@@ -43,4 +43,4 @@ feature_row:
 
 ### 📊 Check deze handige tools!
 
-Als onderdeel van mijn streven naar **transparantie en datagedreven werken**, ontwikkel ik *open-source dashboards* om complexe informatie toegankelijk te maken. Deze tools bieden unieke inzichten, van **lokale statistieken** tot **verkiezingsdata** en zelfs de **analyse van specialistisch jargon**. Duik in de data en ontdek de verhalen die de cijfers vertellen.
+Als onderdeel van mijn streven naar **transparantie en datagedreven werken**, ontwikkel ik *open-source dashboards* om complexe informatie toegankelijk te maken. Deze tools bieden unieke inzichten, van **lokale statistieken** tot **verkiezingsdata** en zelfs de **analyse van specialistisch jargon**. Duik in de data en ontdek de verhalen
