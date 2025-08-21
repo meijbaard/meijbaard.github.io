@@ -1,11 +1,11 @@
 ---
 # === FRONT MATTER ===
 layout: splash
-author_profile: true
+author_profile: true # Belangrijk: deze moet aan blijven staan
 description: "Welkom op de website van Mark Eijbaard, wethouder in Baarn. Lees mijn persoonlijke reflecties op beleid, ontdek de achtergronden bij besluiten en ga de dialoog aan."
 header:
   overlay_image: /assets/images/header_baarn.jpeg
-  caption: "**De Baarnse Brink**"
+  caption: "**De Baanse Brink**"
   
 # === INTRODUCTIE SECTIE ===
 intro: 
@@ -13,22 +13,26 @@ intro:
   - excerpt: "Als **geboren en getogen** Baarnaar en nu wethouder in onze prachtige gemeente, duik ik dagelijks in complexe dossiers. Niet alleen om problemen op te lossen, maar vooral om **structurele, toekomstgerichte antwoorden** te vinden voor Baarn.<br><br>Op deze website deel ik mijn reflecties, de achtergronden bij beleid en de inzichten die ik opdoe. Een **persoonlijke en transparante blik** op mijn werk, met als doel de dialoog aan te gaan en te laten zien hoe we samen werken aan **het beste voor Baarn**."
 ---
 
-{# EERST DE INTRODUCTIE TONEN #}
-{% include feature_row id="intro" type="center" %}
+<div id="main" role="main">
+  {% include sidebar.html %}
+  
+  <div class="archive">
+    {% include feature_row id="intro" type="wide" %}
 
----
+    ---
 
-## Recente Berichten
-
-{# DAARNA DE RECENTE BERICHTEN #}
-<div class="grid__wrapper">
-  {% for post in site.posts limit:3 %}
-    <div class="grid__item">
-      {% include archive-single.html type="grid" %}
+    <h2 class="archive__subtitle">Recente Berichten</h2>
+    
+    <div class="grid__wrapper">
+      {% for post in site.posts limit:3 %}
+        <div class="grid__item">
+          {% include archive-single.html type="grid" %}
+        </div>
+      {% endfor %}
     </div>
-  {% endfor %}
-</div>
 
-<div style="text-align: center; margin-top: 2em; margin-bottom: 2em;">
-  <a href="/posts/" class="btn btn--primary">Alle berichten</a>
+    <div style="text-align: center; margin-top: 2em; margin-bottom: 2em;">
+      <a href="/posts/" class="btn btn--primary">Alle berichten</a>
+    </div>
+  </div>
 </div>
