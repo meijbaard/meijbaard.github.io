@@ -74,7 +74,7 @@ flowchart TB
 
         BOL[["<b>BOL</b><br><br><i>Bestuurlijk overleg<br>Leefomgeving</i>"]] --"|Bestuurlijke Besluitvorming Rijk|"--> NOVEX[("<b>NOVEX</b><br><br>Utrecht<br>-<br>Amersfoort")]
         MIRT[["<b>BO MIRT</b><br><br><i>Meerjaren Infrastructuur<br>Ruimte & Transport</i>"]] --"|Bestuurlijke Besluitvorming Rijk|"--> NOVEX
-        NPLG --"|Onderdeel van|"--> LP[["<pre><b>Nationale Programma's</b><pre>"]]
+        NPLG --"|Onderdeel van|"--> LP[("<b>Nationale Programma's</b>")]
         
         LBA1 --"|Leidend voor|"--> NPLG1
         WTR --"|Leidend voor|"--> NPLG
@@ -199,7 +199,7 @@ flowchart TB
     %% classes voor lijnen
     linkStyle default color:#231b1b,stroke:#231b1b,stroke-width:4px;
     %% Bestuurlijke besluitvorming [rood]
-    linkStyle 1,2,10,24 background-color:#,color:red,stroke:#231b1b,stroke-width:4px;
+    linkStyle 1,2,10,24 color:red,stroke:#231b1b,stroke-width:4px;
     %% Regionale onderlinge verbinding [oranje]
     linkStyle 16,17,18,26,27 color:#e25829,stroke:#231b1b,stroke-width:4px;
     %% Relevant voor Baarn [groen]
@@ -209,8 +209,17 @@ flowchart TB
 
     %% Links voor blokken
     click NPLG "[https://www.rijksoverheid.nl/onderwerpen/aanpak-stikstof-natuur-water-en-klimaat/gebiedsgerichte-en-samenhangende-aanpak-landelijk-gebied](https://www.rijksoverheid.nl/onderwerpen/aanpak-stikstof-natuur-water-en-klimaat/gebiedsgerichte-en-samenhangende-aanpak-landelijk-gebied)" "Nationaal Programma Landelijk Gebied" _blank
-    click UPLG,UPLG3 href "[https://www.provincie-utrecht.nl/onderwerpen/toekomst-landelijk-gebied/utrechts-programma-landelijk-gebied](https://www.provincie-utrecht.nl/onderwerpen/toekomst-landelijk-gebied/utrechts-programma-landelijk-gebied)" "Utrechts Programma Landelijk Gebied" _blank
-    click GGM "[https://www.provincie-utrecht.nl/onderwerpen/ruimtelijke-ontwikkeling/groen-groeit-mee](https://www.provincie-utrecht.nl/onderwerpen/ruimtelijke-ontwikkeling/groen-groeit-mee)" "Groen Groeit Mee
+    click UPLG,UPLG3 "[https://www.provincie-utrecht.nl/onderwerpen/toekomst-landelijk-gebied/utrechts-programma-landelijk-gebied](https://www.provincie-utrecht.nl/onderwerpen/toekomst-landelijk-gebied/utrechts-programma-landelijk-gebied)" "Utrechts Programma Landelijk Gebied" _blank
+    click GGM "[https://www.provincie-utrecht.nl/onderwerpen/ruimtelijke-ontwikkeling/groen-groeit-mee](https://www.provincie-utrecht.nl/onderwerpen/ruimtelijke-ontwikkeling/groen-groeit-mee)" "Groen Groeit Mee" _blank
+    click MIRT,MIRT1 "[https://www.rijksoverheid.nl/onderwerpen/ruimtelijke-ordening-en-gebiedsontwikkeling/meerjarenprogramma-infrastructuur-ruimte-en-transport-mirt](https://www.rijksoverheid.nl/onderwerpen/ruimtelijke-ordening-en-gebiedsontwikkeling/meerjarenprogramma-infrastructuur-ruimte-en-transport-mirt)" _blank
+    click UNED "[https://www.programma-uned.nl/default.aspx](https://www.programma-uned.nl/default.aspx)" "Programmaraad UNED" _blank
+    click NOVEX,NOVEX1 "[https://www.denationaleomgevingsvisie.nl/novex/aanpak+per+gebied/utrecht-amersfoort/default.aspx](https://www.denationaleomgevingsvisie.nl/novex/aanpak+per+gebied/utrecht-amersfoort/default.aspx)" "Nationale Omgevingsvisie Extra" _blank
+    click AMF2040 "[https://www.bureauregioamersfoort.nl/themas/omgeving/ontwikkelbeeld](https://www.bureauregioamersfoort.nl/themas/omgeving/ontwikkelbeeld)" "Ontwikkeldbeeld Amersfoort Centraal" _blank
+    click RES "[https://www.bureauregioamersfoort.nl/themas/energietransitie/regionale-energie-strategie/de-res](https://www.bureauregioamersfoort.nl/themas/energietransitie/regionale-energie-strategie/de-res)" "Regionale Energiestrategie Regio Amersfoort" _blank
+    click HPB "[https://www.bureauregioamersfoort.nl/themas/omgeving/handelingsperspectief-buitengebied](https://www.bureauregioamersfoort.nl/themas/omgeving/handelingsperspectief-buitengebied)" "Handelingsperspectief Buitengebied" _blank
+    click BWS "[https://www.rijksoverheid.nl/actueel/nieuws/2022/11/25/kabinet-maakt-water-en-bodem-sturend-bij-ruimtelijke-keuzes](https://www.rijksoverheid.nl/actueel/nieuws/2022/11/25/kabinet-maakt-water-en-bodem-sturend-bij-ruimtelijke-keuzes)" "Bodem en Water Sturend" _blank
+    click KRW "[https://iplo.nl/thema/water/oppervlaktewater/kaderrichtlijn-water//?utm_source=hdwater&utm_medium=link&utm_campaign=beleidregelgeving](https://iplo.nl/thema/water/oppervlaktewater/kaderrichtlijn-water//?utm_source=hdwater&utm_medium=link&utm_campaign=beleidregelgeving)" _blank
+    click TLB "[https://www.rijksoverheid.nl/documenten/kamerstukken/2022/11/25/kamerbrief-toekomst-landbouw](https://www.rijksoverheid.nl/documenten/kamerstukken/2022/11/25/kamerbrief-toekomst-landbouw)" _blank
 
 ```
 ---
