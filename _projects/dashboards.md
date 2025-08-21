@@ -4,8 +4,6 @@
 title: "Open-Source Dashboards | Data & Inzichten over Baarn | Mark Eijbaard"
 # Nette, korte titel die op de pagina zelf wordt getoond
 pagetitle: "Data Dashboards"
-# Permanente link
-permalink: /dashboards/
 # Gebruikte layout
 layout: splash
 # Toon je profiel in de sidebar
