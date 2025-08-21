@@ -8,7 +8,7 @@ tag:
   - verkeer
   - centrum
 header:
-  teaser: /assets/images/header-laanstraat.png
+  teaser: /assets/images/header_laanstraat.png
 ---
 
 Dagelijks zie ik vanuit mijn werkkamer in het gemeentehuis de Brink. Ik zie de dynamiek, de ontmoetingen, maar ik zie ook de onduidelijkheid en de ergernis. Fietsers die slalommen, auto’s die de winkelstraat in rijden. Als raadslid heb ik me hier al vaak druk over gemaakt en als wethouder voel ik de urgentie om nu door te pakken.
