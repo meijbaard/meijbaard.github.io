@@ -11,18 +11,32 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", function() {
+      // Voorkom dat Mermaid automatisch start
       mermaid.initialize({ startOnLoad: false });
-      const anies = document.querySelectorAll('pre.highlight .language-mermaid');
-      anies.forEach((ani) => {
-        const source = ani.innerText;
-        const parent = ani.parentNode.parentNode;
+
+      // Zoek alle codeblokken die voor Mermaid bedoeld zijn
+      const mermaidBlocks = document.querySelectorAll('code.language-mermaid');
+      
+      mermaidBlocks.forEach((block, index) => {
+        // Maak een unieke ID voor elk diagram
+        const id = `mermaid-diagram-${index}`;
+        const source = block.innerText;
+
+        // Maak een nieuw div-element aan waar het diagram in komt
         const newDiv = document.createElement('div');
         newDiv.className = 'mermaid';
+        newDiv.setAttribute('id', id);
         newDiv.innerHTML = source;
-        parent.parentNode.insertBefore(newDiv, parent);
-        parent.style.display = 'none';
+
+        // Vervang het oude codeblok door het nieuwe div-element
+        const pre = block.parentElement;
+        pre.parentNode.replaceChild(newDiv, pre);
       });
-      mermaid.run();
+
+      // Voer Mermaid uit op alle nieuwe div-elementen
+      mermaid.run({
+        nodes: document.querySelectorAll('.mermaid')
+      });
     });
   </script>
 {%- endif -%}
