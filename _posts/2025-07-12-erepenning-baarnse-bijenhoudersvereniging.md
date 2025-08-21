@@ -8,7 +8,7 @@ tags:
   - groen
   - natuur
 header:
-  teaser: /assets/images/header-laanstraat.png
+  teaser: /assets/images/header_laanstraat.png
 ---
 
 Dames en heren,
