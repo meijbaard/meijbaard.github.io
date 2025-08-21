@@ -16,7 +16,7 @@ layout: single
 mermaid: true
 # Instellingen voor de grote afbeelding bovenaan
 header:
-  overlay_image: /assets/images/header_baarn.jpeg
+  overlay_image: /assets/images/landelijkgebied-header.png
   caption: "Het buitengebied van Baarn"
 # Tags voor het vinden van gerelateerde posts
 tags:
