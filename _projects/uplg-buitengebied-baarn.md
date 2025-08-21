@@ -12,6 +12,8 @@ date: 2025-08-21
 author_profile: true
 # Gebruikte layout
 layout: single
+# mermaid
+mermaid: true
 # Instellingen voor de grote afbeelding bovenaan
 header:
   overlay_image: /assets/images/header_baarn.jpeg
