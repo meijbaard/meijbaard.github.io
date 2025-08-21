@@ -1,20 +1,35 @@
-<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h3>
-<div class="grid__wrapper">
-  {% for post in page.related_posts limit:4 %}
-    <div class="grid__item">
-      <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-        {% if post.header.teaser %}
-          <div class="archive__item-teaser">
-            <img src="{{ post.header.teaser | relative_url }}" alt="">
-          </div>
-        {% endif %}
-        <h4 class="archive__item-title" itemprop="headline">
-          <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
-        </h4>
-        {% if post.excerpt %}
-          <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
-        {% endif %}
-      </article>
-    </div>
-  {% endfor %}
-</div>
+{% capture_cached "related-posts-grid" %}
+  <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].related_label | default: "You may also enjoy" }}</h3>
+  <div class="grid__wrapper">
+    {% assign related_posts = "" | split: "" %}
+    {% for tag in page.tags %}
+      {% for post in site.tags[tag] %}
+        {% unless related_posts contains post %}
+          {% assign related_posts = related_posts | push: post %}
+        {% endunless %}
+      {% endfor %}
+    {% endfor %}
+
+    {% for post in related_posts limit:4 %}
+      {% if post.url != page.url %}
+        <div class="grid__item">
+          <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+            {% if post.header.teaser %}
+              <div class="archive__item-teaser">
+                <a href="{{ post.url | relative_url }}" rel="permalink">
+                  <img src="{{ post.header.teaser | relative_url }}" alt="">
+                </a>
+              </div>
+            {% endif %}
+            <h4 class="archive__item-title" itemprop="headline">
+              <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.pagetitle | default: post.title }}</a>
+            </h4>
+            {% if post.excerpt %}
+              <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+            {% endif %}
+          </article>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endcapture_cached %}
