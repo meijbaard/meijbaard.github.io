@@ -251,25 +251,3 @@ Als wethouder blijf ik dit proces nauwlettend volgen. Mijn doel is om de brug te
 
 ---
 
-## Gerelateerde Inzichten
-
-{% assign related_posts = "" | split: "" %}
-{% for tag in page.tags %}
-  {% for post in site.tags[tag] %}
-    {% unless related_posts contains post %}
-      {% assign related_posts = related_posts | push: post %}
-    {% endunless %}
-  {% endfor %}
-{% endfor %}
-
-{% if related_posts.size > 0 %}
-  <ul>
-  {% for post in related_posts limit:5 %}
-    {% if post.url != page.url %}
-      <li><a href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a></li>
-    {% endif %}
-  {% endfor %}
-  </ul>
-{% else %}
-  <p>Er zijn op dit moment geen gerelateerde blogberichten.</p>
-{% endif %}
