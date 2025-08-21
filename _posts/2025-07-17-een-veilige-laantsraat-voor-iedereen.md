@@ -3,9 +3,12 @@ title: "Een duidelijke en veilige Laanstraat voor iedereen 🚶↔️🚲"
 date: 2025-07-17 16:30:00 +0200
 categories:
   - blog
-tags:
-  - nieuwsbrief
-  - Baarnse blik
+tag:
+  - openbare ruimte
+  - verkeer
+  - centrum
+header:
+  teaser: /assets/images/header-laanstraat.png
 ---
 
 Dagelijks zie ik vanuit mijn werkkamer in het gemeentehuis de Brink. Ik zie de dynamiek, de ontmoetingen, maar ik zie ook de onduidelijkheid en de ergernis. Fietsers die slalommen, auto’s die de winkelstraat in rijden. Als raadslid heb ik me hier al vaak druk over gemaakt en als wethouder voel ik de urgentie om nu door te pakken.
