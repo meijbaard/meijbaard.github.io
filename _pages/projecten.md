@@ -34,3 +34,5 @@ feature_row:
 ---
 
 Hieronder vind je een selectie van projecten waar ik als wethouder in Baarn nauw bij betrokken ben.
+
+**{% include feature_row %}**
