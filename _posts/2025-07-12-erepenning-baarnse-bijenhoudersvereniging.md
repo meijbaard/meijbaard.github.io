@@ -9,6 +9,7 @@ tags:
   - natuur
 header:
   teaser: /assets/images/header_laanstraat.png
+  caption: "foto: Caspar Huurdeman"
 ---
 
 Dames en heren,
