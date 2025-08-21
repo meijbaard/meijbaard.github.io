@@ -1,29 +1,26 @@
 ---
 # === FRONT MATTER ===
-layout: home
+layout: splash
 author_profile: true
 description: "Welkom op de website van Mark Eijbaard, wethouder in Baarn. Lees mijn persoonlijke reflecties op beleid, ontdek de achtergronden bij besluiten en ga de dialoog aan."
-excerpt: "Mijn gedachten over bestuur, beleid en de toekomst van Baarn."
 header:
   overlay_image: /assets/images/header_baarn.jpeg
   caption: "**De Baarnse Brink**"
-  title: "Met een Baarnse blik..." # <-- Titel voor in de grote afbeelding
-
+  
 # === INTRODUCTIE SECTIE ===
 intro: 
   - excerpt: "### :wave: Welkom op mijn website"
-  - excerpt: "Als **geboren en getogen** Baarnaar en nu wethouder in onze prachtige gemeente, duik ik dagelijks in complexe dossiers. Niet alleen om problemen op te lossen, maar vooral om **structurele, toekomstgerichte antwoorden** te vinden voor Baarn."
-  - excerpt: "Op deze website deel ik mijn reflecties, de achtergronden bij beleid en de inzichten die ik opdoe. Een **persoonlijke en transparante blik** op mijn werk, met als doel de dialoog aan te gaan en te laten zien hoe we samen werken aan **het beste voor Baarn**."
+  - excerpt: "Als **geboren en getogen** Baarnaar en nu wethouder in onze prachtige gemeente, duik ik dagelijks in complexe dossiers. Niet alleen om problemen op te lossen, maar vooral om **structurele, toekomstgerichte antwoorden** te vinden voor Baarn.<br><br>Op deze website deel ik mijn reflecties, de achtergronden bij beleid en de inzichten die ik opdoe. Een **persoonlijke en transparante blik** op mijn werk, met als doel de dialoog aan te gaan en te laten zien hoe we samen werken aan **het beste voor Baarn**."
 ---
 
 {# EERST DE INTRODUCTIE TONEN #}
-{% include feature_row id="intro" type="wide" %}
+{% include feature_row id="intro" type="center" %}
 
 ---
 
-{# DAARNA DE RECENTE BERICHTEN #}
 ## Recente Berichten
 
+{# DAARNA DE RECENTE BERICHTEN #}
 <div class="grid__wrapper">
   {% for post in site.posts limit:3 %}
     <div class="grid__item">
