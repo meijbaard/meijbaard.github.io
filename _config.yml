@@ -129,7 +129,13 @@ defaults:
 category_archive:
   type: liquid
   path: /categories/
+
 tag_archive:
   type: liquid
   path: /tags/
-# Forceer nieuwe build
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
