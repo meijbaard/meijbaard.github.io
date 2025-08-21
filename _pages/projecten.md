@@ -17,18 +17,11 @@ feature_row:
     url: "/projects/uplg-buitengebied-baarn/"
     btn_label: "Lees verder"
     btn_class: "btn--primary"
-  - image_path: /path/to/your/second/project-image.jpg
-    alt: "Project Twee"
-    title: "Titel van Project Twee"
-    excerpt: "Een korte beschrijving van je tweede project."
-    url: "/projects/project-twee/"
-    btn_label: "Lees verder"
-    btn_class: "btn--primary"
-  - image_path: /path/to/your/third/project-image.jpg
-    alt: "Project Drie"
-    title: "Titel van Project Drie"
-    excerpt: "Een korte beschrijving van je derde project."
-    url: "/projects/project-drie/"
+  - image_path: /path/to/your/second/dashboard_lokaal.png
+    alt: "Open-Data Dashboards"
+    title: "inzicht via dashboards"
+    excerpt: "Ontdek de verhalen achter de cijfers met mijn open-source dashboards, die vanuit een streven naar transparantie complexe data over lokale statistieken, verkiezingen en jargon toegankelijk maken."
+    url: "/projects/dashboards/"
     btn_label: "Lees verder"
     btn_class: "btn--primary"
 ---
