@@ -17,7 +17,7 @@ feature_row:
     url: "/projects/uplg-buitengebied-baarn/"
     btn_label: "Lees verder"
     btn_class: "btn--primary"
-  - image_path: /path/to/your/second/dashboard_lokaal.png
+  - image_path: /assets/images/dashboard_lokaal.png
     alt: "Open-Data Dashboards"
     title: "inzicht via dashboards"
     excerpt: "Ontdek de verhalen achter de cijfers met mijn open-source dashboards, die vanuit een streven naar transparantie complexe data over lokale statistieken, verkiezingen en jargon toegankelijk maken."
