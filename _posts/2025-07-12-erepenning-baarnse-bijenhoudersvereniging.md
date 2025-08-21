@@ -8,7 +8,7 @@ tags:
   - groen
   - natuur
 header:
-  teaser: /assets/images/header_laanstraat.png
+  teaser: /assets/images/header_bijenvereniging.png
   caption: "foto: Caspar Huurdeman"
 ---
 
