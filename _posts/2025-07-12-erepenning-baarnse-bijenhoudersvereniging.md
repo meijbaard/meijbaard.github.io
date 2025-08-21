@@ -5,6 +5,10 @@ categories:
   - blog
 tags:
   - speech
+  - groen
+  - natuur
+header:
+  teaser: /assets/images/header-laanstraat.png
 ---
 
 Dames en heren,
