@@ -4,8 +4,10 @@ date: 2025-07-13 12:30:00 +0200
 categories:
   - blog
 tags:
-  - nieuwsbrief
-  - Baarnse blik
+  - UPLG
+  - Buitengebied
+header:
+  teaser: /assets/images/landelijkgebied-header.png
 ---
 
 Deze periode liep ik twee ochtenden mee met agrariërs hier in Baarn. Ik hielp in de melkput en zag met eigen ogen welke stappen zij al zetten om ons prachtige weidevogelgebied in Eemland te onderhouden en te versterken. 💬 Tijdens het werk spraken we over de toekomst. Over de diepe zorgen of hun kinderen het bedrijf straks nog wel kunnen overnemen, of hoe je als startende ondernemer het hoofd boven water houdt in een wereld vol onzekerheid.
