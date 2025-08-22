@@ -1,27 +1,45 @@
-{%- assign post = include.post | default: post -%}
-{%- assign type = include.type | default: "list" -%}
+{%- comment -%}
+  Dit is een aangepast sjabloon dat twee weergaven ondersteunt.
+{%- endcomment -%}
 
-{% if type == "grid" %}
-  <div class="archive__item">
-    <article class="archive__item-inner" itemscope itemtype="https://schema.org/CreativeWork">
+{% if include.type == "list" %}
+  
+  {# --- WEERGAVE VOOR DE /posts/ PAGINA (MET AFBEELDING) --- #}
+  <div class="list__item">
+    <article class="archive__item archive__item--list" itemscope itemtype="https://schema.org/CreativeWork">
       {%- if post.header.teaser -%}
         <div class="archive__item-teaser">
-          <img src="{{ post.header.teaser | relative_url }}" alt="">
+          <a href="{{ post.url | relative_url }}" rel="permalink">
+            <img src="{{ post.header.teaser | relative_url }}" alt="Teaser afbeelding voor {{ post.title }}">
+          </a>
         </div>
       {%- endif -%}
-      <h2 class="archive__item-title no_toc" itemprop="headline">
-        <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.pagetitle | default: post.title }}</a>
-      </h2>
-      {%- if post.excerpt -%}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{%- endif -%}
+      <div class="archive__item-details">
+        <h2 class="archive__item-title no_toc" itemprop="headline">
+          <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
+        </h2>
+        {%- if post.excerpt -%}
+          <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+        {%- endif -%}
+      </div>
     </article>
   </div>
+
 {% else %}
-  <div class="list__item">
+
+  {# --- ORIGINELE WEERGAVE VOOR DE HOMEPAGE (ZONDER AFBEELDING) --- #}
+  <div class="{{ include.type | default: 'list' }}__item">
     <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
       <h2 class="archive__item-title no_toc" itemprop="headline">
-        <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.pagetitle | default: post.title }}</a>
+        <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
       </h2>
-      {%- if post.excerpt -%}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{%- endif -%}
+      {%- if post.read_time -%}
+        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+      {%- endif -%}
+      {%- if post.excerpt -%}
+        <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
+      {%- endif -%}
     </article>
   </div>
+
 {% endif %}
