@@ -19,8 +19,8 @@ feature_row:
     btn_class: "btn--primary"
   - image_path: /assets/images/dashboard_lokaal.png
     alt: "Open-Data Dashboards"
-    title: "inzicht via dashboards"
-    excerpt: "Ontdek de verhalen achter de cijfers met mijn open-source dashboards, die vanuit een streven naar transparantie complexe data over lokale statistieken, verkiezingen en jargon toegankelijk maken."
+    title: "Inzicht via dashboards"
+    excerpt: "Open-source dashboards, die vanuit een streven naar transparantie, complexe data over toegankelijk maken."
     url: "/projects/dashboards/"
     btn_label: "Lees verder"
     btn_class: "btn--primary"
