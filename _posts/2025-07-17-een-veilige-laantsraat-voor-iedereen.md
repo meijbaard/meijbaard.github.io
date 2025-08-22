@@ -3,7 +3,7 @@ title: "Een duidelijke en veilige Laanstraat voor iedereen 🚶↔️🚲"
 date: 2025-07-17 16:30:00 +0200
 categories:
   - blog
-tag:
+tags:
   - openbare ruimte
   - verkeer
   - centrum
