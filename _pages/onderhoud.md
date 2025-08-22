@@ -3,8 +3,6 @@ title: "Website in Onderhoud"
 permalink: /onderhoud/
 layout: single
 author_profile: false
-header:
-  image: /assets/images/maintenance-mode.png
 ---
 
 ## We zijn zo weer terug!
