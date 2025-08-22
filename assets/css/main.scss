@@ -26,4 +26,10 @@
   margin-top: 0;      /* Verwijdert extra witruimte boven de titel */
 }
 
+/* Lettergrootte voor titels op de bloglijstpagina */
+.archive__item--list h2.archive__item-title {
+  font-size: 1.15rem; /* Ongeveer 2pt groter dan de body tekst */
+  margin-top: 0;
+}
+
 /* --- EINDE AANGEPASTE STIJLEN --- */
