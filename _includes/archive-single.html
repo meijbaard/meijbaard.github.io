@@ -27,15 +27,12 @@
 
 {% else %}
 
-  {# --- ORIGINELE WEERGAVE VOOR DE HOMEPAGE (ZONDER AFBEELDING) --- #}
+  {# --- AANGEPASTE WEERGAVE VOOR DE HOMEPAGE (ZONDER LEESTIJD) --- #}
   <div class="{{ include.type | default: 'list' }}__item">
     <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
       <h2 class="archive__item-title no_toc" itemprop="headline">
         <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
       </h2>
-      {%- if post.read_time -%}
-        <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
-      {%- endif -%}
       {%- if post.excerpt -%}
         <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>
       {%- endif -%}
