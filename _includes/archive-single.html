@@ -2,8 +2,9 @@
 {%- assign type = include.type | default: "list" -%}
 
 {% if type == "grid" %}
-  
-  {# Dit is jouw originele, werkende code voor de homepage. NIET AANGEPAST. #}
+  {% comment %}
+    Dit is jouw originele, werkende code voor de homepage. Volledig ongewijzigd.
+  {% endcomment %}
   <div class="archive__item">
     <article class="archive__item-inner" itemscope itemtype="https://schema.org/CreativeWork">
       {%- if post.header.teaser -%}
@@ -19,10 +20,12 @@
   </div>
 
 {% else %}
-
-  {# Dit is de code voor de /posts/ pagina. NU MET AFBEELDING. #}
+  {% comment %}
+    Dit is de gecorrigeerde code voor de /posts/ pagina.
+    De comments zijn nu onzichtbaar en de afbeeldingen zijn klein.
+  {% endcomment %}
   <div class="list__item">
-    <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    <article class="archive__item archive__item--list" itemscope itemtype="https://schema.org/CreativeWork">
       {%- if post.header.teaser -%}
         <div class="archive__item-teaser">
           <a href="{{ post.url | relative_url }}" rel="permalink">
