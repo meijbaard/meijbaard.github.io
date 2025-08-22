@@ -2,7 +2,7 @@
 {%- assign type = include.type | default: "list" -%}
 
 {% if type == "grid" %}
-  {% comment %} Dit is jouw originele, werkende code voor de homepage. Volledig ongewijzigd. {% endcomment %}
+  {% comment %} Jouw werkende code voor de homepage. Deze blijft ongewijzigd. {% endcomment %}
   <div class="archive__item">
     <article class="archive__item-inner" itemscope itemtype="https://schema.org/CreativeWork">
       {%- if post.header.teaser -%}
@@ -18,7 +18,7 @@
   </div>
 
 {% else %}
-  {% comment %} Dit is de gecorrigeerde code voor de /posts/ pagina. {% endcomment %}
+  {% comment %} De gecorrigeerde code voor de blogpagina. {% endcomment %}
   <div class="list__item">
     <article class="archive__item archive__item--list" itemscope itemtype="https://schema.org/CreativeWork">
       {%- if post.header.teaser -%}
@@ -30,7 +30,7 @@
       {%- endif -%}
       
       <div class="archive__item-body">
-        <h2 class="archive__item-title no_toc" itemprop="headline">
+        <h2 class="archive__item-title no_toc" itemprop="headline" style="font-size: 1.15rem; margin-top: 0;">
           <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.pagetitle | default: post.title }}</a>
         </h2>
         {%- if post.excerpt -%}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{%- endif -%}
