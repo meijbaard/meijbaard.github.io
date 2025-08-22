@@ -1,11 +1,19 @@
 # .github/workflows/build-jekyll.yml
-name: Build and Deploy Jekyll site to GitHub Pages
+name: Build & Deploy Jekyll to GitHub Pages
 
 on:
   push:
-    branches:
-      - main  # Of 'master', afhankelijk van je branch-naam
+    branches: [ "main" ]   # pas aan indien nodig
   workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -13,34 +21,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
-          bundler-cache: true # Versnelt de installatie
-
-      - name: Install dependencies
-        run: bundle install # Zorgt dat alle gems geïnstalleerd worden
+          ruby-version: '3.2'     # stabiel voor Jekyll/Pages
+          bundler-cache: true     # voert automatisch 'bundle install' uit en cachet
 
       - name: Build site
-        run: bundle exec jekyll build
-      
+        run: bundle exec jekyll build --trace
+        # working-directory: ./docs   # uncomment als je site in een submap staat
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './_site'
+          path: ./_site             # pas aan als je submap gebruikt
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4
