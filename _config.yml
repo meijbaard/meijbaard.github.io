@@ -68,6 +68,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - aanpassingen_tov_standaard.md # Uw eigen bestand
+  - github_jekyll_spiekbriefje.md
 
 # Activate Mermaid diagrams
 mermaid: true
