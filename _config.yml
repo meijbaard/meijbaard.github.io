@@ -51,7 +51,7 @@ include:
 # -----------------------------------------------------------------------------
 # Zet op 'true' om de onderhoudspagina te tonen aan alle bezoekers.
 # Zet op 'false' (of verwijder de regel) voor de normale, live website.
-maintenance_mode: false
+maintenance_mode: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
