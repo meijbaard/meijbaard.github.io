@@ -2,9 +2,6 @@
 {%- assign type = include.type | default: "list" -%}
 
 {% if type == "grid" %}
-  {% comment %}
-    Dit is jouw originele, werkende code voor de homepage. Volledig ongewijzigd.
-  {% endcomment %}
   <div class="archive__item">
     <article class="archive__item-inner" itemscope itemtype="https://schema.org/CreativeWork">
       {%- if post.header.teaser -%}
@@ -18,25 +15,13 @@
       {%- if post.excerpt -%}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{%- endif -%}
     </article>
   </div>
-
 {% else %}
-  {% comment %}
-    Dit is de gecorrigeerde code voor de /posts/ pagina.
-  {% endcomment %}
   <div class="list__item">
-    <article class="archive__item archive__item--list" itemscope itemtype="https://schema.org/CreativeWork">
-      {%- if post.header.teaser -%}
-        <div class="archive__item-teaser">
-          <a href="{{ post.url | relative_url }}" rel="permalink">
-            <img src="{{ post.header.teaser | relative_url }}" alt="">
-          </a>
-        </div>
-      {%- endif -%}
+    <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
       <h2 class="archive__item-title no_toc" itemprop="headline">
         <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.pagetitle | default: post.title }}</a>
       </h2>
       {%- if post.excerpt -%}<p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | strip_html | truncate: 160 }}</p>{%- endif -%}
     </article>
   </div>
-
 {% endif %}
