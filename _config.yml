@@ -56,7 +56,8 @@ maintenance_mode: false
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
-# exclude:
+exclude:
+  - aanpassingen_tov_standaard.md 
 #   - Gemfile
 #   - Gemfile.lock
 #   - node_modules
