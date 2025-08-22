@@ -57,14 +57,17 @@ maintenance_mode: false
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 exclude:
-  - aanpassingen_tov_standaard.md 
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - aanpassingen_tov_standaard.md # Uw eigen bestand
 
 # Activate Mermaid diagrams
 mermaid: true
