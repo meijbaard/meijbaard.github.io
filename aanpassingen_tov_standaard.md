@@ -1,3 +1,9 @@
+---
+layout: single
+title: "Overzicht van Thema Aanpassingen"
+permalink: /aanpassingen-thema/
+---
+
 # Overzicht van Aanpassingen aan het Minimal Mistakes Thema
 
 Dit document beschrijft de aanpassingen die zijn gedaan aan de standaard-installatie van het Jekyll-thema "Minimal Mistakes". Het doel is om bij een toekomstige update van het thema snel inzicht te hebben in welke bestanden zijn aangepast en welke stappen nodig zijn om de aanpassingen opnieuw te integreren.
@@ -67,5 +73,3 @@ De volgende bestanden zijn aangepast of toegevoegd, maar hebben een zeer laag ri
 * **`_layouts/posts.html`**: Een eigen layout om berichten per jaar te groeperen. Zal niet worden overschreven. Controleer na een update of het nog correct werkt met de (mogelijk vernieuwde) `include`-bestanden van het thema.
 * **`_pages/year-archive.md`**: De content-pagina die de `/posts/` URL genereert. Zal niet worden overschreven.
 * **`_data/navigation.yml`**: Jouw persoonlijke menustructuur. Wordt nooit overschreven door een thema-update.
-
-Door deze documentatie te bewaren, kun je met vertrouwen toekomstige updates van het Minimal Mistakes thema doorvoeren.
