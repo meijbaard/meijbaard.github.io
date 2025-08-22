@@ -1,0 +1,10 @@
+/* Aangepaste stijl voor de blog-overzichtspagina */
+.archive__item--list {
+  display: flex;         /* Zet de afbeelding en tekst naast elkaar */
+  align-items: flex-start; /* Lijn de bovenkanten netjes uit */
+  gap: 1.5em;            /* Voeg wat ruimte toe tussen afbeelding en tekst */
+}
+
+.archive__item--list .archive__item-teaser {
+  flex: 0 0 200px;      /* Geef de afbeelding een vaste breedte van 200px */
+}
