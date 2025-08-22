@@ -4,13 +4,13 @@ pagetitle: "Mijn Projecten"
 permalink: /projecten/
 layout: splash
 header:
-  overlay_image: /assets/images/landelijkgebied-header.png
+  overlay_image: /assets/images/header_landelijkgebied.png
   caption: "Het buitengebied van Baarn"
   actions:
     - label: "Neem contact op"
       url: "/contact/"
 feature_row:
-  - image_path: /assets/images/landelijkgebied-header.png
+  - image_path: /assets/images/teaser_landelijkgebied.png
     alt: "UPLG Buitengebied Baarn"
     title: "De Toekomst van ons Buitengebied (UPLG)"
     excerpt: "Een diepgaande blik op het Utrechts Programma Landelijk Gebied en de impact hiervan op Baarn."
@@ -20,7 +20,7 @@ feature_row:
   - image_path: /assets/images/dashboard_lokaal.png
     alt: "Open-Data Dashboards"
     title: "Inzicht via dashboards"
-    excerpt: "Open-source dashboards, die vanuit een streven naar transparantie, complexe data over toegankelijk maken."
+    excerpt: "Open-source dashboards, die vanuit een streven naar transparantie, complexe data toegankelijk maken."
     url: "/projects/dashboards/"
     btn_label: "Lees verder"
     btn_class: "btn--primary"
@@ -28,4 +28,4 @@ feature_row:
 
 Hieronder vind je een selectie van projecten waar ik als wethouder in Baarn nauw bij betrokken ben.
 
-**{% include feature_row %}**
+{% include feature_row %}

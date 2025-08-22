@@ -1,0 +1,14 @@
+# ===============
+# Regels voor alle zoekmachines
+# ===============
+User-agent: *
+
+# Blokkeer de archiefpagina's voor tags en categorieën, 
+# omdat deze weinig unieke waarde hebben voor zoekmachines.
+Disallow: /categories/
+Disallow: /tags/
+
+# ===============
+# Verwijzing naar de sitemap
+# ===============
+Sitemap: https://www.markeijbaard.nl/sitemap.xml
