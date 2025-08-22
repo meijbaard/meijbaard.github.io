@@ -5,24 +5,25 @@
 
 // Stijlen van het Minimal Mistakes thema importeren
 @import "minimal-mistakes";
+
 /* --- BEGIN AANGEPASTE STIJLEN --- */
 
 /* Layout voor de blog-overzichtspagina (/posts/) */
 .archive__item--list {
-  /* Zorgt ervoor dat elk blogitem als een apart blok wordt weergegeven */
-  display: block; 
-  margin-bottom: 2em; /* Voegt wat extra ruimte toe tussen de blogposts */
+  display: flex;         /* Zet de afbeelding en tekst naast elkaar */
+  align-items: flex-start; /* Lijn de bovenkanten netjes uit */
+  gap: 1.5em;            /* Voeg wat ruimte toe tussen afbeelding en tekst */
+  margin-bottom: 2em;    /* Ruimte tussen de blogposts */
 }
 
 .archive__item--list .archive__item-teaser {
-  /* Zorgt ervoor dat de afbeelding niet te breed wordt */
-  max-width: 400px; 
-  margin-bottom: 1em; /* Voegt ruimte toe onder de afbeelding */
+  flex: 0 0 200px;      /* Geef de afbeelding een vaste breedte van 200px */
 }
 
 .archive__item--list h2.archive__item-title {
   /* Verkleint de titel van de blogpost in de lijst */
-  font-size: 1.3rem; /* Je kunt dit getal aanpassen (bv. 1.2rem of 1.4rem) */
+  font-size: 1.15rem; /* Ongeveer 2pt groter dan de body tekst */
+  margin-top: 0;      /* Verwijdert extra witruimte boven de titel */
 }
 
 /* --- EINDE AANGEPASTE STIJLEN --- */
