@@ -1,4 +1,4 @@
----
+----
 title: "Speech bij mijn installatie"
 date: 2022-06-21 21:00:00 +0200
 categories:
@@ -7,7 +7,7 @@ tags:
   - speech
 header:
   image: /assets/images/header_markeijbaard.png
-  caption: "foto Caspar Huurdeman"
+  caption: '<a href="https://casparhuurdeman.nl" target="_blank" rel="noopener noreferrer">foto: Caspar Huurdeman</a>'
   teaser: /assets/images/teaser_markeijbaard.png
 ---
 

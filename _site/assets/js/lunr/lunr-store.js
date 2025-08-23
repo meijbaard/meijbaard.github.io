@@ -1,9 +1,9 @@
 var store = [{
-        "title": "Speech bij mijn installatie",
-        "excerpt":"Mijn naam is Mark Eijbaard, 38 jaar en sinds 2006 actief in de lokale politiek. De eerste 4 jaar vanaf de zijlijn, als voorzitter van de Baarnse jongerenraad. En vanaf 2010 in de “politieke arena” als steunfractielid en raadslid voor de Partij van de Arbeid. Ik ben getrouwd met Carola...","categories": ["blog"],
-        "tags": ["speech"],
-        "url": "/blog/speech-bij-mijn-installatie/",
-        "teaser": "/assets/images/teaser_markeijbaard.png"
+        "title": "Speech Bij Mijn Installatie",
+        "excerpt":"title: “Speech bij mijn installatie” date: 2022-06-21 21:00:00 +0200 categories: blog tags: speech header: image: /assets/images/header_markeijbaard.png caption: ‘foto: Caspar Huurdeman’ teaser: /assets/images/teaser_markeijbaard.png — Mijn naam is Mark Eijbaard, 38 jaar en sinds 2006 actief in de lokale politiek. De eerste 4 jaar vanaf de zijlijn, als voorzitter van de Baarnse...","categories": [],
+        "tags": [],
+        "url": "/speech-bij-mijn-installatie/",
+        "teaser": null
       },{
         "title": "Een eerlijke kans voor iedereen 🤝",
         "excerpt":"Als ik bij Amfors kom, doe ik dat graag vanwege de mensen. Je voelt er de trots en de collegialiteit. Het is meer dan een werkplek; het is een plek waar mensen ritme en structuur vinden en volwaardig mee kunnen doen aan de maatschappij. Toch stond deze belangrijke plek onder...","categories": ["blog"],

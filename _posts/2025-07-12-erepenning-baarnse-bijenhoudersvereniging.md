@@ -10,7 +10,7 @@ tags:
 header:
   image: /assets/images/header_bijenvereniging.png
   teaser: /assets/images/teaser_bijenvereniging.png
-  caption: "foto: Caspar Huurdeman"
+  caption: '<a href="https://casparhuurdeman.nl" target="_blank" rel="noopener noreferrer">foto: Caspar Huurdeman</a>'
 ---
 
 Vandaag bent u hier bij de Groene Inval om de landelijke open imkerijdagen bij te wonen. Naast deze belangrijke bijeenkomst is er nog iets bijzonders aan de hand. We vieren dit jaar ook het 100-jarig bestaan van de Baarnse bijenhouders vereniging, officieel opgericht als ‘Vereniging tot Bevordering der Bijenteelt in Nederland, afdeling Baarn op 11 februari 1925’.
