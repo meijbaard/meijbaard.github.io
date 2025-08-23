@@ -5,6 +5,10 @@ categories:
   - blog
 tags:
   - speech
+header:
+  image: /assets/images/header_markeijbaard.png
+  caption: "foto Caspar Huurdeman"
+  teaser: /assets/images/teaser_markeijbaard.png
 ---
 
 <!-- wp:paragraph -->

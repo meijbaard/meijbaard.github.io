@@ -3,13 +3,13 @@ var store = [{
         "excerpt":"Mijn naam is Mark Eijbaard, 38 jaar en sinds 2006 actief in de lokale politiek. De eerste 4 jaar vanaf de zijlijn, als voorzitter van de Baarnse jongerenraad. En vanaf 2010 in de “politieke arena” als steunfractielid en raadslid voor de Partij van de Arbeid. Ik ben getrouwd met Carola...","categories": ["blog"],
         "tags": ["speech"],
         "url": "/blog/speech-bij-mijn-installatie/",
-        "teaser": null
+        "teaser": "/assets/images/teaser_markeijbaard.png"
       },{
         "title": "Een eerlijke kans voor iedereen 🤝",
         "excerpt":"Als ik bij Amfors kom, doe ik dat graag vanwege de mensen. Je voelt er de trots en de collegialiteit. Het is meer dan een werkplek; het is een plek waar mensen ritme en structuur vinden en volwaardig mee kunnen doen aan de maatschappij. Toch stond deze belangrijke plek onder...","categories": ["blog"],
-        "tags": ["nieuwsbrief","Baarnse blik"],
+        "tags": ["Sociaal Werkbedrijf","Werk en Inkomen","Nieuwsbrief"],
         "url": "/blog/een-eerlijke-kans-voor-iedereen/",
-        "teaser": null
+        "teaser": "/assets/images/teaser_amfors.png"
       },{
         "title": "Koninklijke erepenning voor Baarnse bijenhouders",
         "excerpt":"Vandaag bent u hier bij de Groene Inval om de landelijke open imkerijdagen bij te wonen. Naast deze belangrijke bijeenkomst is er nog iets bijzonders aan de hand. We vieren dit jaar ook het 100-jarig bestaan van de Baarnse bijenhouders vereniging, officieel opgericht als ‘Vereniging tot Bevordering der Bijenteelt in...","categories": ["blog"],

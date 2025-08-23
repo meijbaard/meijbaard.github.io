@@ -4,8 +4,12 @@ date: 2025-07-11 12:30:00 +0200
 categories:
   - blog
 tags:
-  - nieuwsbrief
-  - Baarnse blik
+  - Sociaal Werkbedrijf
+  - Werk en Inkomen
+  - Nieuwsbrief
+header:
+  image: /assets/images/header_amfors.png
+  teaser: /assets/images/teaser_amfors.png
 ---
 
 Als ik bij Amfors kom, doe ik dat graag vanwege de mensen. Je voelt er de trots en de collegialiteit. Het is meer dan een werkplek; het is een plek waar mensen ritme en structuur vinden en volwaardig mee kunnen doen aan de maatschappij.
