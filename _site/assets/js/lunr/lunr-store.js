@@ -1,9 +1,9 @@
 var store = [{
-        "title": "Speech Bij Mijn Installatie",
-        "excerpt":"title: “Speech bij mijn installatie” date: 2022-06-21 21:00:00 +0200 categories: blog tags: speech header: image: /assets/images/header_markeijbaard.png caption: ‘foto: Caspar Huurdeman’ teaser: /assets/images/teaser_markeijbaard.png — Mijn naam is Mark Eijbaard, 38 jaar en sinds 2006 actief in de lokale politiek. De eerste 4 jaar vanaf de zijlijn, als voorzitter van de Baarnse...","categories": [],
-        "tags": [],
-        "url": "/speech-bij-mijn-installatie/",
-        "teaser": null
+        "title": "Speech bij mijn installatie",
+        "excerpt":"Mijn naam is Mark Eijbaard, 38 jaar en sinds 2006 actief in de lokale politiek. De eerste 4 jaar vanaf de zijlijn, als voorzitter van de Baarnse jongerenraad. En vanaf 2010 in de “politieke arena” als steunfractielid en raadslid voor de Partij van de Arbeid. Ik ben getrouwd met Carola...","categories": ["blog"],
+        "tags": ["speech"],
+        "url": "/blog/speech-bij-mijn-installatie/",
+        "teaser": "/assets/images/teaser_markeijbaard.png"
       },{
         "title": "In gesprek over mobiliteit in Baarn: Ruimte voor iedereen",
         "excerpt":"Afgelopen week mocht ik bij RTV Eemland in gesprek over een onderwerp dat mij na aan het hart ligt en waar we in Baarn veel mee bezig zijn: mobiliteit. 🚶‍♀️🚴‍♂️ Het was een mooie gelegenheid om te delen hoe we de toekomst van onze openbare ruimte zien, en wat dat...","categories": ["blog"],
