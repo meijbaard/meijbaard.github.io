@@ -5,6 +5,12 @@ var store = [{
         "url": "/speech-bij-mijn-installatie/",
         "teaser": null
       },{
+        "title": "In gesprek over mobiliteit in Baarn: Ruimte voor iedereen",
+        "excerpt":"Afgelopen week mocht ik bij RTV Eemland in gesprek over een onderwerp dat mij na aan het hart ligt en waar we in Baarn veel mee bezig zijn: mobiliteit. 🚶‍♀️🚴‍♂️ Het was een mooie gelegenheid om te delen hoe we de toekomst van onze openbare ruimte zien, en wat dat...","categories": ["blog"],
+        "tags": ["mobiliteit","Baarn","openbare ruimte","duurzaamheid","stedelijke ontwikkeling","STOMP"],
+        "url": "/blog/in-gesprek-over-mobiliteit/",
+        "teaser": "/assets/images/teaser_mobiliteit_baarn.png"
+      },{
         "title": "Een eerlijke kans voor iedereen 🤝",
         "excerpt":"Als ik bij Amfors kom, doe ik dat graag vanwege de mensen. Je voelt er de trots en de collegialiteit. Het is meer dan een werkplek; het is een plek waar mensen ritme en structuur vinden en volwaardig mee kunnen doen aan de maatschappij. Toch stond deze belangrijke plek onder...","categories": ["blog"],
         "tags": ["Sociaal Werkbedrijf","Werk en Inkomen","Nieuwsbrief"],
