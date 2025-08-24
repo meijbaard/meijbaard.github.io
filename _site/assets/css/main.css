@@ -1320,3 +1320,8 @@ body { display: -webkit-box; display: -ms-flexbox; display: flex; min-height: 10
 .archive__item--list h2.archive__item-title { font-size: 1.15rem; /* Ongeveer 2pt groter dan de body tekst */ margin-top: 0; }
 
 /* --- EINDE AANGEPASTE STIJLEN --- */
+/* Force font-display: swap for Font Awesome icons */
+@font-face { font-family: "Font Awesome 5 Free"; font-display: swap; }
+@font-face { font-family: "Font Awesome 5 Brands"; font-display: swap; }
+/* Verbeter contrast cookie consent knop */
+.cc-btn.cc-allow { background-color: #007bff !important; /* Een duidelijkere blauwe kleur */ color: #fff !important; /* Witte tekst voor maximaal contrast */ }

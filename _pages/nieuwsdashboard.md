@@ -6,85 +6,6 @@ author_profile: false
 layout: default
 ---
 
-<style>
-  .content-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  .news-controls {
-    margin-bottom: 2em;
-    padding-bottom: 1em;
-    border-bottom: 1px solid #eee;
-  }
-  .filter-btn {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    padding: 8px 15px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  .filter-btn:hover {
-    background-color: #ddd;
-  }
-  .filter-btn.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-  }
-  .news-item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 2em;
-    list-style-type: none;
-    padding-left: 0;
-  }
-  .news-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-right: 20px;
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-  .news-content {
-    flex: 1;
-  }
-  .news-content h3 {
-    margin-top: 0;
-  }
-  ul#news-list {
-    padding-left: 0;
-  }
-  .rss-button-container {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-  }
-  .rss-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    background-color: #ff6600; /* Classic RSS orange */
-    color: white;
-    text-decoration: none;
-    border-radius: 20px;
-    font-weight: bold;
-    transition: background-color 0.2s;
-  }
-  .rss-button:hover {
-    background-color: #e65c00;
-  }
-  .rss-button svg {
-    margin-right: 8px;
-  }
-</style>
-
 <div class="content-wrapper">
 
   <h1>:newspaper: Mark Eijbaard in het nieuws</h1>
@@ -115,7 +36,7 @@ layout: default
           <li class="news-item" data-pubdate="{{ item.pubDate }}" data-source="{{ item.source_id }}">
             
             {% if item.image_url and item.image_url != "" %}
-              <img src="{{ item.image_url }}" alt="Beeld bij artikel: {{ item.title }}" class="news-image">
+              <img src="{{ item.image_url }}" alt="Beeld bij artikel: {{ item.title }}" class="news-image" loading="lazy">
             {% endif %}
 
             <div class="news-content">
@@ -138,7 +59,6 @@ layout: default
     {%- endif -%}
   </div>
 
-  <!-- RSS KNOP TOEGEVOEGD -->
   <div class="rss-button-container">
     <a href="{{ site.baseurl }}/feed.xml" class="rss-button" target="_blank">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
@@ -149,65 +69,3 @@ layout: default
   </div>
 
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  const newsItems = document.querySelectorAll('#news-list .news-item');
-  const counter = document.getElementById('article-counter');
-
-  function updateCounter() {
-    const visibleItems = document.querySelectorAll('#news-list .news-item:not([style*="display: none"])').length;
-    counter.textContent = `Totaal ${visibleItems} van de ${newsItems.length} artikelen getoond.`;
-  }
-  
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      this.classList.add('active');
-      
-      const sourceFilter = this.dataset.source;
-      
-      newsItems.forEach(item => {
-        if (sourceFilter === 'all' || item.dataset.source === sourceFilter) {
-          item.style.display = 'flex';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-      
-      updateCounter();
-    });
-  });
-
-  function addNewBadges() {
-    const twentyFiveHoursAgo = new Date();
-    twentyFiveHoursAgo.setHours(twentyFiveHoursAgo.getHours() - 25);
-    
-    newsItems.forEach(item => {
-      const pubDateString = item.dataset.pubdate;
-      if (pubDateString) {
-        const pubDate = new Date(pubDateString.replace(" ", "T") + "Z");
-        if (pubDate > twentyFiveHoursAgo) {
-          if (item.querySelector('.new-badge')) return;
-          
-          const newBadge = document.createElement('span');
-          newBadge.textContent = '✨ Nieuw';
-          newBadge.className = 'new-badge';
-          newBadge.style.backgroundColor = '#28a745';
-          newBadge.style.color = 'white';
-          newBadge.style.padding = '3px 8px';
-          newBadge.style.marginLeft = '10px';
-          newBadge.style.borderRadius = '5px';
-          newBadge.style.fontSize = '0.8em';
-          newBadge.style.fontWeight = 'bold';
-          item.querySelector('h3').appendChild(newBadge);
-        }
-      }
-    });
-  }
-
-  updateCounter();
-  addNewBadges();
-});
-</script>

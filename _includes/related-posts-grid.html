@@ -22,7 +22,7 @@
             {% if post.header.teaser %}
               <div class="archive__item-teaser">
                 <a href="{{ post.url | relative_url }}" rel="permalink">
-                  <img src="{{ post.header.teaser | relative_url }}" alt="">
+                  <img src="{{ post.header.teaser | relative_url }}" alt="{% if post.header.alt %}{{ post.header.alt }}{% else %}{{ post.title }}{% endif %}" loading="lazy">
                 </a>
               </div>
             {% endif %}

@@ -1,0 +1,7 @@
+# Cache statische bestanden voor 1 jaar
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Hanteer voor HTML-bestanden een kortere cache
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

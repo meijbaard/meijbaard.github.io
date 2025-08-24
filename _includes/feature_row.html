@@ -1,0 +1,22 @@
+<div class="feature__item">
+  <div class="archive__item">
+    <div class="archive__item-teaser">
+      <img src="{{ feature.image_path | relative_url }}" 
+           alt="{% if feature.alt %}{{ feature.alt }}{% endif %}"
+           loading="lazy">
+    </div>
+    <div class="archive__item-body">
+      {% if feature.title %}
+        <h2 class="archive__item-title">{{ feature.title }}</h2>
+      {% endif %}
+      {% if feature.content %}
+        <div class="archive__item-excerpt">
+          {{ feature.content | markdownify }}
+        </div>
+      {% endif %}
+      {% if feature.btn_label and feature.btn_link %}
+        <p><a href="{{ feature.btn_link }}" class="btn {{ feature.btn_class }}">{{ feature.btn_label }}</a></p>
+      {% endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+{% assign author = site.authors[page.author] | default: site.authors[site.author] | default: site.author %}
+{% if author %}
+  <div class="page__footer-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+    {% if author.avatar %}
+      <img src="{{ author.avatar | relative_url }}" alt="{{ author.name | escape }}" class="author__avatar" itemprop="image">
+    {% endif %}
+    <div class="author__content">
+      <h2 class="author__name p-name" itemprop="name">{{ author.name | escape }}</h2>
+      {% if author.bio %}
+        <p class="author__bio p-note" itemprop="description">{{ author.bio | markdownify }}</p>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

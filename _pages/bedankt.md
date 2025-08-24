@@ -9,6 +9,6 @@ author_profile: false
 
 Hartelijk dank voor het invullen van het contactformulier. Ik heb uw bericht in goede orde ontvangen en neem zo snel mogelijk contact met u op.
 
-![Bedankt voor je bericht](/assets/images/bericht-verzonden.png)
+![Bedankt voor je bericht](/assets/images/bericht-verzonden.webp){: loading="lazy" }
 
 U kunt nu verder navigeren op de website of terugkeren naar de **[homepage](/).**

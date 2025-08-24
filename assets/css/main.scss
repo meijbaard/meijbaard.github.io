@@ -28,3 +28,20 @@
 }
 
 /* --- EINDE AANGEPASTE STIJLEN --- */
+
+/* Force font-display: swap for Font Awesome icons */
+@font-face {
+  font-family: "Font Awesome 5 Free";
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Font Awesome 5 Brands";
+  font-display: swap;
+}
+
+/* Verbeter contrast cookie consent knop */
+.cc-btn.cc-allow {
+  background-color: #007bff !important; /* Een duidelijkere blauwe kleur */
+  color: #fff !important; /* Witte tekst voor maximaal contrast */
+}

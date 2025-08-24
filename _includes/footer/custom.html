@@ -55,3 +55,32 @@ if (document.cookie.indexOf('cookieconsent_status=allow') > -1) {
 
 });
 </script>
+
+<!-- Toevoeging voor Election Dashboard -->
+{% if page.permalink == '/electiondashboard/' %}
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/assets/js/electiondashboard.js"></script>
+{% endif %}
+
+<!-- Toevoeging voor Local Dashboard -->
+{% if page.permalink == '/localdashboard/' %}
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/assets/js/localdashboard.js"></script>
+{% endif %}
+
+<!-- Toevoeging voor News Dashboard -->
+{% if page.permalink == '/inhetnieuws/' %}
+  <script src="/assets/js/inhetnieuws.js"></script>
+{% endif %}
+
+<!-- toevoeging voor MeetingParser -->
+{% if page.permalink == '/meetingparser/' %}
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+  
+  <script type="text/babel" src="/assets/js/meetingparser.js"></script>
+{% endif %}

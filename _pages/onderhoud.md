@@ -11,4 +11,4 @@ De website is momenteel niet bereikbaar in verband met gepland onderhoud. We wer
 
 Bedankt voor je geduld!
 
-![Wij zijn even weg voor onderhoud!](/assets/images/maintenance-mode.png)
+![Wij zijn even weg voor onderhoud!](/assets/images/maintenance-mode.webp){: loading="lazy" }

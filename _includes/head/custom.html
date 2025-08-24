@@ -17,3 +17,37 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png" />
 <link rel="manifest" href="/assets/images/site.webmanifest" />
 <!-- einde favicon -->
+
+<!-- Canonical URL toevoegen -->
+<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+
+<!-- Toevoeging voor Election Dashboard -->
+{% if page.permalink == '/electiondashboard/' %}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/assets/css/electiondashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+{% endif %}
+
+<!-- toevoeging voor Local Dashboard -->
+{% if page.permalink == '/localdashboard/' %}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="/assets/css/localdashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;700&display=swap" rel="stylesheet">
+{% endif %}
+
+<!-- toevoeging voor News Dashboard -->
+{% if page.permalink == '/inhetnieuws/' %}
+  <link rel="stylesheet" href="/assets/css/inhetnieuws.css">
+{% endif %}
+
+<!-- toevoeging voor MeetingParser -->
+{% if page.permalink == '/meetingparser/' %}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/css/meetingparser.css">
+{% endif %}

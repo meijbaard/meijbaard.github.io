@@ -1,0 +1,56 @@
+/* Stabiele layout-stijlen voor de MeetingParser */
+
+.parser-container {
+  max-width: 80rem; /* Correspondeert met container */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem; /* p-4 */
+}
+
+@media (min-width: 640px) {
+  .parser-container {
+    padding: 1.5rem; /* sm:p-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .parser-container {
+    padding: 2rem; /* lg:p-8 */
+  }
+}
+
+.parser-card {
+  background-color: #fff;
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* shadow-md */
+  margin-bottom: 2rem; /* mb-8 */
+}
+
+.parser-upload-icon {
+  width: 3rem;      /* w-12 */
+  height: 3rem;     /* h-12 */
+  color: #9ca3af;  /* text-gray-400 */
+  margin-bottom: 0.75rem; /* mb-3 */
+}
+
+/* Stijlen voor de tabel-header in de MeetingParser */
+.parser-table-head {
+  font-size: 0.75rem; /* text-xs */
+  color: #374151; /* text-gray-700 */
+  text-transform: uppercase;
+  background-color: #f3f4f6; /* bg-gray-100 */
+}
+
+.parser-table-head th {
+  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  text-align: left;
+}
+
+/* Zorg dat de tabel de volledige breedte pakt */
+.parser-table {
+    width: 100%;
+    text-align: left;
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
+}
