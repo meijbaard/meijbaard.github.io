@@ -9,13 +9,15 @@
       {% if feature.title %}
         <h2 class="archive__item-title">{{ feature.title }}</h2>
       {% endif %}
-      {% if feature.content %}
+
+      {% if feature.excerpt or feature.content %}
         <div class="archive__item-excerpt">
-          {{ feature.content | markdownify }}
+          {{ feature.excerpt | default: feature.content | markdownify }}
         </div>
       {% endif %}
-      {% if feature.btn_label and feature.btn_link %}
-        {% assign link = feature.btn_link %}
+
+      {% if feature.btn_label and (feature.btn_link or feature.url) %}
+        {% assign link = feature.btn_link | default: feature.url %}
         {% assign is_external = link contains '://' and (link contains site.url) == false %}
         <p>
           <a href="{{ link }}"
