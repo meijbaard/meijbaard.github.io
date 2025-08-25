@@ -46,4 +46,4 @@ feature_row:
 
 Als onderdeel van mijn streven naar **transparantie en datagedreven werken**, ontwikkel ik *open-source dashboards* om complexe informatie toegankelijk te maken. Deze tools bieden unieke inzichten, van **lokale statistieken** tot **verkiezingsdata** en zelfs de **analyse van specialistisch jargon**. Duik in de data en ontdek de verhalen die de cijfers vertellen.
 
-**{% include feature_row %}**
+**{% include feature_row id="feature_row" %}**
