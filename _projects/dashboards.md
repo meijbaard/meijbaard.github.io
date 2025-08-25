@@ -18,7 +18,7 @@ feature_row:
     alt: "Spotconverter voor de Bentheimer-whatsappgroep"
     title: "Spotconverter Pro"
     excerpt: 'Transformeer **cryptische WhatsApp-berichten** van treinspotters in heldere, bruikbare informatie. Deze tool analyseert jargon en routes, en berekent een geschatte passage-tijd voor een gekozen station.'
-    url: "/spotconverter/"
+    url: "https://spotconverter.markeijbaard.nl"
     btn_label: "Bekijk Spotconverter"
     btn_class: "btn--primary"
 
@@ -26,7 +26,7 @@ feature_row:
     alt: "Dashboard met verkiezingsgegevens van Baarn"
     title: "Verkiezingsdashboard Baarn"
     excerpt: 'Analyseer de uitslagen van de verkiezingen in Baarn met dit **interactieve dashboard**. Vergelijk de resultaten tussen verschillende partijen en stembureaus binnen de gemeente.'
-    url: "/electiondashboard/"
+    url: "https://verkiezingen.markeijbaard.nl"
     btn_label: "Bekijk Verkiezingsdashboard"
     btn_class: "btn--primary"
 
@@ -34,7 +34,7 @@ feature_row:
     alt: "CBS gegevens Baarn 2024"
     title: "CBS gegevens Baarn 2024"
     excerpt: 'Krijg een helder beeld van **de demografische en sociaal-economische samenstelling** van Baarn met data van het CBS. Dit dashboard toont belangrijke indicatoren op een overzichtelijke kaart.'
-    url: "/localdashboard/"
+    url: "https://cbs.markeijbaard.nl"
     btn_label: "Bekijk Lokaal dashboard"
     btn_class: "btn--primary"
 ---
