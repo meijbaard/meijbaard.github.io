@@ -21,6 +21,7 @@ feature_row:
     url: "https://spotconverter.markeijbaard.nl"
     btn_label: "Bekijk Spotconverter"
     btn_class: "btn--primary"
+    new_tab: true
 
   - image_path: /assets/images/dashboard_verkiezingen.png
     alt: "Dashboard met verkiezingsgegevens van Baarn"
@@ -29,6 +30,7 @@ feature_row:
     url: "https://verkiezingen.markeijbaard.nl"
     btn_label: "Bekijk Verkiezingsdashboard"
     btn_class: "btn--primary"
+    new_tab: true
 
   - image_path: /assets/images/dashboard_lokaal.png
     alt: "CBS gegevens Baarn 2024"
@@ -37,6 +39,7 @@ feature_row:
     url: "https://cbs.markeijbaard.nl"
     btn_label: "Bekijk Lokaal dashboard"
     btn_class: "btn--primary"
+    new_tab: true
 ---
 
 ### 📊 Check deze handige tools!
