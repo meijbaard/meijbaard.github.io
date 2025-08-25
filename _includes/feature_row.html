@@ -1,7 +1,7 @@
 <div class="feature__item">
   <div class="archive__item">
     <div class="archive__item-teaser">
-      <img src="{{ feature.image_path | relative_url }}" 
+      <img src="{{ feature.image_path | relative_url }}"
            alt="{% if feature.alt %}{{ feature.alt }}{% endif %}"
            loading="lazy">
     </div>
@@ -15,7 +15,17 @@
         </div>
       {% endif %}
       {% if feature.btn_label and feature.btn_link %}
-        <p><a href="{{ feature.btn_link }}" class="btn {{ feature.btn_class }}">{{ feature.btn_label }}</a></p>
+        {% assign link = feature.btn_link %}
+        {% assign is_external = link contains '://' and (link contains site.url) == false %}
+        <p>
+          <a href="{{ link }}"
+             class="btn {{ feature.btn_class }}"
+             {% if feature.new_tab or feature.external or is_external %}
+             target="_blank" rel="noopener noreferrer"
+             {% endif %}>
+            {{ feature.btn_label }}
+          </a>
+        </p>
       {% endif %}
     </div>
   </div>
