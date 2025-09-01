@@ -48,9 +48,11 @@ jobs:
           if jq -e 'length > 0' new_articles.json > /dev/null; then
             echo "Nieuwe artikelen gevonden. Bezig met samenvoegen."
             if [ -f "_data/news.json" ]; then
-              jq -s '[ (.[0][0] + .1 | unique_by(.link) | sort_by(.pubDate) | reverse) ]' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
+              # GECORRIGEERDE MERGE-LOGICA: Voeg de twee lijsten samen, ontdubbel en sorteer.
+              jq -s '.[0] + .[1] | unique_by(.link) | sort_by(.pubDate) | reverse' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
             else
-              jq '[ . | sort_by(.pubDate) | reverse ]' new_articles.json > _data/news.json
+              # Als er geen oud bestand is, gebruik dan direct de nieuwe artikelen.
+              mv new_articles.json _data/news.json
             fi
           else
             echo "Geen nieuwe artikelen gevonden."
