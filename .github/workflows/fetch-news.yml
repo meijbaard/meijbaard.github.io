@@ -22,22 +22,36 @@ jobs:
 
       - name: Fetch, merge, and sort news
         run: |
-          mkdir -p _data
-          # Stap 1: Haal nieuwe artikelen op. Pakt alleen .results als het een array is, anders wordt het een lege array [].
-          curl "https://newsdata.io/api/1/news?apikey=${{ secrets.NEWSDATA_API_KEY }}&q=Mark%20Eijbaard&language=nl" | jq 'if (.results | type) == "array" then .results else [] end' > new_articles.json
+          # Installeer een command-line tool om XML naar JSON om te zetten
+          npm install -g xml-js
 
-          # Stap 2: Controleer of de (nu veilige) lijst met nieuwe artikelen items bevat.
+          mkdir -p _data
+          
+          # Stap 1: Haal de gefilterde RSS-feed op voor de opgegeven sites
+          curl -s "https://news.google.com/rss/search?q=%22Mark%20Eijbaard%22%20(site:ad.nl%20OR%20site:rtvutrecht.nl%20OR%20site:gooieneemlander.nl%20OR%20site:baarnschecourant.nl%20OR%20site:behoudhetborrebos.nl)&hl=nl&gl=NL&ceid=NL:nl" | xml-js > new_articles_raw.json
+
+          # Stap 2: Herstructureer de JSON, pas velden aan, en probeer een afbeelding te extraheren
+          jq '[.elements[0].elements[0].elements[] | select(.name == "item") | .elements | {
+              title: (map(select(.name == "title"))[0].elements[0].text),
+              link: (map(select(.name == "link"))[0].elements[0].text),
+              pubDate: (map(select(.name == "pubDate"))[0].elements[0].text | fromdateiso8601 | strftime("%Y-%m-%d %H:%M:%S")),
+              description: (map(select(.name == "description"))[0].elements[0].cdata),
+              source_id: (map(select(.name == "source"))[0].elements[0].text),
+              image_url: (map(select(.name == "description"))[0].elements[0].cdata | capture("src=\"(?<url>.*?)\"") | .url)
+            }]' new_articles_raw.json > new_articles.json
+          
+          # Stap 3: Controleer of er nieuwe artikelen zijn gevonden
           if jq -e 'length > 0' new_articles.json > /dev/null; then
             echo "Nieuwe artikelen gevonden. Bezig met samenvoegen."
-            # Stap 3a: Als er al een nieuwsbestand bestaat, voeg ze samen en behoud de geneste structuur [[...]]
+            # Stap 4a: Als er al een nieuwsbestand bestaat, voeg samen, ontdubbel en sorteer.
             if [ -f "_data/news.json" ]; then
               jq -s '[ (.[0][0] + .[1] | unique_by(.link) | sort_by(.pubDate) | reverse) ]' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
-            # Stap 3b: Anders, maak een nieuw bestand aan met de juiste geneste structuur [[...]]
+            # Stap 4b: Anders, maak een nieuw bestand aan.
             else
               jq '[ . | sort_by(.pubDate) | reverse ]' new_articles.json > _data/news.json
             fi
           else
-            echo "Geen nieuwe artikelen gevonden of API gaf een fout. Er worden geen wijzigingen gemaakt."
+            echo "Geen nieuwe artikelen gevonden."
           fi
       
       - name: Commit and push if there are changes
@@ -45,6 +59,6 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add _data/news.json
-          # Commit alleen als er wijzigingen zijn
+          # Commit alleen als er wijzigingen zijn in het nieuwsbestand
           git diff --staged --quiet || git commit -m "Update daily news"
           git push
