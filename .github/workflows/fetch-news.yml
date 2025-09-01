@@ -47,10 +47,10 @@ jobs:
                   link: (.url // .link // .guid // .id // ""),
                   pubDate: (.date_published // .published // .isoDate // .pubDate // ""),
                   description: (.content_text // .content_html // .summary // .description // ""),
-                  # source_id = domeinnaam uit link
+                  # veilige manier om source_id te vullen
                   source_id: (
                     (.url // .link // .guid // .id // "")
-                    | capture("https?://(?<domain>[^/]+)/?")?.domain // "Onbekende bron"
+                    | capture("https?://([^/]+)/").[1] // "Onbekende bron"
                   ),
                   image_url: (.image // .enclosure?.url // .thumbnail?.url // ""),
                   creator: [ (.authors[0].name // "") ]
@@ -61,12 +61,6 @@ jobs:
           echo "Aantal artikelen in new_articles.json:"
           jq 'length' new_articles.json || true
 
-          echo "Voorbeeld eerste artikel:"
-          jq '.[0]' new_articles.json || true
-
-          echo "Aantal artikelen per source_id:"
-          jq -r '.[].source_id' new_articles.json | sort | uniq -c || true
-
           echo "=== Stap 3: Merge met bestaand archief ==="
           if jq -e 'length > 0' new_articles.json > /dev/null; then
             node .github/scripts/merge_news.js _data/news.json new_articles.json > temp_news.json
@@ -75,7 +69,7 @@ jobs:
           else
             echo "Geen nieuwe artikelen gevonden die de naam 'Eijbaard' bevatten."
           fi
-      
+
       - name: Commit and push if there are changes
         run: |
           git config --global user.name "GitHub Actions Bot"
