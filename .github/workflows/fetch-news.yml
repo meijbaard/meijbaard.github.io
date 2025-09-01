@@ -25,18 +25,18 @@ jobs:
           set -e
           mkdir -p _data
 
-          # Stap 1: Haal de stabiele JSON-feed op.
+          # Stap 1: Haal de stabiele JSON-feed direct op.
           curl -L -s "${{ secrets.RSS_FEED_URL }}" -o new_articles_raw.json
 
-          # Stap 2: Herstructureer de JSON naar jouw formaat.
+          # Stap 2: Herstructureer de JSON van RSS.app naar jouw formaat.
           jq '[.items[] | {
               title: .title,
               link: .url,
               pubDate: (if .date_published then ((.date_published | split(".")[0]) + "Z" | fromdate | strftime("%Y-%m-%d %H:%M:%S")) else "" end),
               description: .content_text,
-              source_id: (if .authors[0].name then .authors[0].name else "Onbekende bron" end),
+              source_id: (if .authors and .authors[0].name then .authors[0].name else "Onbekende bron" end),
               image_url: .image,
-              creator: [ (if .authors[0].name then .authors[0].name else "" end) ]
+              creator: [ (if .authors and .authors[0].name then .authors[0].name else "" end) ]
             } | select( (.title | test("Eijbaard"; "i")) or (.description | test("Eijbaard"; "i")) )]' new_articles_raw.json > new_articles.json
 
           # Stap 3: Voer het robuuste Node.js-script uit om de bestanden samen te voegen.
