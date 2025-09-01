@@ -4,50 +4,86 @@ const fs = require('fs');
 const oldNewsPath = process.argv[2];
 const newNewsPath = process.argv[3];
 
-// Functie om JSON-bestanden robuust in te lezen en te strippen van onzichtbare tekens (BOM).
 function readJsonFile(filePath) {
-    if (!fs.existsSync(filePath)) {
-        return [];
-    }
-    // Lees als een ruwe buffer en converteer naar UTF-8, wat encoding-problemen oplost.
-    let content = fs.readFileSync(filePath, 'utf-8');
-    // Verwijder een eventueel BOM-teken aan het begin van het bestand.
-    if (content.charCodeAt(0) === 0xFEFF) {
-        content = content.slice(1);
-    }
-    try {
-        return JSON.parse(content);
-    } catch (e) {
-        // Als het bestand corrupt is, behandel het als leeg.
-        return [];
-    }
+  if (!fs.existsSync(filePath)) return null;
+  let content = fs.readFileSync(filePath, 'utf-8');
+  if (content.charCodeAt(0) === 0xFEFF) content = content.slice(1); // BOM
+  try { return JSON.parse(content); } catch { return null; }
 }
 
-// 1. Lees de nieuw-opgehaalde artikelen in.
-const newArticles = readJsonFile(newNewsPath);
-
-// 2. Lees de bestaande artikelen in.
-const oldNewsFile = readJsonFile(oldNewsPath);
-
-// 3. Pak de data correct uit, ongeacht of het [[...]] of [...] formaat is.
-let oldArticles = [];
-if (Array.isArray(oldNewsFile)) {
-    if (Array.isArray(oldNewsFile[0]) && oldNewsFile.length === 1) {
-        // Dit is de [[...]] structuur.
-        oldArticles = oldNewsFile[0];
-    } else {
-        // Dit is de [...] structuur.
-        oldArticles = oldNewsFile;
+// Extract article array from [], [[...]], or object { articles: [...] }
+function extractArticles(container) {
+  if (!container) return [];
+  if (Array.isArray(container)) {
+    if (Array.isArray(container[0]) && container.length === 1) return container[0];
+    return container;
+  }
+  if (typeof container === 'object') {
+    for (const key of ['articles', 'items', 'news', 'data']) {
+      if (Array.isArray(container[key])) return container[key];
     }
+    const firstArrayKey = Object.keys(container).find(k => Array.isArray(container[k]));
+    if (firstArrayKey) return container[firstArrayKey];
+  }
+  return [];
 }
 
-// 4. Combineer, ontdubbel en sorteer.
-const allArticles = [...oldArticles, ...newArticles];
-const uniqueArticles = Array.from(new Map(allArticles.map(item => [item.link, item])).values());
-uniqueArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+// Wrap back into same shape as original
+function wrapArticles(articles, originalContainer) {
+  if (!originalContainer) return articles;
+  if (Array.isArray(originalContainer)) {
+    if (Array.isArray(originalContainer[0]) && originalContainer.length === 1) return [articles];
+    return articles;
+  }
+  if (typeof originalContainer === 'object') {
+    const targetKey =
+      ['articles', 'items', 'news', 'data'].find(k => Array.isArray(originalContainer[k])) ||
+      Object.keys(originalContainer).find(k => Array.isArray(originalContainer[k])) ||
+      'articles';
+    return { ...originalContainer, [targetKey]: articles };
+  }
+  return articles;
+}
 
-// 5. Pak de definitieve lijst weer in in de [[...]] structuur.
-const finalData = [uniqueArticles];
+// Normalize pubDate -> ISO-8601
+function toIsoOrNull(s) {
+  if (!s || typeof s !== 'string') return null;
+  let d = new Date(s);
+  if (!isNaN(d)) return d.toISOString();
+  const m = /^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})$/.exec(s);
+  if (m) {
+    d = new Date(`${m[1]}T${m[2]}Z`);
+    if (!isNaN(d)) return d.toISOString();
+  }
+  return null;
+}
 
-// 6. Print het resultaat.
-console.log(JSON.stringify(finalData, null, 2));
+function ts(article) {
+  const iso = toIsoOrNull(article.pubDate);
+  return iso ? Date.parse(iso) : 0;
+}
+
+function identityKey(a) {
+  return (a.link && a.link.trim()) || `${a.title || ''}|${a.pubDate || ''}`;
+}
+
+// Read inputs
+const newArticles = extractArticles(readJsonFile(newNewsPath));
+const oldContainer = readJsonFile(oldNewsPath);
+const oldArticles = extractArticles(oldContainer);
+
+// Merge + dedupe
+const map = new Map();
+for (const it of [...oldArticles, ...newArticles]) {
+  if (!it) continue;
+  const key = identityKey(it);
+  if (!key) continue;
+  const pubDateIso = toIsoOrNull(it.pubDate);
+  map.set(key, { ...it, pubDate: pubDateIso });
+}
+
+const merged = [...map.values()].sort((a, b) => ts(b) - ts(a));
+
+// Write back
+const finalData = wrapArticles(merged, oldContainer);
+process.stdout.write(JSON.stringify(finalData, null, 2) + '\n');
