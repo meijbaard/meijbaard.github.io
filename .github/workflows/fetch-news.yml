@@ -21,18 +21,18 @@ jobs:
           mkdir -p _data
 
           # Stap 1: Haal de stabiele JSON-feed direct op.
-          # De -L vlag is toegevoegd voor stabiliteit, mocht de URL doorverwijzen.
           curl -L -s "${{ secrets.RSS_FEED_URL }}" -o new_articles_raw.json
 
-          # Stap 2: Herstructureer de JSON van RSS.app naar jouw formaat.
+          # Stap 2: Herstructureer de JSON met compatibele, robuuste logica.
           jq '[.items[] | {
               title: .title,
               link: .url,
               pubDate: (if .date_published then ((.date_published | split(".")[0]) + "Z" | fromdate | strftime("%Y-%m-%d %H:%M:%S")) else "" end),
               description: .content_text,
-              source_id: .authors[0].name // "Onbekende bron",
+              # --- GECORRIGEERDE SYNTAX VOOR OUDE JQ-VERSIES ---
+              source_id: (if .authors[0].name then .authors[0].name else "Onbekende bron" end),
               image_url: .image,
-              creator: [ .authors[0].name // "" ]
+              creator: [ (if .authors[0].name then .authors[0].name else "" end) ]
             } | select( (.title | test("Eijbaard"; "i")) or (.description | test("Eijbaard"; "i")) )]' new_articles_raw.json > new_articles.json
 
           # Stap 3: Volledig herschreven, stapsgewijze en robuuste samenvoeglogica.
@@ -44,13 +44,13 @@ jobs:
               echo "[[]]" > _data/news.json
             fi
             
-            # Stap 3a: Pak de bestaande artikelen (de binnenste array) uit naar een tijdelijk bestand.
+            # Stap 3a: Pak de bestaande artikelen (de binnenste array) uit.
             jq '.[0]' _data/news.json > old_articles.json
             
-            # Stap 3b: Voeg de oude en nieuwe artikelen samen tot één platte lijst, ontdubbel en sorteer.
+            # Stap 3b: Voeg de oude en nieuwe artikelen samen, ontdubbel en sorteer.
             jq -s '.[0] + .[1] | unique_by(.link) | sort_by(.pubDate) | reverse' old_articles.json new_articles.json > combined_articles.json
             
-            # Stap 3c: Pak de gecombineerde lijst weer in, in de vereiste [[...]] structuur.
+            # Stap 3c: Pak de gecombineerde lijst weer in in de vereiste [[...]] structuur.
             jq '[.]' combined_articles.json > temp_news.json && mv temp_news.json _data/news.json
 
           else
