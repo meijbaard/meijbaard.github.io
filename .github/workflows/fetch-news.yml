@@ -21,7 +21,7 @@ jobs:
 
       - name: Fetch and process news
         run: |
-          set -e
+          set -euo pipefail
           mkdir -p _data
 
           echo "=== Stap 1: Download feed ==="
@@ -33,31 +33,25 @@ jobs:
           echo "Totaal aantal items in feed:"
           jq '(.items? // .entries? // .articles? // .data? // []) | length' new_articles_raw.json
 
-          echo "Aantal items met 'Eijbaard' in titel of content:"
-          jq '(.items? // .entries? // .articles? // .data? // []) 
-              | map(.title // "" + " " + (.content_text // .content_html // .summary // .description // "")) 
-              | map(select(test("Eijbaard"; "i"))) 
-              | length' new_articles_raw.json
-
           echo "=== Stap 2: Bouw new_articles.json ==="
-          jq '[ (.items? // .entries? // .articles? // .data? // []) | .[] 
+          jq '[ (.items? // .entries? // .articles? // .data? // []) | .[]
               | {
                   title: (.title // ""),
                   link: (.url // .id // ""),
                   pubDate: (.date_published // ""),
                   description: (.content_text // .content_html // .summary // .description // ""),
-                  source_id: ((.authors[0].name // "") | select(. != "") // (.url // "" | capture("https?://([^/]+)/").[1] // "Onbekende bron")),
+                  source_id: ((.authors[0].name // "") | select(. != "") // (.link // "" | capture("https?://(?<domain>[^/]+)/") | .domain // "Onbekende bron")),
                   image_url: (.image // ""),
                   creator: [ (.authors[0].name // "") ]
                 }
               | select([.title, .description] | map((. // "") | test("Eijbaard"; "i")) | any)
           ]' new_articles_raw.json > new_articles.json
 
-          echo "Aantal artikelen in new_articles.json:"
-          jq 'length' new_articles.json || true
+          FILTERED_COUNT=$(jq 'length' new_articles.json)
+          echo "Aantal artikelen die 'Eijbaard' bevatten: $FILTERED_COUNT"
 
           echo "=== Stap 3: Merge met bestaand archief ==="
-          if jq -e 'length > 0' new_articles.json > /dev/null; then
+          if [ "$FILTERED_COUNT" -gt 0 ]; then
             node .github/scripts/merge_news.js _data/news.json new_articles.json > temp_news.json
             mv temp_news.json _data/news.json
             echo "Samenvoegen gelukt."
