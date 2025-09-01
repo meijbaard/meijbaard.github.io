@@ -12,12 +12,12 @@ if (!existingFile || !newFile) {
 const existing = JSON.parse(fs.readFileSync(existingFile, "utf-8"));
 const incoming = JSON.parse(fs.readFileSync(newFile, "utf-8"));
 
-// Merge op basis van unieke link
+// Merge op basis van unieke titel
 const merged = [...existing];
-const existingLinks = new Set(existing.map(a => a.link));
+const existingTitles = new Set(existing.map(a => a.title));
 
 incoming.forEach(article => {
-  if (!existingLinks.has(article.link)) {
+  if (!existingTitles.has(article.title)) {
     merged.push(article);
     console.log("Toegevoegd:", article.title);
   } else {
