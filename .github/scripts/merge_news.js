@@ -1,50 +1,32 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/usr/bin/env node
 
-RSS_FEED_URL="https://example.com/feed"   # <-- vervang door jouw feed URL
-TMP_JSON="new_articles.json"
+const fs = require("fs");
 
-echo ">>> Downloading feed from: $RSS_FEED_URL"
+const [existingFile, newFile] = process.argv.slice(2);
 
-# Download RSS → JSON
-curl -s "$RSS_FEED_URL" \
-  | xq '.rss.channel.item' \
-  | jq '[.[] | {
-      title: (.title // ""),
-      description: (.description // ""),
-      link: (.link // ""),
-      pubDate: (.pubDate // ""),
-      # source_id = domein uit de link
-      source_id: (
-        (.link // "")
-        | capture("https?://(?<domain>[^/]+)/?") 
-        | .domain
-      )
-    }] ' > "$TMP_JSON"
+if (!existingFile || !newFile) {
+  console.error("Gebruik: merge_news.js <bestaand_archief.json> <nieuw_artikelen.json>");
+  process.exit(1);
+}
 
-echo ">>> Downloaded and transformed feed to $TMP_JSON"
+const existing = JSON.parse(fs.readFileSync(existingFile, "utf-8"));
+const incoming = JSON.parse(fs.readFileSync(newFile, "utf-8"));
 
-# Debug: hoeveel artikelen totaal
-COUNT=$(jq 'length' "$TMP_JSON")
-echo ">>> Found $COUNT articles in feed"
+// Merge op basis van unieke link
+const merged = [...existing];
+const existingLinks = new Set(existing.map(a => a.link));
 
-# Debug: verdeling per source_id
-echo ">>> Distribution by source_id:"
-jq -r '.[] | .source_id' "$TMP_JSON" | sort | uniq -c
+incoming.forEach(article => {
+  if (!existingLinks.has(article.link)) {
+    merged.push(article);
+    console.log("Toegevoegd:", article.title);
+  } else {
+    console.log("Overgeslagen (bestaat al):", article.title);
+  }
+});
 
-# Filter op zoekterm (voorbeeld: 'Eijbaard')
-jq '[.[] 
-      | select(
-          ((.title // "") | test("Eijbaard"; "i")) or
-          ((.description // "") | test("Eijbaard"; "i"))
-        )
-    ]' "$TMP_JSON" > filtered.json
+// Sorteer op publicatiedatum, nieuwste eerst
+merged.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
-FILTERED_COUNT=$(jq 'length' filtered.json)
-echo ">>> Filtered articles matching 'Eijbaard': $FILTERED_COUNT"
-
-# Overschrijf new_articles.json met gefilterde artikelen
-mv filtered.json "$TMP_JSON"
-
-echo ">>> Final new_articles.json ready"
-jq '.[:2]' "$TMP_JSON"   # toon eerste 2 artikelen ter controle
+fs.writeFileSync("temp_news.json", JSON.stringify(merged, null, 2));
+console.log(`Merge compleet. Totaal artikelen: ${merged.length}`);
