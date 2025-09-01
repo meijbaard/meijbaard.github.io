@@ -34,21 +34,21 @@ jobs:
           # Stap 3: Converteer de opgeslagen feed naar JSON
           xml-js raw_feed.xml > new_articles_raw.json
 
-          # Stap 4: Herstructureer de JSON en parse de datum in het juiste formaat
+          # Stap 4: Herstructureer de JSON. Deze versie is robuuster en vangt ontbrekende data op.
           jq '[.elements[0].elements[0].elements[] | select(.name == "item") | .elements | {
-              title: (map(select(.name == "title"))[0].elements[0].text),
-              link: (map(select(.name == "link"))[0].elements[0].text),
+              title: (map(select(.name == "title"))[0].elements[0].text // ""),
+              link: (map(select(.name == "link"))[0].elements[0].text // ""),
               pubDate: (map(select(.name == "pubDate"))[0].elements[0].text | strptime("%a, %d %b %Y %H:%M:%S %Z") | strftime("%Y-%m-%d %H:%M:%S")),
-              description: (map(select(.name == "description"))[0].elements[0].cdata),
-              source_id: (map(select(.name == "source"))[0].elements[0].text),
-              image_url: (map(select(.name == "description"))[0].elements[0].cdata | capture("src=\"(?<url>.*?)\"") | .url)
+              description: (map(select(.name == "description"))[0].elements[0].cdata // ""),
+              source_id: (map(select(.name == "source"))[0].elements[0].text // ""),
+              image_url: (map(select(.name == "description"))[0].elements[0].cdata // "" | capture("src=\"(?<url>.*?)\"") | .url // "")
             }]' new_articles_raw.json > new_articles.json
 
           # Stap 5: Voeg de nieuwe artikelen samen met het bestaande archief
           if jq -e 'length > 0' new_articles.json > /dev/null; then
             echo "Nieuwe artikelen gevonden. Bezig met samenvoegen."
             if [ -f "_data/news.json" ]; then
-              jq -s '[ (.[0][0] + .[1] | unique_by(.link) | sort_by(.pubDate) | reverse) ]' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
+              jq -s '[ (.[0][0] + .1 | unique_by(.link) | sort_by(.pubDate) | reverse) ]' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
             else
               jq '[ . | sort_by(.pubDate) | reverse ]' new_articles.json > _data/news.json
             fi
