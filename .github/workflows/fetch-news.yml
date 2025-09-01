@@ -21,7 +21,6 @@ jobs:
           node-version: '20'
 
       - name: Fetch, convert, and process news
-        # Dit script is in meerdere stappen opgedeeld om het robuuster te maken.
         run: |
           set -e # Stop het script onmiddellijk als een commando faalt
 
@@ -35,11 +34,11 @@ jobs:
           # Stap 3: Converteer de opgeslagen feed naar JSON
           xml-js raw_feed.xml > new_articles_raw.json
 
-          # Stap 4: Herstructureer de JSON naar het juiste formaat voor de website
+          # Stap 4: Herstructureer de JSON en parse de datum in het juiste formaat
           jq '[.elements[0].elements[0].elements[] | select(.name == "item") | .elements | {
               title: (map(select(.name == "title"))[0].elements[0].text),
               link: (map(select(.name == "link"))[0].elements[0].text),
-              pubDate: (map(select(.name == "pubDate"))[0].elements[0].text | fromdateiso8601 | strftime("%Y-%m-%d %H:%M:%S")),
+              pubDate: (map(select(.name == "pubDate"))[0].elements[0].text | strptime("%a, %d %b %Y %H:%M:%S %Z") | strftime("%Y-%m-%d %H:%M:%S")),
               description: (map(select(.name == "description"))[0].elements[0].cdata),
               source_id: (map(select(.name == "source"))[0].elements[0].text),
               image_url: (map(select(.name == "description"))[0].elements[0].cdata | capture("src=\"(?<url>.*?)\"") | .url)
