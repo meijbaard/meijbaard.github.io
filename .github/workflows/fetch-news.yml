@@ -15,42 +15,32 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Fetch, convert, and process news
+      - name: Fetch and process news
         run: |
-          set -e # Stop het script onmiddellijk als een commando faalt
-
-          npm install -g xml-js
+          set -e
           mkdir -p _data
 
-          # Stap 1: Haal de stabiele RSS-feed op via de opgeslagen Secret.
-          curl -s "${{ secrets.RSS_FEED_URL }}" -o raw_feed.xml
+          # Stap 1: Haal de stabiele JSON-feed direct op.
+          curl -s "${{ secrets.RSS_FEED_URL }}" -o new_articles_raw.json
 
-          # Stap 2: Converteer de feed naar JSON.
-          xml-js raw_feed.xml > new_articles_raw.json
-
-          # Stap 3: Herstructureer de JSON en filter op "Eijbaard" in titel OF omschrijving.
-          jq '[.elements[0].elements[0].elements[] | select(.name == "item") | .elements | {
-              title: (map(select(.name == "title"))[0].elements[0].text // ""),
-              link: (map(select(.name == "link"))[0].elements[0].text // ""),
-              pubDate: (map(select(.name == "pubDate"))[0].elements[0].text | strptime("%a, %d %b %Y %H:%M:%S %Z") | strftime("%Y-%m-%d %H:%M:%S")),
-              description: (map(select(.name == "description"))[0].elements[0].cdata // ""),
-              source_id: (map(select(.name == "source"))[0].elements[0].text // ""),
-              image_url: (map(select(.name == "description"))[0].elements[0].cdata // "" | capture("src=\"(?<url>.*?)\"") | .url // "")
+          # Stap 2: Herstructureer de JSON van RSS.app naar jouw formaat.
+          jq '[.items[] | {
+              title: .title,
+              link: .link,
+              pubDate: (.published | strptime("%a, %d %b %Y %H:%M:%S %Z") | strftime("%Y-%m-%d %H:%M:%S")),
+              description: .description,
+              source_id: .source,
+              image_url: .media.content.url,
+              creator: [.creator]
             } | select( (.title | test("Eijbaard"; "i")) or (.description | test("Eijbaard"; "i")) )]' new_articles_raw.json > new_articles.json
 
-          # Stap 4: Voeg de nieuwe artikelen samen met het bestaande archief.
+          # Stap 3: Voeg de nieuwe artikelen samen met het bestaande archief.
+          # ... (deze logica blijft exact hetzelfde als voorheen)
           if jq -e 'length > 0' new_articles.json > /dev/null; then
             echo "Nieuwe, relevante artikelen gevonden. Bezig met samenvoegen."
             if [ -f "_data/news.json" ]; then
-              # Correcte merge-logica die de geneste array-structuur [[...]] behoudt.
               jq -s '[ (.[0][0] + .[1] | unique_by(.link) | sort_by(.pubDate) | reverse) ]' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
             else
-              # Maak een nieuw bestand aan in de juiste [[...]] structuur.
               jq '[ . ]' new_articles.json > _data/news.json
             fi
           else
