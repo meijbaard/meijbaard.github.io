@@ -27,11 +27,13 @@ jobs:
           npm install -g xml-js
           mkdir -p _data
 
-          curl -s "https://news.google.com/rss/search?q=%22Mark%20Eijbaard%22%20(site:ad.nl%20OR%20site:rtvutrecht.nl%20OR%20site:gooieneemlander.nl%20OR%20site:baarnschecourant.nl%20OR%20site:behoudhetborrebos.nl)&hl=nl&gl=NL&ceid=NL:nl" -o raw_feed.xml
+          # Stap 1: Haal de stabiele RSS-feed op via de opgeslagen Secret.
+          curl -s "${{ secrets.RSS_FEED_URL }}" -o raw_feed.xml
 
+          # Stap 2: Converteer de feed naar JSON.
           xml-js raw_feed.xml > new_articles_raw.json
 
-          # Stap 4: Herstructureer de JSON en filter correct op "Eijbaard" in titel OF omschrijving.
+          # Stap 3: Herstructureer de JSON en filter op "Eijbaard" in titel OF omschrijving.
           jq '[.elements[0].elements[0].elements[] | select(.name == "item") | .elements | {
               title: (map(select(.name == "title"))[0].elements[0].text // ""),
               link: (map(select(.name == "link"))[0].elements[0].text // ""),
@@ -41,7 +43,7 @@ jobs:
               image_url: (map(select(.name == "description"))[0].elements[0].cdata // "" | capture("src=\"(?<url>.*?)\"") | .url // "")
             } | select( (.title | test("Eijbaard"; "i")) or (.description | test("Eijbaard"; "i")) )]' new_articles_raw.json > new_articles.json
 
-          # Stap 5: Voeg de nieuwe artikelen samen met het bestaande archief.
+          # Stap 4: Voeg de nieuwe artikelen samen met het bestaande archief.
           if jq -e 'length > 0' new_articles.json > /dev/null; then
             echo "Nieuwe, relevante artikelen gevonden. Bezig met samenvoegen."
             if [ -f "_data/news.json" ]; then
