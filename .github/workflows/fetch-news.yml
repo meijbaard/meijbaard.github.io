@@ -31,7 +31,7 @@ jobs:
 
           xml-js raw_feed.xml > new_articles_raw.json
 
-          # Stap 4: Herstructureer de JSON en filter op "Eijbaard" in de titel OF omschrijving (niet-hoofdlettergevoelig).
+          # Stap 4: Herstructureer de JSON en filter correct op "Eijbaard" in titel OF omschrijving.
           jq '[.elements[0].elements[0].elements[] | select(.name == "item") | .elements | {
               title: (map(select(.name == "title"))[0].elements[0].text // ""),
               link: (map(select(.name == "link"))[0].elements[0].text // ""),
@@ -39,16 +39,16 @@ jobs:
               description: (map(select(.name == "description"))[0].elements[0].cdata // ""),
               source_id: (map(select(.name == "source"))[0].elements[0].text // ""),
               image_url: (map(select(.name == "description"))[0].elements[0].cdata // "" | capture("src=\"(?<url>.*?)\"") | .url // "")
-            } | select(.title or .description | test("Eijbaard"; "i"))]' new_articles_raw.json > new_articles.json
+            } | select( (.title | test("Eijbaard"; "i")) or (.description | test("Eijbaard"; "i")) )]' new_articles_raw.json > new_articles.json
 
-          # Stap 5: Voeg de nieuwe artikelen samen met het bestaande archief, met respect voor de [[...]] structuur.
+          # Stap 5: Voeg de nieuwe artikelen samen met het bestaande archief.
           if jq -e 'length > 0' new_articles.json > /dev/null; then
             echo "Nieuwe, relevante artikelen gevonden. Bezig met samenvoegen."
             if [ -f "_data/news.json" ]; then
-              # Correcte merge-logica die de geneste array-structuur behoudt.
+              # Correcte merge-logica die de geneste array-structuur [[...]] behoudt.
               jq -s '[ (.[0][0] + .[1] | unique_by(.link) | sort_by(.pubDate) | reverse) ]' _data/news.json new_articles.json > temp_news.json && mv temp_news.json _data/news.json
             else
-              # Als er geen oud bestand is, maak een nieuw bestand aan in de juiste [[...]] structuur.
+              # Maak een nieuw bestand aan in de juiste [[...]] structuur.
               jq '[ . ]' new_articles.json > _data/news.json
             fi
           else
