@@ -1,4 +1,3 @@
-# .github/workflows/fetch_news.yml
 name: Fetch Daily News
 
 on:
@@ -31,7 +30,7 @@ jobs:
           echo "Feed bestandsgrootte:"
           wc -c new_articles_raw.json || true
 
-          echo "Totaal aantal items in feed (probeer items/entries/articles/data):"
+          echo "Totaal aantal items in feed:"
           jq '(.items? // .entries? // .articles? // .data? // []) | length' new_articles_raw.json
 
           echo "Aantal items met 'Eijbaard' in titel of content:"
@@ -41,21 +40,17 @@ jobs:
               | length' new_articles_raw.json
 
           echo "=== Stap 2: Bouw new_articles.json ==="
-          jq '[ ( .items? // .entries? // .articles? // .data? // [] ) | .[] 
+          jq '[ (.items? // .entries? // .articles? // .data? // []) | .[] 
               | {
-                  title: (.title // .headline // ""),
-                  link: (.url // .link // .guid // .id // ""),
-                  pubDate: (.date_published // .published // .isoDate // .pubDate // ""),
+                  title: (.title // ""),
+                  link: (.url // .id // ""),
+                  pubDate: (.date_published // ""),
                   description: (.content_text // .content_html // .summary // .description // ""),
-                  # veilige manier om source_id te vullen
-                  source_id: (
-                    (.url // .link // .guid // .id // "")
-                    | capture("https?://([^/]+)/").[1] // "Onbekende bron"
-                  ),
-                  image_url: (.image // .enclosure?.url // .thumbnail?.url // ""),
+                  source_id: ((.authors[0].name // "") | select(. != "") // (.url // "" | capture("https?://([^/]+)/").[1] // "Onbekende bron")),
+                  image_url: (.image // ""),
                   creator: [ (.authors[0].name // "") ]
                 }
-              | select( [ .title, .description ] | map((. // "") | test("Eijbaard"; "i")) | any )
+              | select([.title, .description] | map((. // "") | test("Eijbaard"; "i")) | any)
           ]' new_articles_raw.json > new_articles.json
 
           echo "Aantal artikelen in new_articles.json:"
@@ -69,7 +64,7 @@ jobs:
           else
             echo "Geen nieuwe artikelen gevonden die de naam 'Eijbaard' bevatten."
           fi
-
+      
       - name: Commit and push if there are changes
         run: |
           git config --global user.name "GitHub Actions Bot"
