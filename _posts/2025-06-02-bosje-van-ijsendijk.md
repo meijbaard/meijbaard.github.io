@@ -8,7 +8,7 @@ tags:
 header:
   image: /assets/images/bosjevanijsendijk.webp
   caption: Het bordje bij de ingang
-  teaser: /assets/images/teaser_markeijbaard.png
+  teaser: /assets/images/bosjevanijsendijk.webp
 ---
 
 Geachte aanwezigen, mede-raadsleden, burgemeester, ambtenaren, pers, en in het bijzonder de familie Van IJsendijk – wat een eer om jullie hier allemaal te ontmoeten op deze bijzondere plek, het opnieuw gedoopte Bosje van IJsendijk!
