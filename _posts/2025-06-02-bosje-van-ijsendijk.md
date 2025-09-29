@@ -6,8 +6,8 @@ categories:
 tags:
   - speech
 header:
-  image: /assets/images/header_markeijbaard.png
-  caption: '<a href="https://casparhuurdeman.nl" target="_blank" rel="noopener noreferrer">foto: Caspar Huurdeman</a>'
+  image: /assets/images/bosjevanijsendijk.webp
+  caption: Het bordje bij de ingang
   teaser: /assets/images/teaser_markeijbaard.png
 ---
 
