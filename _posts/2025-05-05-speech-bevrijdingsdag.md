@@ -1,6 +1,6 @@
 ---
-title: "Speech bij mijn installatie"
-date: 2022-06-21 21:00:00 +0200
+title: "Bevrijdingsdag 2025"
+date: 2025-05-05-21 08:00:00 +0200
 categories:
   - blog
 tags:
@@ -8,7 +8,7 @@ tags:
 header:
   image: /assets/images/bevrijdingsdag.webp
   caption: '<a href="https://casparhuurdeman.nl" target="_blank" rel="noopener noreferrer">foto: Caspar Huurdeman</a>'
-  teaser: /assets/images/teaser_markeijbaard.png
+  teaser: /assets/images/bevrijdingsdag.webp
 ---
 Goedemorgen allemaal,
 
