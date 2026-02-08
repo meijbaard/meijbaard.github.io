@@ -6,7 +6,7 @@ categories:
 tags:
   - verkiezingen
 header:
-  image: /assets/images/ai_mezelf.webp
+  image: /assets/images/ai_mijzelf.webp
   teaser: /assets/images/ai_mijzelf.webp
 ---
 
