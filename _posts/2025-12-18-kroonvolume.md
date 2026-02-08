@@ -8,7 +8,7 @@ tags:
   - groen
   - bomen
 header:
-  image: /assets/images/header_bomen.png
+  image: /assets/images/teaser_bomen.png
   teaser: /assets/images/teaser_bomen.png
 ---
 
