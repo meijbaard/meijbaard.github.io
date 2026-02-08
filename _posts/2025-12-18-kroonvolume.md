@@ -26,7 +26,7 @@ Onze belangrijkste keuze is de overstap naar de 3-30-300 norm. Dit is geen abstr
 * **Kroonbedekking (30%):** We sturen op 'kroonvolume'. Eén volwassen boom met een brede kroon doet qua koelte en wateropvang meer dan tien jonge sprietjes. In elke wijk streven we naar 30% schaduw door bladeren.
 * **Nabijheid (300m):** Een koele, groene plek moet voor iedereen bereikbaar zijn binnen 300 meter.
 
-![Infographic over ons bomenbeleidsplan]("./assets/images/baarn_bomen_infograpic.webp")
+![Infographic over ons bomenbeleidsplan](./assets/images/baarn_bomen_infograpic.webp)
 
 ## Bomen als Fundament voor Gezondheid
 
