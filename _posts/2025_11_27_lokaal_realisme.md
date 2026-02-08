@@ -1,6 +1,6 @@
 ---
 title: "Provinciale ambities vragen om lokaal realisme"
-date: 2025-07-17 16:30:00 +0200
+date: 2025-11-27 16:30:00 +0200
 categories:
   - blog
 tags:
