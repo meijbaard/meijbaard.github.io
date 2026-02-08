@@ -1,5 +1,5 @@
 ---
-title: "Een duidelijke en veilige Laanstraat voor iedereen 🚶↔️🚲"
+title: "Moed en verantwoordelijkheid"
 date: 2025-10-30 16:30:00 +0200
 categories:
   - blog
