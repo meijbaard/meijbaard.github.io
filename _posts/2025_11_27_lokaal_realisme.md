@@ -7,7 +7,7 @@ tags:
   - UPLG
   - stikstof
   - boeren
-  -landelijk gebied
+  - landelijk gebied
 header:
   image: /assets/images/header_landelijkgebied.png
   teaser: /assets/images/teaser_landelijkgebied.png
