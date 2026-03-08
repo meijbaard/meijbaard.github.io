@@ -11,32 +11,29 @@ layout: default
   <h1>:newspaper: Mark Eijbaard in het nieuws</h1>
 
   <div class="news-controls">
-    <p id="article-counter">Artikelen aan het laden...</p>
-    <div>
+    <p id="article-counter">Totaal {{ site.data.news.size }} artikelen gevonden.</p>
+    
+    <div id="filter-container">
       <strong>Filter op bron:</strong><br>
       <button class="filter-btn active" data-source="all">Alles tonen</button>
       
-      {% assign sources = "" | split: "," %}
-      {% for item in site.data.news[0] %}
-        {% unless sources contains item.source_id %}
-          {% assign sources = sources | push: item.source_id %}
-        {% endunless %}
-      {% endfor %}
-      
+      {% assign sources = site.data.news | map: "source_id" | compact | uniq | sort %}
       {% for source in sources %}
-        <button class="filter-btn" data-source="{{ source }}">{{ source }}</button>
+        {% if source != "" and source != "Onbekende bron" %}
+          <button class="filter-btn" data-source="{{ source }}">{{ source }}</button>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 
   <div id="nieuws-dashboard">
-    {%- if site.data.news[0] and site.data.news[0].size > 0 -%}
+    {%- if site.data.news and site.data.news.size > 0 -%}
       <ul id="news-list">
-        {%- for item in site.data.news[0] -%}
+        {%- for item in site.data.news -%}
           <li class="news-item" data-pubdate="{{ item.pubDate }}" data-source="{{ item.source_id }}">
             
             {% if item.image_url and item.image_url != "" %}
-              <img src="{{ item.image_url }}" alt="Beeld bij artikel: {{ item.title }}" class="news-image" loading="lazy">
+              <img src="{{ item.image_url }}" alt="Beeld bij artikel: {{ item.title | escape }}" class="news-image" loading="lazy">
             {% endif %}
 
             <div class="news-content">
@@ -55,7 +52,7 @@ layout: default
         {%- endfor -%}
       </ul>
     {%- else -%}
-      <p>Er worden momenteel geen nieuwsberichten gevonden. De data wordt elke ochtend bijgewerkt.</p>
+      <p>Er worden momenteel geen nieuwsberichten gevonden. De data wordt elke vier uur geautomatiseerd bijgewerkt.</p>
     {%- endif -%}
   </div>
 
