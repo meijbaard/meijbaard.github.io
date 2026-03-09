@@ -4,7 +4,7 @@ const { XMLParser } = require('fast-xml-parser');
 const googleUrl = process.env.RSS_FEED_URL;
 const dataFile = '_data/news.json';
 
-// De directe, hoogwaardige RSS-bronnen
+// De directe, hoogwaardige RSS-bronnen (De "Premium" Data)
 const directFeeds = [
     { url: 'https://www.rtvutrecht.nl/rss/nieuws.xml', source_id: 'rtvutrecht.nl' },
     { url: 'https://www.eemland1.nl/rss', source_id: 'eemland1.nl' },
@@ -12,10 +12,7 @@ const directFeeds = [
     { url: 'https://www.gooieneemlander.nl/rss/', source_id: 'gooieneemlander.nl' }
 ];
 
-// Zoekterm voor de lokale feeds
-const searchRegex = /Eijbaard/i;
-
-// 1. Hulpfuncties
+// 1. Essentiële Hulpfuncties
 function flattenData(data) {
     if (!Array.isArray(data)) return [];
     return data.reduce((acc, val) => 
@@ -37,18 +34,20 @@ function getDedupKey(title) {
     return title.replace(/ - [^-]+$/, '').toLowerCase().trim();
 }
 
+// DE STOFZUIGER: Deze functie voorkomt dat Jekyll ooit nog crasht
 function cleanText(text) {
     if (!text) return "";
     return text.toString()
-        .replace(/<[^>]*>?/gm, '')
-        .replace(/&nbsp;/g, ' ')
+        .replace(/<[^>]*>?/gm, '') // Strip HTML tags
+        .replace(/&nbsp;/g, ' ') // Vervang vreemde spaties
         .replace(/&quot;/g, '"')
-        .replace(/[\u0000-\u001F\u007F-\u009F]/g, "")
+        .replace(/[\n\r\t]/g, ' ') // VERWIJDER NEWLINES EN TABS (De boosdoener!)
+        .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Verwijder onzichtbare control characters
         .trim();
 }
 
 function getImageUrl(item) {
-    // Zoekt naar de omslagfoto in de standaard RSS attributen
+    // Haal de prachtige, originele foto's uit de RSS structuur
     if (item.enclosure) {
         const enc = Array.isArray(item.enclosure) ? item.enclosure[0] : item.enclosure;
         if (enc && enc['@_url']) return enc['@_url'];
@@ -60,7 +59,7 @@ function getImageUrl(item) {
     return "";
 }
 
-// 2. Fetch-functie voor de XML feeds
+// 2. Ophaalfunctie
 async function fetchAndParseXML(url) {
     try {
         const response = await fetch(url, {
@@ -83,7 +82,7 @@ async function updateNews() {
     try {
         const allUniqueArticles = new Map();
 
-        // STAP 1: Oude data inlezen (De 1700 regels veiligstellen)
+        // STAP 1: Oude data inlezen en grondig desinfecteren
         let existingArticles = [];
         if (fs.existsSync(dataFile)) {
             existingArticles = flattenData(JSON.parse(fs.readFileSync(dataFile, 'utf-8')));
@@ -91,13 +90,18 @@ async function updateNews() {
         }
 
         existingArticles.forEach(article => {
-            if (article.source_id && !article.source_id.includes('.')) {
+            // Bronnamen herstellen als het fout ging (bijv. "news.google.com" of een naam)
+            if (article.source_id && (!article.source_id.includes('.') || article.source_id === 'news.google.com')) {
                 article.source_id = getDomain(article.link) || article.source_id;
             }
+            
+            // Datums veilig normaliseren
             if (article.pubDate && typeof article.pubDate === 'string' && !article.pubDate.includes('T')) {
                 const parsedDate = new Date(article.pubDate.replace(" ", "T") + "Z");
                 if (!isNaN(parsedDate)) article.pubDate = parsedDate.toISOString();
             }
+            
+            // TITELS EN OMSCHRIJVINGEN VEILIGSTELLEN
             article.title = cleanText(article.title);
             article.description = cleanText(article.description);
             
@@ -108,7 +112,7 @@ async function updateNews() {
 
         let addedCount = 0;
 
-        // STAP 2: Directe premium feeds uitlezen
+        // STAP 2: Directe premium feeds uitlezen (Met de perfecte foto's en links)
         console.log("\n=> Directe kranten-feeds uitlezen (Premium data)...");
         for (const feed of directFeeds) {
             const items = await fetchAndParseXML(feed.url);
@@ -116,11 +120,13 @@ async function updateNews() {
                 const title = cleanText(item.title);
                 const desc = cleanText(item.description);
                 
-                // Lokaal filter: Bevat het de naam Eijbaard?
+                // Lokaal filter: Bevat het echt jouw naam?
+                const searchRegex = /Eijbaard/i;
                 if (searchRegex.test(title) || searchRegex.test(desc)) {
                     const key = getDedupKey(title);
                     
-                    if (!allUniqueArticles.has(key)) {
+                    // We voegen hem toe als hij niet bestaat, OF overschrijven hem als de oude versie fout was
+                    if (!allUniqueArticles.has(key) || allUniqueArticles.get(key).source_id === 'news.google.com') {
                         const newArticle = {
                             title: title,
                             link: item.link || "",
@@ -132,22 +138,22 @@ async function updateNews() {
                         };
                         allUniqueArticles.set(key, newArticle);
                         addedCount++;
-                        console.log(`   + Toegevoegd via directe feed: ${title}`);
+                        console.log(`   + Toegevoegd/geüpdatet via directe feed: ${title}`);
                     }
                 }
             }
         }
 
-        // STAP 3: Google Nieuws vangnet (Voor AD.nl en landelijk)
+        // STAP 3: Google Nieuws vangnet (Voor AD.nl en landelijke incidenten)
         console.log("\n=> Google Nieuws vangnet uitlezen (Voor o.a. AD.nl)...");
         if (googleUrl) {
             const googleItems = await fetchAndParseXML(googleUrl);
             for (const item of googleItems) {
                 const title = cleanText(item.title);
-                const cleanTitle = title.replace(/ - [^-]+$/, '').trim(); // Google voegt vaak krantnaam toe
+                const cleanTitle = title.replace(/ - [^-]+$/, '').trim(); 
                 const key = getDedupKey(cleanTitle);
 
-                // We voegen dit alleen toe als de directe feed hem in Stap 2 nog niet heeft gepakt
+                // AD of Google-links alleen toelaten als we ze écht nergens anders konden vinden
                 if (!allUniqueArticles.has(key)) {
                     
                     let sourceDomain = "Onbekende bron";
@@ -155,7 +161,6 @@ async function updateNews() {
                         sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
                     }
 
-                    // Voorkom 'lelijke' Google tracking omschrijvingen
                     let fallbackDesc = cleanText(item.description);
                     if (fallbackDesc.includes('  ')) fallbackDesc = fallbackDesc.split('  ')[0].trim();
                     if (fallbackDesc.includes("Uitgebreide up-to-date")) fallbackDesc = "";
@@ -166,8 +171,8 @@ async function updateNews() {
                         pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
                         source_id: sourceDomain,
                         description: fallbackDesc,
-                        creator: [], // Google levert geen auteur
-                        image_url: "" // Google RSS levert geen directe foto
+                        creator: [], 
+                        image_url: "" 
                     };
                     allUniqueArticles.set(key, newArticle);
                     addedCount++;
@@ -176,7 +181,7 @@ async function updateNews() {
             }
         }
 
-        // STAP 4: Sorteren en opslaan met strenge data-validatie
+        // STAP 4: Sorteren met ijzeren logica
         const combined = Array.from(allUniqueArticles.values());
         combined.sort((a, b) => {
             const dateA = new Date(a.pubDate).getTime();
@@ -187,10 +192,9 @@ async function updateNews() {
             return dateB - dateA;
         });
 
-        // Wegschrijven met mooie formattering
+        // Schoon opslaan
         fs.writeFileSync(dataFile, JSON.stringify(combined, null, 2));
-        console.log(`\n🎉 SUCCES! Er zijn in totaal ${addedCount} nieuwe artikelen gevonden en samengevoegd.`);
-        console.log(`Het superstrakke en schone archief bevat nu ${combined.length} artikelen.`);
+        console.log(`\n🎉 SUCCES! Het schone archief bevat nu ${combined.length} artikelen.`);
 
     } catch (error) {
         console.error("Fatale fout tijdens het updaten van nieuws:", error);
