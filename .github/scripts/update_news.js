@@ -4,7 +4,6 @@ const { XMLParser } = require('fast-xml-parser');
 const url = process.env.RSS_FEED_URL;
 const dataFile = '_data/news.json';
 
-// Functie om de oude, geneste JSON-structuur plat te slaan
 function flattenData(data) {
     if (!Array.isArray(data)) return [];
     return data.reduce((acc, val) => 
@@ -12,7 +11,6 @@ function flattenData(data) {
     );
 }
 
-// Haalt de schone domeinnaam uit een link
 function getDomain(urlStr) {
     if (!urlStr) return null;
     try {
@@ -22,14 +20,37 @@ function getDomain(urlStr) {
     }
 }
 
-// Slimme ontdubbelingssleutel: knipt " - Krantnaam" weg
 function getDedupKey(title) {
     if (!title) return "onbekend";
     return title.replace(/ - [^-]+$/, '').toLowerCase().trim();
 }
 
-// GEAVANCEERDE SCRAPER: Doet zich voor als Googlebot om cookiemuren te omzeilen
-async function scrapeArticleMetadata(url) {
+// NIEUW: Functie om de irritante Google News tracking URL's om te zetten naar de echte directe kranten-URL
+async function resolveGoogleNewsUrl(googleUrl) {
+    if (!googleUrl.includes('news.google.com')) return googleUrl;
+    try {
+        const response = await fetch(googleUrl);
+        const html = await response.text();
+        
+        // Google verstopt de echte link in specifieke tags op hun redirect pagina
+        const match = html.match(/<a[^>]+rel=["']nofollow["'][^>]+href=["']([^"']+)["']/i) || 
+                      html.match(/data-n-a-url=["']([^"']+)["']/i) ||
+                      html.match(/window\.location\.replace\(['"]([^"']+)['"]\)/i);
+        
+        if (match && match[1]) {
+            let realUrl = match[1].replace(/&amp;/g, '&');
+            // Ontsleutel eventuele leestekens in de link
+            realUrl = realUrl.replace(/\\x2F/g, '/').replace(/\\u0026/g, '&');
+            if (realUrl.startsWith('http')) return realUrl;
+        }
+        return googleUrl;
+    } catch (e) {
+        return googleUrl;
+    }
+}
+
+// Scraper die zich voordoet als Googlebot
+async function scrapeArticleMetadata(articleUrl) {
     try {
         const headers = {
             'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
@@ -38,7 +59,7 @@ async function scrapeArticleMetadata(url) {
             'Referer': 'https://news.google.com/'
         };
 
-        const response = await fetch(url, { headers: headers, redirect: 'follow' });
+        const response = await fetch(articleUrl, { headers: headers, redirect: 'follow' });
         if (!response.ok) return null;
 
         const html = await response.text();
@@ -47,30 +68,28 @@ async function scrapeArticleMetadata(url) {
         let realDescription = "";
         let author = "";
 
-        // 1. Zoek de originele foto (og:image)
         const imgMatch = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i) || 
                          html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i);
         if (imgMatch) imageUrl = imgMatch[1];
 
-        // 2. Zoek de echte omschrijving (og:description of gewone description)
         const descMatch = html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']/i) ||
-                          html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i) ||
-                          html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:description["']/i);
+                          html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i);
         if (descMatch) {
-            // Opruimen van speciale HTML-tekens in de omschrijving
             realDescription = descMatch[1].replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').trim();
         }
 
-        // 3. Zoek de auteur
         const authorMatch = html.match(/<meta[^>]*name=["']author["'][^>]*content=["']([^"']+)["']/i) ||
                             html.match(/<meta[^>]*property=["']article:author["'][^>]*content=["']([^"']+)["']/i);
         if (authorMatch) {
             author = authorMatch[1].trim();
         }
 
+        // Voorkom dat generieke teksten van foute redirects worden opgeslagen
+        if (realDescription.includes("Uitgebreide up-to-date berichtgeving")) realDescription = "";
+        if (imageUrl.includes("googleusercontent.com")) imageUrl = "";
+
         return { imageUrl, realDescription, author };
     } catch (e) {
-        console.log("-> Scrapen mislukt voor:", url);
         return null;
     }
 }
@@ -78,7 +97,12 @@ async function scrapeArticleMetadata(url) {
 async function updateNews() {
     try {
         console.log("Nieuws ophalen van Google News...");
-        const response = await fetch(url);
+        
+        const rssHeaders = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        };
+        
+        const response = await fetch(url, { headers: rssHeaders });
         if (!response.ok) throw new Error(`HTTP fout! Status: ${response.status}`);
         const xmlData = await response.text();
         
@@ -86,7 +110,7 @@ async function updateNews() {
         const jsonObj = parser.parse(xmlData);
         let items = jsonObj.rss?.channel?.item || [];
         if (!Array.isArray(items)) items = [items];
-
+        
         let existingArticles = [];
         if (fs.existsSync(dataFile)) {
             existingArticles = flattenData(JSON.parse(fs.readFileSync(dataFile, 'utf-8')));
@@ -116,27 +140,26 @@ async function updateNews() {
             const key = getDedupKey(cleanTitle);
 
             if (!allUniqueArticles.has(key)) {
-                console.log(`Nieuw artikel: "${cleanTitle}". Echte data scrapen...`);
-                const link = item.link || "";
+                console.log(`\nNieuw artikel: "${cleanTitle}"`);
                 
-                // Activeer de Googlebot scraper
-                const meta = await scrapeArticleMetadata(link) || { imageUrl: "", realDescription: "", author: "" };
+                // 1. Haal de verborgen, echte URL uit de Google link
+                const rawLink = item.link || "";
+                const realLink = await resolveGoogleNewsUrl(rawLink);
+                console.log(`Directe link gevonden: ${realLink}`);
+                
+                // 2. Bezoek die echte URL om de ware foto en omschrijving te halen
+                const meta = await scrapeArticleMetadata(realLink) || { imageUrl: "", realDescription: "", author: "" };
 
-                let sourceDomain = "Onbekende bron";
-                if (item.source && item.source['@_url']) {
-                    sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
-                }
+                let sourceDomain = getDomain(realLink) || "Onbekende bron";
 
-                // Noodoplossing als de scraper faalt: maak de lelijke Google News omschrijving toch nog mooi
+                // Nood-omschrijving als de krant écht alles blokkeert
                 let fallbackDesc = (item.description || "").replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').trim();
-                // Verwijder de "  Krantnaam" aan het einde van de tekst
-                if (fallbackDesc.includes('  ')) {
-                    fallbackDesc = fallbackDesc.split('  ')[0].trim();
-                }
+                if (fallbackDesc.includes('  ')) fallbackDesc = fallbackDesc.split('  ')[0].trim();
+                if (fallbackDesc.includes("Uitgebreide up-to-date")) fallbackDesc = "";
 
                 const newArticle = {
                     title: cleanTitle,
-                    link: link,
+                    link: realLink, // We slaan nu jouw schone link op in plaats van de Google link!
                     pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
                     source_id: sourceDomain,
                     description: meta.realDescription || fallbackDesc,
