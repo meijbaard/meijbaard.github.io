@@ -13,7 +13,7 @@ function flattenData(data) {
     );
 }
 
-// Functie om de schone domeinnaam uit een link te halen
+// Haalt de schone domeinnaam uit een link
 function getDomain(urlStr) {
     if (!urlStr) return null;
     try {
@@ -23,12 +23,16 @@ function getDomain(urlStr) {
     }
 }
 
+// Slimme ontdubbelingssleutel: knipt " - Krantnaam" weg voor een eerlijke vergelijking
+function getDedupKey(title) {
+    return title.replace(/ - [^-]+$/, '').toLowerCase().trim();
+}
+
 https.get(url, (res) => {
     let xmlData = '';
     res.on('data', (chunk) => { xmlData += chunk; });
     res.on('end', () => {
         try {
-            // 1. Google Nieuws inladen (inclusief attributen voor de bron URL)
             const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
             const jsonObj = parser.parse(xmlData);
             let items = jsonObj.rss?.channel?.item || [];
@@ -36,19 +40,20 @@ https.get(url, (res) => {
 
             const regex = /Eijbaard/i;
 
-            // 2. Nieuwe artikelen parseren
             const newArticles = items.map(item => {
                 const title = item.title || "";
                 const description = item.description || "";
                 
-                // Bij Google Nieuws staat de echte bron vaak als attribuut
                 let sourceDomain = "Onbekende bron";
                 if (item.source && item.source['@_url']) {
                     sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
                 }
 
+                // Verwijder de door Google toegevoegde krantnaam uit de titel voor een strakke presentatie
+                const cleanTitle = title.replace(/ - [^-]+$/, '').trim();
+
                 return {
-                    title: title,
+                    title: cleanTitle,
                     link: item.link || "",
                     pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
                     source_id: sourceDomain,
@@ -58,40 +63,47 @@ https.get(url, (res) => {
                 };
             }).filter(item => regex.test(item.title) || regex.test(item.description));
 
-            // 3. Bestaande data inlezen
             let existingArticles = [];
             if (fs.existsSync(dataFile)) {
                 existingArticles = flattenData(JSON.parse(fs.readFileSync(dataFile, 'utf-8')));
             }
 
-            // 4. Samenvoegen, ontdubbelen en bronnen repareren
             const allUniqueArticles = new Map();
 
-            // Oude data eerst: we repareren direct de 'Eugene Leenders'-fout
+            // OUDE DATA EERST: Zo beschermen we jouw directe URL's tegen overschrijving
             existingArticles.forEach(article => {
-                // Als de source_id geen domein (.nl/.com) bevat, haal hem dan uit de link
+                // Herstel auteursnamen naar domeinnamen
                 if (article.source_id && !article.source_id.includes('.')) {
                     article.source_id = getDomain(article.link) || article.source_id;
                 }
                 
+                // Normaliseer oude datumformaten (vervang spatie door T)
+                if (article.pubDate && !article.pubDate.includes('T')) {
+                    const parsedDate = new Date(article.pubDate.replace(" ", "T") + "Z");
+                    if (!isNaN(parsedDate)) article.pubDate = parsedDate.toISOString();
+                }
+                
                 if (article.title) {
-                    allUniqueArticles.set(article.title.toLowerCase().trim(), article);
+                    allUniqueArticles.set(getDedupKey(article.title), article);
                 }
             });
 
-            // Nieuwe data erbij
+            // NIEUWE DATA ERBIJ: Voeg alleen toe als de schone titel nog niet in het archief zit
             newArticles.forEach(article => {
                 if (article.title) {
-                    allUniqueArticles.set(article.title.toLowerCase().trim(), article);
+                    const key = getDedupKey(article.title);
+                    if (!allUniqueArticles.has(key)) {
+                        allUniqueArticles.set(key, article);
+                    }
                 }
             });
 
-            // 5. Resultaat sorteren en opslaan
+            // Sorteren en wegschrijven
             const combined = Array.from(allUniqueArticles.values());
             combined.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
 
             fs.writeFileSync(dataFile, JSON.stringify(combined, null, 2));
-            console.log(`Succes! Het archief bevat nu ${combined.length} artikelen.`);
+            console.log(`Succes! Archief bevat nu ${combined.length} perfect schone artikelen.`);
 
         } catch (error) {
             console.error("Fout bij het verwerken:", error);
