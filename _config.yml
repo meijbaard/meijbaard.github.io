@@ -34,6 +34,9 @@ breadcrumbs: true #false (default)
 # copyright_url: "copyright" URL, defaults to site.url
 
 # Build settings
+sass:
+  style: compressed
+  
 markdown: kramdown
 remote_theme: mmistakes/minimal-mistakes
 

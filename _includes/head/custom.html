@@ -18,12 +18,9 @@
 <link rel="manifest" href="/assets/images/site.webmanifest" />
 <!-- einde favicon -->
 
-<!-- Canonical URL toevoegen -->
-<link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
-
 <!-- Toevoeging voor Election Dashboard -->
 {% if page.permalink == '/electiondashboard/' %}
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com" defer></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/assets/css/electiondashboard.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +30,7 @@
 
 <!-- toevoeging voor Local Dashboard -->
 {% if page.permalink == '/localdashboard/' %}
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com" defer></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="/assets/css/localdashboard.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,6 +45,6 @@
 
 <!-- toevoeging voor MeetingParser -->
 {% if page.permalink == '/meetingparser/' %}
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com" defer></script>
   <link rel="stylesheet" href="/assets/css/meetingparser.css">
 {% endif %}
