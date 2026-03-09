@@ -25,6 +25,7 @@ function getDomain(urlStr) {
 
 // Slimme ontdubbelingssleutel: knipt " - Krantnaam" weg voor een eerlijke vergelijking
 function getDedupKey(title) {
+    if (!title) return "onbekend";
     return title.replace(/ - [^-]+$/, '').toLowerCase().trim();
 }
 
@@ -38,8 +39,7 @@ https.get(url, (res) => {
             let items = jsonObj.rss?.channel?.item || [];
             if (!Array.isArray(items)) items = [items];
 
-            const regex = /Eijbaard/i;
-
+            // Nieuwe artikelen inlezen (zonder dubbel filter, we vertrouwen de Google query)
             const newArticles = items.map(item => {
                 const title = item.title || "";
                 const description = item.description || "";
@@ -49,7 +49,6 @@ https.get(url, (res) => {
                     sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
                 }
 
-                // Verwijder de door Google toegevoegde krantnaam uit de titel voor een strakke presentatie
                 const cleanTitle = title.replace(/ - [^-]+$/, '').trim();
 
                 return {
@@ -61,8 +60,9 @@ https.get(url, (res) => {
                     creator: [],
                     image_url: "" 
                 };
-            }).filter(item => regex.test(item.title) || regex.test(item.description));
+            });
 
+            // Bestaande data inlezen
             let existingArticles = [];
             if (fs.existsSync(dataFile)) {
                 existingArticles = flattenData(JSON.parse(fs.readFileSync(dataFile, 'utf-8')));
@@ -70,15 +70,14 @@ https.get(url, (res) => {
 
             const allUniqueArticles = new Map();
 
-            // OUDE DATA EERST: Zo beschermen we jouw directe URL's tegen overschrijving
+            // OUDE DATA EERST toevoegen
             existingArticles.forEach(article => {
-                // Herstel auteursnamen naar domeinnamen
                 if (article.source_id && !article.source_id.includes('.')) {
                     article.source_id = getDomain(article.link) || article.source_id;
                 }
                 
-                // Normaliseer oude datumformaten (vervang spatie door T)
-                if (article.pubDate && !article.pubDate.includes('T')) {
+                // Normaliseer datum en wees niet streng als het faalt
+                if (article.pubDate && typeof article.pubDate === 'string' && !article.pubDate.includes('T')) {
                     const parsedDate = new Date(article.pubDate.replace(" ", "T") + "Z");
                     if (!isNaN(parsedDate)) article.pubDate = parsedDate.toISOString();
                 }
@@ -88,7 +87,7 @@ https.get(url, (res) => {
                 }
             });
 
-            // NIEUWE DATA ERBIJ: Voeg alleen toe als de schone titel nog niet in het archief zit
+            // NIEUWE DATA ERBIJ toevoegen
             newArticles.forEach(article => {
                 if (article.title) {
                     const key = getDedupKey(article.title);
@@ -98,12 +97,22 @@ https.get(url, (res) => {
                 }
             });
 
-            // Sorteren en wegschrijven
+            // Resultaat sorteren met veiligheidsnet voor corrupte datums
             const combined = Array.from(allUniqueArticles.values());
-            combined.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+            combined.sort((a, b) => {
+                const dateA = new Date(a.pubDate).getTime();
+                const dateB = new Date(b.pubDate).getTime();
+                
+                // Veiligheidscontrole
+                if (isNaN(dateA) && isNaN(dateB)) return 0;
+                if (isNaN(dateA)) return 1;  // Ongeldige datum? Naar onderen!
+                if (isNaN(dateB)) return -1; 
+                
+                return dateB - dateA; // Nieuwste eerst
+            });
 
             fs.writeFileSync(dataFile, JSON.stringify(combined, null, 2));
-            console.log(`Succes! Archief bevat nu ${combined.length} perfect schone artikelen.`);
+            console.log(`Succes! Archief bevat nu ${combined.length} perfect gesorteerde artikelen.`);
 
         } catch (error) {
             console.error("Fout bij het verwerken:", error);
