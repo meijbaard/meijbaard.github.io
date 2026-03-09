@@ -22,25 +22,56 @@ function getDomain(urlStr) {
     }
 }
 
-// Slimme ontdubbelingssleutel: knipt " - Krantnaam" weg voor een eerlijke vergelijking
+// Slimme ontdubbelingssleutel: knipt " - Krantnaam" weg
 function getDedupKey(title) {
     if (!title) return "onbekend";
     return title.replace(/ - [^-]+$/, '').toLowerCase().trim();
 }
 
-// NIEUW: Razendsnelle scraper om foto's van de krantenwebsite te halen
-async function getOgImage(articleUrl) {
+// GEAVANCEERDE SCRAPER: Doet zich voor als Googlebot om cookiemuren te omzeilen
+async function scrapeArticleMetadata(url) {
     try {
-        const response = await fetch(articleUrl);
-        if (!response.ok) return "";
+        const headers = {
+            'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'nl-NL,nl;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Referer': 'https://news.google.com/'
+        };
+
+        const response = await fetch(url, { headers: headers, redirect: 'follow' });
+        if (!response.ok) return null;
+
         const html = await response.text();
         
-        // Zoek naar de <meta property="og:image"> tag in de broncode van het artikel
-        const match = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["'][^>]*>/i) || 
-                      html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["'][^>]*>/i);
-        return match ? match[1] : "";
+        let imageUrl = "";
+        let realDescription = "";
+        let author = "";
+
+        // 1. Zoek de originele foto (og:image)
+        const imgMatch = html.match(/<meta[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/i) || 
+                         html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/i);
+        if (imgMatch) imageUrl = imgMatch[1];
+
+        // 2. Zoek de echte omschrijving (og:description of gewone description)
+        const descMatch = html.match(/<meta[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']/i) ||
+                          html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["']/i) ||
+                          html.match(/<meta[^>]*content=["']([^"']+)["'][^>]*property=["']og:description["']/i);
+        if (descMatch) {
+            // Opruimen van speciale HTML-tekens in de omschrijving
+            realDescription = descMatch[1].replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').trim();
+        }
+
+        // 3. Zoek de auteur
+        const authorMatch = html.match(/<meta[^>]*name=["']author["'][^>]*content=["']([^"']+)["']/i) ||
+                            html.match(/<meta[^>]*property=["']article:author["'][^>]*content=["']([^"']+)["']/i);
+        if (authorMatch) {
+            author = authorMatch[1].trim();
+        }
+
+        return { imageUrl, realDescription, author };
     } catch (e) {
-        return ""; // Faalt het? Geen probleem, dan slaan we hem op zonder foto.
+        console.log("-> Scrapen mislukt voor:", url);
+        return null;
     }
 }
 
@@ -55,19 +86,15 @@ async function updateNews() {
         const jsonObj = parser.parse(xmlData);
         let items = jsonObj.rss?.channel?.item || [];
         if (!Array.isArray(items)) items = [items];
-        
-        console.log(`=> Er zijn ${items.length} actuele artikelen gevonden in de Google feed.`);
 
-        // 1. Eerst oude data inlezen zodat we weten welke artikelen we al hebben
         let existingArticles = [];
         if (fs.existsSync(dataFile)) {
             existingArticles = flattenData(JSON.parse(fs.readFileSync(dataFile, 'utf-8')));
         }
-        console.log(`=> Bestaand archief bevat ${existingArticles.length} artikelen.`);
 
         const allUniqueArticles = new Map();
 
-        // 2. OUDE DATA EERST (Hierdoor beschermen we je bestaande url's en foto's)
+        // OUDE DATA
         existingArticles.forEach(article => {
             if (article.source_id && !article.source_id.includes('.')) {
                 article.source_id = getDomain(article.link) || article.source_id;
@@ -81,24 +108,30 @@ async function updateNews() {
             }
         });
 
-        // 3. NIEUWE DATA ERBIJ (inclusief het zoeken naar een foto)
+        // NIEUWE DATA
         let addedCount = 0;
         for (const item of items) {
             const title = item.title || "";
             const cleanTitle = title.replace(/ - [^-]+$/, '').trim();
             const key = getDedupKey(cleanTitle);
 
-            // Controleer of we dit artikel al hebben. Zo nee: haal hem binnen!
             if (!allUniqueArticles.has(key)) {
-                console.log(`Nieuw artikel ontdekt: "${cleanTitle}". Foto zoeken op originele site...`);
+                console.log(`Nieuw artikel: "${cleanTitle}". Echte data scrapen...`);
                 const link = item.link || "";
                 
-                // Haal de foto op van de nieuwswebsite
-                const imageUrl = await getOgImage(link);
+                // Activeer de Googlebot scraper
+                const meta = await scrapeArticleMetadata(link) || { imageUrl: "", realDescription: "", author: "" };
 
                 let sourceDomain = "Onbekende bron";
                 if (item.source && item.source['@_url']) {
                     sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
+                }
+
+                // Noodoplossing als de scraper faalt: maak de lelijke Google News omschrijving toch nog mooi
+                let fallbackDesc = (item.description || "").replace(/<[^>]*>?/gm, '').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').trim();
+                // Verwijder de "  Krantnaam" aan het einde van de tekst
+                if (fallbackDesc.includes('  ')) {
+                    fallbackDesc = fallbackDesc.split('  ')[0].trim();
                 }
 
                 const newArticle = {
@@ -106,9 +139,9 @@ async function updateNews() {
                     link: link,
                     pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
                     source_id: sourceDomain,
-                    description: (item.description || "").replace(/<[^>]*>?/gm, '').trim(),
-                    creator: [],
-                    image_url: imageUrl 
+                    description: meta.realDescription || fallbackDesc,
+                    creator: meta.author ? [meta.author] : [],
+                    image_url: meta.imageUrl 
                 };
 
                 allUniqueArticles.set(key, newArticle);
@@ -116,7 +149,6 @@ async function updateNews() {
             }
         }
 
-        // 4. Sorteren op datum (Nieuwste bovenaan) met valbeveiliging
         const combined = Array.from(allUniqueArticles.values());
         combined.sort((a, b) => {
             const dateA = new Date(a.pubDate).getTime();
@@ -127,10 +159,8 @@ async function updateNews() {
             return dateB - dateA;
         });
 
-        // 5. Opslaan
         fs.writeFileSync(dataFile, JSON.stringify(combined, null, 2));
-        console.log(`\n🎉 SUCCES! Er zijn ${addedCount} nieuwe artikelen (met foto) toegevoegd.`);
-        console.log(`Het complete archief bevat nu ${combined.length} artikelen.`);
+        console.log(`\n🎉 SUCCES! Er zijn ${addedCount} nieuwe artikelen toegevoegd.`);
 
     } catch (error) {
         console.error("Fout tijdens het updaten van nieuws:", error);
