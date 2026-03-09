@@ -64,5 +64,5 @@ layout: default
       RSS Feed
     </a>
   </div>
-
+  <script src="/assets/js/newsdashboard.js" defer></script>
 </div>
