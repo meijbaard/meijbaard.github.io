@@ -30,29 +30,41 @@ layout: default
     {%- if site.data.news and site.data.news.size > 0 -%}
       <ul id="news-list">
         {%- for item in site.data.news -%}
-          <li class="news-item" data-pubdate="{{ item.pubDate }}" data-source="{{ item.source_id }}">
+          <li class="news-item" data-pubdate="{{ item.pubDate | default: '' }}" data-source="{{ item.source_id | default: 'Onbekende bron' }}">
             
-            {% if item.image_url and item.image_url != "" %}
-              <img src="{{ item.image_url }}" alt="Beeld bij artikel: {{ item.title | escape }}" class="news-image" loading="lazy">
-            {% endif %}
+            {%- assign img = item.image_url | default: '' -%}
+            {%- if img != "" -%}
+              <img src="{{ img }}" alt="Beeld bij artikel" class="news-image" loading="lazy">
+            {%- endif -%}
 
             <div class="news-content">
-              <h3><a href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.title }}</a></h3>
+              <h3>
+                <a href="{{ item.link | default: '#' }}" target="_blank" rel="noopener noreferrer">
+                  {{ item.title | default: 'Zonder titel' }}
+                </a>
+              </h3>
               <p>
-                <strong>Bron:</strong> {{ item.source_id }} 
-                {% if item.creator and item.creator.size > 0 and item.creator[0] != "" %}
+                <strong>Bron:</strong> {{ item.source_id | default: 'Onbekende bron' }} 
+                
+                {%- assign creator_size = item.creator | compact | size | default: 0 -%}
+                {%- if creator_size > 0 -%}
                   | <strong>Auteur:</strong> {{ item.creator | join: ", " }}
-                {% endif %}
+                {%- endif -%}
                 <br>
-                <strong>Publicatiedatum:</strong> {{ item.pubDate | date: "%d-%m-%Y %H:%M" }}
+                <strong>Publicatiedatum:</strong> 
+                {%- if item.pubDate and item.pubDate != "" -%}
+                  {{ item.pubDate | date: "%d-%m-%Y %H:%M" }}
+                {%- else -%}
+                  Onbekend
+                {%- endif -%}
               </p>
-              <p>{{ item.description }}</p>
+              <p>{{ item.description | default: '' }}</p>
             </div>
           </li>
         {%- endfor -%}
       </ul>
     {%- else -%}
-      <p>Er worden momenteel geen nieuwsberichten gevonden. De data wordt elke vier uur geautomatiseerd bijgewerkt.</p>
+      <p>Er worden momenteel geen nieuwsberichten gevonden. Zorg dat je data in _data/news.json staat.</p>
     {%- endif -%}
   </div>
 

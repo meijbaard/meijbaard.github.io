@@ -30,12 +30,9 @@ function getDomain(urlStr) {
     }
 }
 
-// SLIMME TITEL OPSCHONER: Haalt veilig krantennamen weg, zelfs als ze een streepje bevatten
 function removeBrandSuffix(title) {
     if (!title) return "";
     let clean = title;
-    
-    // 1. Haal specifieke bekende merken weg
     const brands = ["De Gooi- en Eemlander", "Baarnsche Courant", "AD.nl", "RTV Utrecht", "eemland1"];
     for (let brand of brands) {
         const regex = new RegExp(`\\s+-\\s+${brand}$`, 'i');
@@ -43,14 +40,10 @@ function removeBrandSuffix(title) {
             return clean.replace(regex, '').trim();
         }
     }
-    
-    // 2. Algemene fallback voor onbekende kranten uit Google News
     clean = clean.replace(/\s+-\s+[^-]+$/, '');
-    
     return clean.trim();
 }
 
-// Genereert een ontdubbelingssleutel op basis van de opgeschoonde titel
 function getDedupKey(title) {
     if (!title) return "onbekend";
     return title.toLowerCase().trim();
@@ -117,9 +110,13 @@ async function updateNews() {
                 if (!isNaN(parsedDate)) article.pubDate = parsedDate.toISOString();
             }
             
-            // Pas de slimme opschoner ook direct toe op je bestaande archief!
             article.title = removeBrandSuffix(cleanText(article.title));
             article.description = cleanText(article.description);
+            
+            // CRUCIAAL: Haal lege creator-arrays definitief uit je bestaande data!
+            if (Array.isArray(article.creator) && article.creator.length === 0) {
+                delete article.creator;
+            }
             
             if (article.title) {
                 allUniqueArticles.set(getDedupKey(article.title), article);
@@ -137,7 +134,6 @@ async function updateNews() {
                 const rawDesc = cleanText(item.description);
                 
                 if (searchRegex.test(rawTitle) || searchRegex.test(rawDesc)) {
-                    // Haal de krantnaam eraf
                     const title = removeBrandSuffix(rawTitle);
                     const key = getDedupKey(title);
                     
@@ -148,9 +144,13 @@ async function updateNews() {
                             pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
                             source_id: feed.source_id,
                             description: rawDesc,
-                            creator: item.author ? [cleanText(item.author)] : [],
                             image_url: getImageUrl(item)
                         };
+                        
+                        if (item.author && cleanText(item.author) !== "") {
+                            newArticle.creator = [cleanText(item.author)];
+                        }
+                        
                         allUniqueArticles.set(key, newArticle);
                         addedCount++;
                         console.log(`   + Toegevoegd/geüpdatet: ${title}`);
@@ -178,15 +178,20 @@ async function updateNews() {
                     if (fallbackDesc.includes('  ')) fallbackDesc = fallbackDesc.split('  ')[0].trim();
                     if (fallbackDesc.includes("Uitgebreide up-to-date")) fallbackDesc = "";
 
+                    // BUG GEFIXT: Correcte variabelen aangesproken
                     const newArticle = {
                         title: title,
-                        link: item.link || "", 
+                        link: item.link || "",
                         pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
-                        source_id: sourceDomain,
-                        description: fallbackDesc,
-                        creator: [], 
-                        image_url: "" 
+                        source_id: sourceDomain, 
+                        description: fallbackDesc, 
+                        image_url: getImageUrl(item)
                     };
+                    
+                    if (item.author && cleanText(item.author) !== "") {
+                        newArticle.creator = [cleanText(item.author)];
+                    }
+
                     allUniqueArticles.set(key, newArticle);
                     addedCount++;
                     console.log(`   + Toegevoegd via Google vangnet: ${title}`);
