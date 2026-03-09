@@ -39,7 +39,6 @@ function getDedupKey(title) {
 
 function cleanText(text) {
     if (!text) return "";
-    // Verwijdert HTML-tags en illegale/onzichtbare stuurkarakters waar Jekyll op crasht
     return text.toString()
         .replace(/<[^>]*>?/gm, '')
         .replace(/&nbsp;/g, ' ')
@@ -118,4 +117,85 @@ async function updateNews() {
                 const desc = cleanText(item.description);
                 
                 // Lokaal filter: Bevat het de naam Eijbaard?
-                if (
+                if (searchRegex.test(title) || searchRegex.test(desc)) {
+                    const key = getDedupKey(title);
+                    
+                    if (!allUniqueArticles.has(key)) {
+                        const newArticle = {
+                            title: title,
+                            link: item.link || "",
+                            pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
+                            source_id: feed.source_id,
+                            description: desc,
+                            creator: item.author ? [cleanText(item.author)] : [],
+                            image_url: getImageUrl(item)
+                        };
+                        allUniqueArticles.set(key, newArticle);
+                        addedCount++;
+                        console.log(`   + Toegevoegd via directe feed: ${title}`);
+                    }
+                }
+            }
+        }
+
+        // STAP 3: Google Nieuws vangnet (Voor AD.nl en landelijk)
+        console.log("\n=> Google Nieuws vangnet uitlezen (Voor o.a. AD.nl)...");
+        if (googleUrl) {
+            const googleItems = await fetchAndParseXML(googleUrl);
+            for (const item of googleItems) {
+                const title = cleanText(item.title);
+                const cleanTitle = title.replace(/ - [^-]+$/, '').trim(); // Google voegt vaak krantnaam toe
+                const key = getDedupKey(cleanTitle);
+
+                // We voegen dit alleen toe als de directe feed hem in Stap 2 nog niet heeft gepakt
+                if (!allUniqueArticles.has(key)) {
+                    
+                    let sourceDomain = "Onbekende bron";
+                    if (item.source && item.source['@_url']) {
+                        sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
+                    }
+
+                    // Voorkom 'lelijke' Google tracking omschrijvingen
+                    let fallbackDesc = cleanText(item.description);
+                    if (fallbackDesc.includes('  ')) fallbackDesc = fallbackDesc.split('  ')[0].trim();
+                    if (fallbackDesc.includes("Uitgebreide up-to-date")) fallbackDesc = "";
+
+                    const newArticle = {
+                        title: cleanTitle,
+                        link: item.link || "", 
+                        pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
+                        source_id: sourceDomain,
+                        description: fallbackDesc,
+                        creator: [], // Google levert geen auteur
+                        image_url: "" // Google RSS levert geen directe foto
+                    };
+                    allUniqueArticles.set(key, newArticle);
+                    addedCount++;
+                    console.log(`   + Toegevoegd via Google vangnet: ${cleanTitle}`);
+                }
+            }
+        }
+
+        // STAP 4: Sorteren en opslaan met strenge data-validatie
+        const combined = Array.from(allUniqueArticles.values());
+        combined.sort((a, b) => {
+            const dateA = new Date(a.pubDate).getTime();
+            const dateB = new Date(b.pubDate).getTime();
+            if (isNaN(dateA) && isNaN(dateB)) return 0;
+            if (isNaN(dateA)) return 1;  
+            if (isNaN(dateB)) return -1; 
+            return dateB - dateA;
+        });
+
+        // Wegschrijven met mooie formattering
+        fs.writeFileSync(dataFile, JSON.stringify(combined, null, 2));
+        console.log(`\n🎉 SUCCES! Er zijn in totaal ${addedCount} nieuwe artikelen gevonden en samengevoegd.`);
+        console.log(`Het superstrakke en schone archief bevat nu ${combined.length} artikelen.`);
+
+    } catch (error) {
+        console.error("Fatale fout tijdens het updaten van nieuws:", error);
+        process.exit(1);
+    }
+}
+
+updateNews();
