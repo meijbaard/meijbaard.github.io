@@ -4,7 +4,7 @@ const { XMLParser } = require('fast-xml-parser');
 const googleUrl = process.env.RSS_FEED_URL;
 const dataFile = '_data/news.json';
 
-// De directe, hoogwaardige RSS-bronnen (De "Premium" Data)
+// De directe, hoogwaardige RSS-bronnen
 const directFeeds = [
     { url: 'https://www.rtvutrecht.nl/rss/nieuws.xml', source_id: 'rtvutrecht.nl' },
     { url: 'https://www.eemland1.nl/rss', source_id: 'eemland1.nl' },
@@ -12,7 +12,8 @@ const directFeeds = [
     { url: 'https://www.gooieneemlander.nl/rss/', source_id: 'gooieneemlander.nl' }
 ];
 
-// 1. Essentiële Hulpfuncties
+const searchRegex = /Eijbaard/i;
+
 function flattenData(data) {
     if (!Array.isArray(data)) return [];
     return data.reduce((acc, val) => 
@@ -29,25 +30,44 @@ function getDomain(urlStr) {
     }
 }
 
-function getDedupKey(title) {
-    if (!title) return "onbekend";
-    return title.replace(/ - [^-]+$/, '').toLowerCase().trim();
+// SLIMME TITEL OPSCHONER: Haalt veilig krantennamen weg, zelfs als ze een streepje bevatten
+function removeBrandSuffix(title) {
+    if (!title) return "";
+    let clean = title;
+    
+    // 1. Haal specifieke bekende merken weg
+    const brands = ["De Gooi- en Eemlander", "Baarnsche Courant", "AD.nl", "RTV Utrecht", "eemland1"];
+    for (let brand of brands) {
+        const regex = new RegExp(`\\s+-\\s+${brand}$`, 'i');
+        if (regex.test(clean)) {
+            return clean.replace(regex, '').trim();
+        }
+    }
+    
+    // 2. Algemene fallback voor onbekende kranten uit Google News
+    clean = clean.replace(/\s+-\s+[^-]+$/, '');
+    
+    return clean.trim();
 }
 
-// DE STOFZUIGER: Deze functie voorkomt dat Jekyll ooit nog crasht
+// Genereert een ontdubbelingssleutel op basis van de opgeschoonde titel
+function getDedupKey(title) {
+    if (!title) return "onbekend";
+    return title.toLowerCase().trim();
+}
+
 function cleanText(text) {
     if (!text) return "";
     return text.toString()
-        .replace(/<[^>]*>?/gm, '') // Strip HTML tags
-        .replace(/&nbsp;/g, ' ') // Vervang vreemde spaties
+        .replace(/<[^>]*>?/gm, '') 
+        .replace(/&nbsp;/g, ' ') 
         .replace(/&quot;/g, '"')
-        .replace(/[\n\r\t]/g, ' ') // VERWIJDER NEWLINES EN TABS (De boosdoener!)
-        .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Verwijder onzichtbare control characters
+        .replace(/[\n\r\t]/g, ' ') 
+        .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") 
         .trim();
 }
 
 function getImageUrl(item) {
-    // Haal de prachtige, originele foto's uit de RSS structuur
     if (item.enclosure) {
         const enc = Array.isArray(item.enclosure) ? item.enclosure[0] : item.enclosure;
         if (enc && enc['@_url']) return enc['@_url'];
@@ -59,7 +79,6 @@ function getImageUrl(item) {
     return "";
 }
 
-// 2. Ophaalfunctie
 async function fetchAndParseXML(url) {
     try {
         const response = await fetch(url, {
@@ -82,7 +101,7 @@ async function updateNews() {
     try {
         const allUniqueArticles = new Map();
 
-        // STAP 1: Oude data inlezen en grondig desinfecteren
+        // STAP 1: Bestaande data inlezen en direct opschonen
         let existingArticles = [];
         if (fs.existsSync(dataFile)) {
             existingArticles = flattenData(JSON.parse(fs.readFileSync(dataFile, 'utf-8')));
@@ -90,19 +109,16 @@ async function updateNews() {
         }
 
         existingArticles.forEach(article => {
-            // Bronnamen herstellen als het fout ging (bijv. "news.google.com" of een naam)
             if (article.source_id && (!article.source_id.includes('.') || article.source_id === 'news.google.com')) {
                 article.source_id = getDomain(article.link) || article.source_id;
             }
-            
-            // Datums veilig normaliseren
             if (article.pubDate && typeof article.pubDate === 'string' && !article.pubDate.includes('T')) {
                 const parsedDate = new Date(article.pubDate.replace(" ", "T") + "Z");
                 if (!isNaN(parsedDate)) article.pubDate = parsedDate.toISOString();
             }
             
-            // TITELS EN OMSCHRIJVINGEN VEILIGSTELLEN
-            article.title = cleanText(article.title);
+            // Pas de slimme opschoner ook direct toe op je bestaande archief!
+            article.title = removeBrandSuffix(cleanText(article.title));
             article.description = cleanText(article.description);
             
             if (article.title) {
@@ -112,50 +128,47 @@ async function updateNews() {
 
         let addedCount = 0;
 
-        // STAP 2: Directe premium feeds uitlezen (Met de perfecte foto's en links)
-        console.log("\n=> Directe kranten-feeds uitlezen (Premium data)...");
+        // STAP 2: Directe feeds ophalen
+        console.log("\n=> Directe kranten-feeds uitlezen...");
         for (const feed of directFeeds) {
             const items = await fetchAndParseXML(feed.url);
             for (const item of items) {
-                const title = cleanText(item.title);
-                const desc = cleanText(item.description);
+                const rawTitle = cleanText(item.title);
+                const rawDesc = cleanText(item.description);
                 
-                // Lokaal filter: Bevat het echt jouw naam?
-                const searchRegex = /Eijbaard/i;
-                if (searchRegex.test(title) || searchRegex.test(desc)) {
+                if (searchRegex.test(rawTitle) || searchRegex.test(rawDesc)) {
+                    // Haal de krantnaam eraf
+                    const title = removeBrandSuffix(rawTitle);
                     const key = getDedupKey(title);
                     
-                    // We voegen hem toe als hij niet bestaat, OF overschrijven hem als de oude versie fout was
                     if (!allUniqueArticles.has(key) || allUniqueArticles.get(key).source_id === 'news.google.com') {
                         const newArticle = {
                             title: title,
                             link: item.link || "",
                             pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
                             source_id: feed.source_id,
-                            description: desc,
+                            description: rawDesc,
                             creator: item.author ? [cleanText(item.author)] : [],
                             image_url: getImageUrl(item)
                         };
                         allUniqueArticles.set(key, newArticle);
                         addedCount++;
-                        console.log(`   + Toegevoegd/geüpdatet via directe feed: ${title}`);
+                        console.log(`   + Toegevoegd/geüpdatet: ${title}`);
                     }
                 }
             }
         }
 
-        // STAP 3: Google Nieuws vangnet (Voor AD.nl en landelijke incidenten)
-        console.log("\n=> Google Nieuws vangnet uitlezen (Voor o.a. AD.nl)...");
+        // STAP 3: Google Nieuws vangnet
+        console.log("\n=> Google Nieuws vangnet uitlezen...");
         if (googleUrl) {
             const googleItems = await fetchAndParseXML(googleUrl);
             for (const item of googleItems) {
-                const title = cleanText(item.title);
-                const cleanTitle = title.replace(/ - [^-]+$/, '').trim(); 
-                const key = getDedupKey(cleanTitle);
+                const rawTitle = cleanText(item.title);
+                const title = removeBrandSuffix(rawTitle);
+                const key = getDedupKey(title);
 
-                // AD of Google-links alleen toelaten als we ze écht nergens anders konden vinden
                 if (!allUniqueArticles.has(key)) {
-                    
                     let sourceDomain = "Onbekende bron";
                     if (item.source && item.source['@_url']) {
                         sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
@@ -166,7 +179,7 @@ async function updateNews() {
                     if (fallbackDesc.includes("Uitgebreide up-to-date")) fallbackDesc = "";
 
                     const newArticle = {
-                        title: cleanTitle,
+                        title: title,
                         link: item.link || "", 
                         pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
                         source_id: sourceDomain,
@@ -176,12 +189,12 @@ async function updateNews() {
                     };
                     allUniqueArticles.set(key, newArticle);
                     addedCount++;
-                    console.log(`   + Toegevoegd via Google vangnet: ${cleanTitle}`);
+                    console.log(`   + Toegevoegd via Google vangnet: ${title}`);
                 }
             }
         }
 
-        // STAP 4: Sorteren met ijzeren logica
+        // STAP 4: Sorteren en wegschrijven
         const combined = Array.from(allUniqueArticles.values());
         combined.sort((a, b) => {
             const dateA = new Date(a.pubDate).getTime();
@@ -192,12 +205,11 @@ async function updateNews() {
             return dateB - dateA;
         });
 
-        // Schoon opslaan
         fs.writeFileSync(dataFile, JSON.stringify(combined, null, 2));
         console.log(`\n🎉 SUCCES! Het schone archief bevat nu ${combined.length} artikelen.`);
 
     } catch (error) {
-        console.error("Fatale fout tijdens het updaten van nieuws:", error);
+        console.error("Fout tijdens het updaten van nieuws:", error);
         process.exit(1);
     }
 }
