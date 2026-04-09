@@ -1,60 +1,79 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Check of we op de juiste pagina zijn
-    if (!document.getElementById('news-list')) {
-        return;
-    }
+    // Controleer of de juiste elementen aanwezig zijn
+    const newsList = document.getElementById('news-list');
+    if (!newsList) return;
 
     const filterButtons = document.querySelectorAll('.filter-btn');
     const newsItems = document.querySelectorAll('#news-list .news-item');
     const counter = document.getElementById('article-counter');
 
+    // --- Teller bijwerken ---
     function updateCounter() {
-        const visibleItems = document.querySelectorAll('#news-list .news-item:not([style*="display: none"])').length;
-        counter.textContent = `Totaal ${visibleItems} van de ${newsItems.length} artikelen getoond.`;
+        const total = newsItems.length;
+        const visible = document.querySelectorAll('#news-list .news-item:not([style*="display: none"])').length;
+        if (counter) {
+            counter.textContent = `Totaal ${visible} van de ${total} artikelen getoond.`;
+        }
     }
-    
-    filterButtons.forEach(button => {
+
+    // --- Filterlogica ---
+    filterButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
+            filterButtons.forEach(function(btn) { btn.classList.remove('active'); });
             this.classList.add('active');
-            
-            const sourceFilter = this.dataset.source;
-            
-            newsItems.forEach(item => {
+
+            var sourceFilter = this.dataset.source;
+
+            newsItems.forEach(function(item) {
                 if (sourceFilter === 'all' || item.dataset.source === sourceFilter) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
             });
-            
+
             updateCounter();
         });
     });
 
+    // --- 'Nieuw' badges toevoegen ---
+    // Gebruikt ISO-datums direct (zoals opgeslagen door update_news.js)
     function addNewBadges() {
-        const twentyFiveHoursAgo = new Date();
+        var twentyFiveHoursAgo = new Date();
         twentyFiveHoursAgo.setHours(twentyFiveHoursAgo.getHours() - 25);
-        
-        newsItems.forEach(item => {
-            const pubDateString = item.dataset.pubdate;
-            if (pubDateString) {
-                // Converteer de datumstring naar een formaat dat de Date constructor begrijpt
-                // "24-08-2025 09:00" -> "2025-08-24T09:00:00"
-                const parts = pubDateString.split(' ');
-                const dateParts = parts[0].split('-');
-                const timeParts = parts[1].split(':');
-                const isoString = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}T${timeParts[0]}:${timeParts[1]}:00`;
-                const pubDate = new Date(isoString);
 
-                if (pubDate > twentyFiveHoursAgo) {
-                    if (item.querySelector('.new-badge')) return;
-                    
-                    const newBadge = document.createElement('span');
-                    newBadge.textContent = '✨ Nieuw';
-                    newBadge.className = 'new-badge';
-                    item.querySelector('h3').appendChild(newBadge);
+        newsItems.forEach(function(item) {
+            var pubDateString = item.dataset.pubdate;
+            if (!pubDateString) return;
+
+            try {
+                // Ondersteuning voor zowel ISO ("2025-01-15T10:30:00Z") als
+                // legacy formaat ("24-08-2025 09:00")
+                var pubDate = new Date(pubDateString);
+
+                // Fallback voor legacy "DD-MM-YYYY HH:MM" formaat
+                if (isNaN(pubDate.getTime()) && pubDateString.includes('-')) {
+                    var parts = pubDateString.split(' ');
+                    var dateParts = parts[0].split('-');
+                    var time = parts[1] || '00:00';
+                    if (dateParts[0].length === 2) {
+                        // "24-08-2025" → "2025-08-24"
+                        pubDate = new Date(dateParts[2] + '-' + dateParts[1] + '-' + dateParts[0] + 'T' + time + ':00');
+                    }
                 }
+
+                if (!isNaN(pubDate.getTime()) && pubDate > twentyFiveHoursAgo) {
+                    if (item.querySelector('.new-badge')) return;
+                    var heading = item.querySelector('h3');
+                    if (heading) {
+                        var badge = document.createElement('span');
+                        badge.textContent = '✨ Nieuw';
+                        badge.className = 'new-badge';
+                        heading.appendChild(badge);
+                    }
+                }
+            } catch (e) {
+                // Ongeldige datum: badge overslaan
             }
         });
     }
