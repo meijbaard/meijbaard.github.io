@@ -8,7 +8,12 @@ layout: default
 
 <div class="content-wrapper">
 
-  <h1>:newspaper: Mark Eijbaard in het nieuws</h1>
+  <div class="news-page-header">
+    <div>
+      <h1>Mark Eijbaard in het nieuws</h1>
+      <p>Een automatisch bijgehouden overzicht van nieuwsartikelen en media-optredens. Elke 4 uur vernieuwd met berichten van regionale en lokale media over mijn werk als wethouder in Baarn.</p>
+    </div>
+  </div>
 
   <div class="news-controls">
     <p id="article-counter">Totaal {{ site.data.news.size }} artikelen gevonden.</p>

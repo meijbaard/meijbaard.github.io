@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Een persoonlijke en transparante blik op mijn werk, met als doel de dialoog aan te gaan en te laten zien hoe we samen werken aan het beste voor Baarn."
 twitter_username: meijbaard
 github_username: meijbaard
-minimal_mistakes_skin: dirt
+minimal_mistakes_skin: air
 search: true
 
 masthead_title: "Mark Eijbaard" # overrides the website title displayed in the masthead, use " " for no title
