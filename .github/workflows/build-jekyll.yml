@@ -26,7 +26,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'     # stabiel voor Jekyll/Pages
-          bundler-cache: true     # voert automatisch 'bundle install' uit en cachet
+          bundler-cache: false    # geen cache; voorkomt problemen bij Ruby patch-updates
+
+      - name: Install dependencies
+        run: bundle install
 
       - name: Build site
         run: bundle exec jekyll build --trace
