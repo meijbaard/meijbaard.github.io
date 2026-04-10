@@ -1,42 +1,52 @@
 ---
-# Alleen het hoofd-Sass-bestand heeft front matter nodig (de streepjes zijn genoeg)
 ---
 @charset "utf-8";
-
-// Stijlen van het Minimal Mistakes thema importeren
 @import "minimal-mistakes";
 
-/* ============================================
-   BAARN KLEURENSCHEMA & BASIS
-   ============================================ */
+/* ================================================================
+   INSHUR-INSPIRED DESIGN VOOR MARKEIJBAARD.NL
+   Kleurenpalet:
+     --ink:     #0d1928  (zeer donker marineblauw — nav/footer)
+     --navy:    #004a8f  (Baarn blauw — links, accenten)
+     --yellow:  #fec400  (Baarn geel — primaire CTA, eyebrows)
+     --white:   #ffffff
+     --surface: #f5f7fa  (lichtgrijze sectieachtergrond)
+     --text:    #0f172a  (bijna zwart)
+   ================================================================ */
+
 :root {
-  --baarn-blue:       #004a8f;
-  --baarn-blue-dark:  #003672;
-  --baarn-blue-light: #1a6bb5;
-  --baarn-blue-pale:  #ebf4ff;
-  --baarn-yellow:     #fec400;
-  --gray-50:  #f7f9fc;
-  --gray-100: #edf2f7;
-  --gray-200: #e2e8f0;
-  --gray-500: #a0aec0;
-  --gray-600: #718096;
-  --gray-700: #4a5568;
-  --gray-800: #2d3748;
-  --shadow-sm: 0 2px 8px rgba(0, 74, 143, 0.07);
-  --shadow-md: 0 8px 25px rgba(0, 74, 143, 0.14);
-  --radius-sm: 6px;
-  --radius:    10px;
-  --radius-lg: 14px;
+  --ink:        #0d1928;
+  --ink-2:      #162238;
+  --navy:       #004a8f;
+  --navy-l:     #1a6bb5;
+  --yellow:     #fec400;
+  --yellow-d:   #e5b000;
+  --white:      #ffffff;
+  --surface:    #f5f7fa;
+  --border:     #e8edf3;
+  --text:       #0f172a;
+  --muted:      #64748b;
+  --shadow-xs:  0 1px 4px rgba(0,0,0,0.06);
+  --shadow-sm:  0 4px 16px rgba(0,0,0,0.07);
+  --shadow-md:  0 12px 40px rgba(0,0,0,0.11);
+  --shadow-lg:  0 24px 64px rgba(0,0,0,0.13);
+  --r:          12px;
+  --r-lg:       20px;
 }
 
-/* ============================================
-   TYPOGRAFIE
-   ============================================ */
+/* ================================================================
+   TYPOGRAFIE — Plus Jakarta Sans
+   ================================================================ */
+
 body,
 .page__content,
 .page__meta,
-.author__bio {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.author__bio,
+.author__urls,
+.sidebar {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -44,66 +54,67 @@ h1, h2, h3, h4, h5, h6,
 .archive__item-title,
 .site-title,
 .nav__title {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Roboto, sans-serif;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.025em;
 }
 
-/* ============================================
-   MASTHEAD / NAVIGATIE
-   ============================================ */
+/* ================================================================
+   MASTHEAD  — donker marineblauw, geen bodembalk
+   ================================================================ */
+
 .masthead {
-  background-color: var(--baarn-blue) !important;
-  border-bottom: 3px solid var(--baarn-yellow) !important;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18) !important;
+  background: var(--ink) !important;
+  border-bottom: none !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06) !important;
 }
 
 .masthead__inner-wrap {
-  background-color: var(--baarn-blue) !important;
+  background: transparent !important;
+  padding-top: 0.55rem !important;
+  padding-bottom: 0.55rem !important;
 }
 
 .greedy-nav {
-  background: var(--baarn-blue) !important;
+  background: transparent !important;
 }
 
 .greedy-nav a.site-title {
   color: #ffffff !important;
   font-weight: 800 !important;
   font-size: 1.1rem !important;
-  letter-spacing: -0.02em;
-  text-shadow: none;
+  letter-spacing: -0.03em;
 
-  &:hover {
-    color: var(--baarn-yellow) !important;
-  }
+  &:hover { color: var(--yellow) !important; }
 }
 
 .greedy-nav .visible-links a {
-  color: rgba(255, 255, 255, 0.92) !important;
+  color: rgba(255,255,255,0.78) !important;
   font-weight: 500;
-  font-size: 0.88rem;
-  padding: 0.45rem 0.75rem !important;
-  border-radius: var(--radius-sm);
-  transition: color 0.18s, background 0.18s;
+  font-size: 0.875rem;
+  padding: 0.45rem 0.8rem !important;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
 
-  &:before {
-    display: none !important;
-  }
+  &:before { display: none !important; }
 
   &:hover {
-    color: var(--baarn-yellow) !important;
-    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+    background: rgba(255,255,255,0.09) !important;
   }
 }
 
 .greedy-nav .hidden-links {
-  background: var(--baarn-blue-dark) !important;
-  border: 1px solid rgba(255,255,255,0.15) !important;
+  background: var(--ink-2) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+  border-radius: var(--r) !important;
 
   a {
-    color: rgba(255,255,255,0.9) !important;
-
+    color: rgba(255,255,255,0.82) !important;
     &:hover {
-      color: var(--baarn-yellow) !important;
+      color: #fff !important;
       background: rgba(255,255,255,0.08) !important;
     }
   }
@@ -111,318 +122,357 @@ h1, h2, h3, h4, h5, h6,
 
 .greedy-nav__toggle {
   color: white !important;
-
-  svg {
-    fill: white !important;
-  }
-
+  svg { fill: white !important; }
   .navicon,
   .navicon:before,
-  .navicon:after {
-    background: white !important;
-  }
+  .navicon:after { background: white !important; }
 }
 
 .search__toggle {
-  color: rgba(255, 255, 255, 0.9) !important;
-
-  &:hover {
-    color: var(--baarn-yellow) !important;
-  }
+  color: rgba(255,255,255,0.78) !important;
+  &:hover { color: var(--yellow) !important; }
 }
 
-/* ============================================
-   HERO / SPLASH HEADER
-   ============================================ */
+/* ================================================================
+   HERO — groot, donkere overlay, gele CTA
+   ================================================================ */
+
 .page__hero--overlay {
-  min-height: 55vh;
-  background-position: center top !important;
+  min-height: 72vh;
 
   .wrapper {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
   }
 
   .page__title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
     font-weight: 800;
-    text-shadow: 1px 2px 10px rgba(0, 0, 0, 0.45);
-    letter-spacing: -0.02em;
-    margin-bottom: 0.4rem;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+    margin-bottom: 0.75rem;
   }
 
   .page__lead {
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.35);
-    max-width: 680px;
-    opacity: 0.96;
-    margin-bottom: 1.5rem;
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 400;
+    line-height: 1.7;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.35);
+    max-width: 600px;
+    opacity: 0.94;
+    margin-bottom: 2.2rem;
   }
 
   .page__hero-caption {
-    font-size: 0.72rem;
-    opacity: 0.65;
+    font-size: 0.7rem;
+    opacity: 0.45;
   }
-}
 
-/* ============================================
-   KNOPPEN
-   ============================================ */
-.btn--primary {
-  background-color: var(--baarn-blue) !important;
-  border-color: var(--baarn-blue) !important;
-  color: white !important;
-  border-radius: var(--radius-sm) !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.01em;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s !important;
-
-  &:hover {
-    background-color: var(--baarn-blue-dark) !important;
-    border-color: var(--baarn-blue-dark) !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 14px rgba(0, 74, 143, 0.3) !important;
-    color: white !important;
-  }
-}
-
-.btn--inverse {
-  border-radius: var(--radius-sm) !important;
-  font-weight: 600 !important;
-  transition: transform 0.15s !important;
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-}
-
-/* Hero-knoppen: wit met blauw-tekst voor inverse */
-.page__hero--overlay .btn--inverse {
-  background: rgba(255,255,255,0.15) !important;
-  border-color: rgba(255,255,255,0.7) !important;
-  color: white !important;
-
-  &:hover {
-    background: rgba(255,255,255,0.28) !important;
-    border-color: white !important;
-  }
-}
-
-/* ============================================
-   INTRO SECTIE (homepage)
-   ============================================ */
-.intro-section {
-  background: var(--gray-50);
-  border-radius: var(--radius);
-  padding: 1.5rem 2rem;
-  margin-bottom: 2.5rem;
-  border-left: 4px solid var(--baarn-yellow);
-}
-
-.intro-text {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--gray-700);
-  margin: 0;
-}
-
-/* ============================================
-   SECTIE HEADERS & SUBTITELS
-   ============================================ */
-.archive__subtitle,
-h2.section-title {
-  font-size: 1.35rem !important;
-  font-weight: 700 !important;
-  color: var(--gray-800) !important;
-  padding-bottom: 0.5rem !important;
-  border-bottom: 3px solid var(--baarn-yellow) !important;
-  display: inline-block !important;
-  margin-bottom: 0.5rem !important;
-}
-
-.section-subtitle {
-  color: var(--gray-600);
-  font-size: 0.95rem;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-}
-
-.section-cta {
-  text-align: center;
-  margin-top: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-/* ============================================
-   BLOG POST GRID KAARTEN
-   ============================================ */
-.grid__wrapper {
-  margin-bottom: 0 !important;
-}
-
-.grid__wrapper .grid__item {
-  margin-bottom: 1.5rem !important;
-}
-
-.grid__wrapper .archive__item {
-  border-radius: var(--radius) !important;
-  overflow: hidden !important;
-  box-shadow: var(--shadow-sm) !important;
-  border: 1px solid var(--gray-100) !important;
-  background: #fff !important;
-  height: 100% !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease !important;
-
-  &:hover {
-    transform: translateY(-5px) !important;
-    box-shadow: var(--shadow-md) !important;
-  }
-}
-
-.grid__wrapper .archive__item-teaser {
-  border-radius: 0 !important;
-}
-
-.grid__wrapper .archive__item-body {
-  padding: 1.1rem 1.2rem 1.3rem !important;
-}
-
-.archive__item-title {
-  font-size: 1.05rem !important;
-  font-weight: 700 !important;
-  line-height: 1.35 !important;
-  margin-top: 0 !important;
-
-  a {
-    color: var(--gray-800) !important;
-    text-decoration: none !important;
+  /* Gele CTA knop in hero — kenmerkend inshur */
+  .btn--primary {
+    background: var(--yellow) !important;
+    border-color: var(--yellow) !important;
+    color: var(--ink) !important;
 
     &:hover {
-      color: var(--baarn-blue) !important;
+      background: var(--yellow-d) !important;
+      border-color: var(--yellow-d) !important;
+      color: var(--ink) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(254,196,0,0.4) !important;
+    }
+  }
+
+  .btn--inverse {
+    background: rgba(255,255,255,0.1) !important;
+    border-color: rgba(255,255,255,0.5) !important;
+    color: white !important;
+    backdrop-filter: blur(4px);
+
+    &:hover {
+      background: rgba(255,255,255,0.2) !important;
+      border-color: white !important;
     }
   }
 }
 
-.archive__item-excerpt {
-  font-size: 0.87rem !important;
-  color: var(--gray-600) !important;
-  line-height: 1.6 !important;
+/* ================================================================
+   KNOPPEN — algemeen
+   ================================================================ */
+
+.btn {
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  padding: 0.7em 1.6em !important;
+  letter-spacing: 0.005em;
+  transition: all 0.18s ease !important;
 }
 
-/* Blog lijst (posts pagina) */
+.btn--primary {
+  background: var(--navy) !important;
+  border-color: var(--navy) !important;
+  color: white !important;
+
+  &:hover {
+    background: var(--ink) !important;
+    border-color: var(--ink) !important;
+    color: white !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(0,74,143,0.32) !important;
+  }
+}
+
+/* ================================================================
+   EYEBROW LABELS — inshur kenmerk: kleine tekst boven sectiehoofd
+   ================================================================ */
+
+.section-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--navy);
+  margin-bottom: 0.6rem;
+}
+
+/* ================================================================
+   SECTIE-LAYOUT
+   ================================================================ */
+
+.archive__subtitle,
+h2.section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2rem) !important;
+  font-weight: 800 !important;
+  color: var(--text) !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  letter-spacing: -0.03em;
+  line-height: 1.18;
+  margin-bottom: 0.4rem !important;
+  display: block !important;
+}
+
+.section-subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 0 2.5rem;
+}
+
+.section-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+/* Intro blok */
+.intro-section {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  padding: 2rem 2.5rem;
+  margin-bottom: 4.5rem;
+  border-left: 4px solid var(--yellow);
+}
+
+.intro-text {
+  font-size: 1.08rem;
+  line-height: 1.82;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Lege ruimte tussen homepage-blokken */
+.home-section {
+  margin-bottom: 4.5rem;
+}
+
+/* ================================================================
+   BLOG GRID KAARTEN
+   ================================================================ */
+
+.grid__wrapper {
+  gap: 1.4rem !important;
+  margin-bottom: 0 !important;
+}
+
+.grid__wrapper .grid__item {
+  margin-bottom: 0 !important;
+}
+
+.grid__wrapper .archive__item {
+  border-radius: var(--r) !important;
+  overflow: hidden !important;
+  box-shadow: var(--shadow-xs) !important;
+  border: 1px solid var(--border) !important;
+  background: var(--white) !important;
+  height: 100% !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease,
+              border-color 0.22s !important;
+
+  &:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: var(--shadow-md) !important;
+    border-color: #c8d6e8 !important;
+  }
+}
+
+.grid__wrapper .archive__item-body {
+  padding: 1.3rem 1.4rem 1.5rem !important;
+}
+
+.archive__item-title {
+  font-size: 1.08rem !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.018em;
+  margin-top: 0 !important;
+
+  a {
+    color: var(--text) !important;
+    text-decoration: none !important;
+
+    &:hover { color: var(--navy) !important; }
+  }
+}
+
+.archive__item-excerpt {
+  font-size: 0.88rem !important;
+  color: var(--muted) !important;
+  line-height: 1.65 !important;
+  margin-top: 0.45rem !important;
+}
+
+/* Blog lijst (posts-pagina) */
 .archive__item--list {
   display: flex;
   align-items: flex-start;
-  gap: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 1.2em;
-  border-radius: var(--radius);
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--gray-100);
+  gap: 1.4rem;
+  margin-bottom: 1.2rem;
+  padding: 1.3rem;
+  border-radius: var(--r);
+  background: var(--white);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--border);
   transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
   }
 }
 
 .archive__item--list .archive__item-teaser {
   flex: 0 0 200px;
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   overflow: hidden;
 }
 
 .archive__item--list h2.archive__item-title {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   margin-top: 0;
 }
 
-/* ============================================
-   DASHBOARD GRID (homepage showcase)
-   ============================================ */
+/* ================================================================
+   DASHBOARD KAARTEN — donker, screenshot preview
+   ================================================================ */
+
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 1.4rem;
-  margin-bottom: 3rem;
-  margin-top: 1.2rem;
+  margin-top: 2rem;
 }
 
 .dashboard-card {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--gray-100);
+  background: var(--white);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--border);
   overflow: hidden;
   text-decoration: none !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
   color: inherit;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s;
 
   &:hover {
-    transform: translateY(-5px);
+    transform: translateY(-6px);
     box-shadow: var(--shadow-md);
+    border-color: var(--navy);
     text-decoration: none !important;
 
-    .dashboard-card__arrow {
-      transform: translateX(5px);
+    .dashboard-card__arrow { transform: translateX(5px); }
+  }
+
+  &__preview {
+    height: 160px;
+    overflow: hidden;
+    background: var(--ink);
+    position: relative;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      opacity: 0.88;
+      transition: opacity 0.2s, transform 0.3s;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to bottom, transparent, rgba(13,25,40,0.6));
+      pointer-events: none;
     }
   }
 
-  &__header {
-    background: linear-gradient(135deg, var(--baarn-blue) 0%, var(--baarn-blue-light) 100%);
-    padding: 1.4rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  &__icon {
-    font-size: 1.7rem;
-    background: rgba(255, 255, 255, 0.18);
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
-
-  &__header h3 {
-    color: white !important;
-    margin: 0 !important;
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    line-height: 1.3 !important;
+  &:hover &__preview img {
+    opacity: 1;
+    transform: scale(1.03);
   }
 
   &__body {
-    padding: 1.2rem 1.5rem 1.4rem;
+    padding: 1.3rem 1.4rem 1.5rem;
     flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 0.4rem;
   }
 
-  &__body p {
-    color: var(--gray-600);
-    font-size: 0.88rem;
-    line-height: 1.65;
+  &__title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.015em;
+  }
+
+  &__desc {
+    color: var(--muted);
+    font-size: 0.87rem;
+    line-height: 1.6;
     flex: 1;
-    margin-bottom: 1rem;
+    margin: 0;
   }
 
   &__link {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    color: var(--baarn-blue) !important;
-    font-weight: 600;
-    font-size: 0.88rem;
+    color: var(--navy) !important;
+    font-weight: 700;
+    font-size: 0.87rem;
     text-decoration: none !important;
+    margin-top: 0.6rem;
   }
 
   &__arrow {
@@ -431,194 +481,220 @@ h2.section-title {
   }
 }
 
-/* ============================================
-   NIEUWS TEASER (homepage sectie)
-   ============================================ */
+/* ================================================================
+   NIEUWS TEASER — donkere sectie zoals inshur donker-blokken
+   ================================================================ */
+
 .news-teaser {
-  background: var(--gray-50);
-  border-radius: var(--radius);
-  padding: 2rem 2rem 1.5rem;
-  margin-bottom: 3rem;
+  background: var(--ink);
+  border-radius: var(--r-lg);
+  padding: 3.5rem 3rem 3rem;
+
+  .archive__subtitle {
+    color: var(--white) !important;
+  }
+
+  .section-eyebrow {
+    color: var(--yellow);
+  }
+
+  .section-subtitle {
+    color: rgba(255,255,255,0.62);
+  }
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.1rem;
-    margin-top: 1.2rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
   }
 
   &__item {
-    background: white;
-    border-radius: var(--radius-sm);
-    padding: 1.1rem 1.2rem;
-    border-left: 3px solid var(--baarn-blue);
-    box-shadow: var(--shadow-sm);
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    border: 1px solid rgba(255,255,255,0.09);
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
+    transition: background 0.2s, border-color 0.2s;
+
+    &:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.18);
+    }
   }
 
   &__source {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: var(--baarn-blue);
+    color: var(--yellow);
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
   }
 
   &__item h4 {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 600;
     margin: 0;
     line-height: 1.45;
+    letter-spacing: -0.01em;
 
     a {
-      color: var(--gray-800) !important;
+      color: rgba(255,255,255,0.88) !important;
       text-decoration: none !important;
 
-      &:hover {
-        color: var(--baarn-blue) !important;
-      }
+      &:hover { color: var(--yellow) !important; }
     }
   }
 
   &__date {
-    font-size: 0.78rem;
-    color: var(--gray-500);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.38);
+  }
+
+  .section-cta .btn--primary {
+    background: var(--yellow) !important;
+    border-color: var(--yellow) !important;
+    color: var(--ink) !important;
+
+    &:hover {
+      background: var(--yellow-d) !important;
+      border-color: var(--yellow-d) !important;
+    }
   }
 }
 
-/* ============================================
-   AUTEURSPROFIEL SIDEBAR
-   ============================================ */
+/* ================================================================
+   SIDEBAR & AUTEURSPROFIEL
+   ================================================================ */
+
 .author__avatar img {
-  border: 3px solid var(--baarn-yellow) !important;
-  border-radius: 50% !important;
-  box-shadow: 0 2px 10px rgba(0, 74, 143, 0.15);
+  border: 3px solid var(--yellow) !important;
+  box-shadow: 0 4px 18px rgba(13,25,40,0.2) !important;
 }
 
 .author__name {
-  font-weight: 700 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
 }
 
 .author__bio {
-  font-size: 0.85rem !important;
-  line-height: 1.6 !important;
+  font-size: 0.87rem !important;
+  line-height: 1.7 !important;
+  color: var(--muted) !important;
 }
 
 .author__urls a {
-  color: var(--gray-700) !important;
-  font-size: 0.85rem !important;
+  color: var(--text) !important;
+  font-size: 0.88rem !important;
+  font-weight: 500 !important;
 
-  &:hover {
-    color: var(--baarn-blue) !important;
-  }
+  &:hover { color: var(--navy) !important; }
 }
 
-/* ============================================
-   SINGLE POST / PAGINA
-   ============================================ */
+/* ================================================================
+   SINGLE POST
+   ================================================================ */
+
 .page__content {
   h2 {
-    border-bottom: 2px solid var(--gray-100);
-    padding-bottom: 0.4rem;
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.022em;
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border);
   }
 
   a:not(.btn) {
-    color: var(--baarn-blue);
+    color: var(--navy);
+    font-weight: 500;
 
-    &:hover {
-      color: var(--baarn-blue-dark);
-    }
+    &:hover { color: var(--ink); }
+  }
+
+  p {
+    line-height: 1.82;
+    color: #1e293b;
   }
 }
 
 .page__meta {
-  font-size: 0.82rem;
-  color: var(--gray-500) !important;
+  font-size: 0.82rem !important;
+  color: var(--muted) !important;
 }
 
-/* ============================================
+/* ================================================================
    BREADCRUMBS
-   ============================================ */
+   ================================================================ */
+
 nav.breadcrumbs {
-  background: var(--gray-50) !important;
-  border-bottom: 1px solid var(--gray-100) !important;
-  padding: 0.5rem 0 !important;
+  background: var(--surface) !important;
+  border-bottom: 1px solid var(--border) !important;
 
-  ol {
-    font-size: 0.82rem !important;
-  }
-
+  ol { font-size: 0.82rem !important; }
   a {
-    color: var(--baarn-blue) !important;
-    font-weight: 500 !important;
+    color: var(--navy) !important;
+    font-weight: 600 !important;
   }
 }
 
-/* ============================================
+/* ================================================================
    TAGS & CATEGORIEEN
-   ============================================ */
-.page__taxonomy-item {
-  background: var(--gray-50) !important;
-  border: 1px solid var(--gray-200) !important;
-  border-radius: 20px !important;
-  font-size: 0.78rem !important;
-  padding: 0.2em 0.75em !important;
-  transition: background 0.18s, color 0.18s !important;
+   ================================================================ */
 
-  a {
-    color: var(--gray-700) !important;
-  }
+.page__taxonomy-item {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 6px !important;
+  font-size: 0.79rem !important;
+  font-weight: 600 !important;
+  padding: 0.25em 0.7em !important;
+  transition: all 0.15s !important;
+
+  a { color: var(--muted) !important; }
 
   &:hover {
-    background: var(--baarn-blue) !important;
-    border-color: var(--baarn-blue) !important;
-
-    a {
-      color: white !important;
-    }
+    background: var(--navy) !important;
+    border-color: var(--navy) !important;
+    a { color: white !important; }
   }
 }
 
-/* ============================================
-   FOOTER
-   ============================================ */
-.page__footer {
-  background: var(--baarn-blue) !important;
+/* ================================================================
+   FOOTER — dezelfde donkere kleur als nav
+   ================================================================ */
 
-  footer {
-    color: rgba(255, 255, 255, 0.7) !important;
-  }
+.page__footer {
+  background: var(--ink) !important;
+  border-top: 1px solid rgba(255,255,255,0.07);
+
+  footer { color: rgba(255,255,255,0.5) !important; }
 
   a {
-    color: rgba(255, 255, 255, 0.85) !important;
-
-    &:hover {
-      color: var(--baarn-yellow) !important;
-    }
+    color: rgba(255,255,255,0.65) !important;
+    &:hover { color: var(--yellow) !important; }
   }
 
   .page__footer-copyright {
-    color: rgba(255, 255, 255, 0.55) !important;
-    font-size: 0.8rem !important;
+    color: rgba(255,255,255,0.35) !important;
+    font-size: 0.78rem !important;
   }
 }
 
-/* ============================================
+/* ================================================================
    ZOEKRESULTATEN
-   ============================================ */
-.search-content {
-  .search-input {
-    border-radius: var(--radius-sm) !important;
-    border-color: var(--gray-200) !important;
-  }
+   ================================================================ */
+
+.search-content .search-input {
+  border-radius: 8px !important;
 }
 
-/* ============================================
+/* ================================================================
    FONT AWESOME FONT DISPLAY
-   ============================================ */
+   ================================================================ */
+
 @font-face {
   font-family: "Font Awesome 5 Free";
   font-display: swap;
@@ -629,39 +705,40 @@ nav.breadcrumbs {
   font-display: swap;
 }
 
-/* ============================================
-   COOKIE CONSENT KNOP
-   ============================================ */
+/* ================================================================
+   COOKIE CONSENT
+   ================================================================ */
+
 .cc-btn.cc-allow {
-  background-color: var(--baarn-blue) !important;
-  color: #fff !important;
-  border-radius: var(--radius-sm) !important;
+  background-color: var(--navy) !important;
+  color: white !important;
+  border-radius: 6px !important;
 }
 
-/* ============================================
-   MOBILE AANPASSINGEN
-   ============================================ */
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
+/* ================================================================
+   MOBILE
+   ================================================================ */
 
-  .news-teaser__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .dashboard-grid         { grid-template-columns: 1fr; }
+  .news-teaser__grid      { grid-template-columns: 1fr; }
+  .news-teaser            { padding: 2rem 1.5rem; }
+
+  .page__hero--overlay {
+    min-height: 55vh;
+    .wrapper { padding: 3.5rem 1rem; }
   }
 
   .archive__item--list {
     flex-direction: column;
+
+    .archive__item-teaser {
+      flex: none;
+      width: 100%;
+      max-height: 200px;
+      overflow: hidden;
+    }
   }
 
-  .archive__item--list .archive__item-teaser {
-    flex: none;
-    width: 100%;
-    max-height: 220px;
-    overflow: hidden;
-  }
-
-  .page__hero--overlay {
-    min-height: 45vh;
-  }
+  .intro-section { padding: 1.5rem 1.5rem; }
 }

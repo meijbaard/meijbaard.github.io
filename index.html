@@ -1,12 +1,11 @@
 ---
-# === FRONT MATTER ===
 layout: splash
 author_profile: true
 description: "Welkom op de website van Mark Eijbaard, wethouder in Baarn. Lees mijn persoonlijke reflecties op beleid, ontdek de achtergronden bij besluiten en ga de dialoog aan."
 header:
   overlay_image: /assets/images/header_baarn.webp
-  overlay_color: "#004a8f"
-  overlay_filter: 0.38
+  overlay_color: "#0d1928"
+  overlay_filter: 0.42
   caption: "**De Baarnse Brink**"
   title: "Met een Baarnse blik..."
   tagline: "Mijn gedachten over bestuur, beleid en de toekomst van Baarn."
@@ -24,71 +23,86 @@ header:
 
   <div class="archive">
 
-    <!-- ===== INTRODUCTIE ===== -->
+    <!-- ========================================
+         INTRODUCTIE
+         ======================================== -->
     <div class="intro-section">
-      <p class="intro-text">Als <strong>geboren en getogen</strong> Baarnaar en wethouder in onze prachtige gemeente, duik ik dagelijks in complexe dossiers. Op deze website deel ik mijn reflecties, de achtergronden bij beleid en de inzichten die ik opdoe. Een <strong>persoonlijke en transparante blik</strong> op mijn werk, met als doel de dialoog aan te gaan en te laten zien hoe we samen werken aan het beste voor Baarn.</p>
+      <p class="intro-text">Als <strong>geboren en getogen</strong> Baarnaar en wethouder in onze prachtige gemeente, duik ik dagelijks in complexe dossiers. Op deze website deel ik mijn reflecties, de achtergronden bij beleid en de inzichten die ik opdoe &mdash; een <strong>persoonlijke en transparante blik</strong> op mijn werk als bestuurder.</p>
     </div>
 
-    <!-- ===== RECENTE BERICHTEN ===== -->
-    <h2 class="archive__subtitle">Recente Berichten</h2>
-    <p class="section-subtitle">Mijn laatste reflecties over bestuur, beleid en het dagelijkse leven in Baarn.</p>
+    <!-- ========================================
+         RECENTE BERICHTEN
+         ======================================== -->
+    <div class="home-section">
+      <span class="section-eyebrow">&#10022; Berichten</span>
+      <h2 class="archive__subtitle">Recente reflecties</h2>
+      <p class="section-subtitle">Mijn laatste gedachten over bestuur, beleid en het dagelijkse leven in Baarn.</p>
 
-    <div class="grid__wrapper">
-      {% for post in site.posts limit:3 %}
-        <div class="grid__item">
-          {% include archive-single.html type="grid" %}
-        </div>
-      {% endfor %}
+      <div class="grid__wrapper">
+        {% for post in site.posts limit:3 %}
+          <div class="grid__item">
+            {% include archive-single.html type="grid" %}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="section-cta">
+        <a href="/posts/" class="btn btn--primary">Alle berichten &rarr;</a>
+      </div>
     </div>
 
-    <div class="section-cta">
-      <a href="/posts/" class="btn btn--primary">Alle berichten &rarr;</a>
+    <!-- ========================================
+         OPEN DATA DASHBOARDS
+         ======================================== -->
+    <div class="home-section">
+      <span class="section-eyebrow">&#10022; Open Data</span>
+      <h2 class="archive__subtitle">Transparantie door data</h2>
+      <p class="section-subtitle">Interactieve tools die complexe Baarnse informatie toegankelijk maken voor iedereen.</p>
+
+      <div class="dashboard-grid">
+
+        <a href="/localdashboard/" class="dashboard-card">
+          <div class="dashboard-card__preview">
+            <img src="/assets/images/dashboard_lokaal.png" alt="Wijkdata Dashboard screenshot" loading="lazy">
+          </div>
+          <div class="dashboard-card__body">
+            <p class="dashboard-card__title">Wijkdata Dashboard</p>
+            <p class="dashboard-card__desc">Interactieve kaart met CBS-wijkstatistieken voor alle buurten in Baarn. Demografische gegevens, woningmarkt en meer per wijk.</p>
+            <span class="dashboard-card__link">Bekijk dashboard <span class="dashboard-card__arrow">→</span></span>
+          </div>
+        </a>
+
+        <a href="/electiondashboard/" class="dashboard-card">
+          <div class="dashboard-card__preview">
+            <img src="/assets/images/dashboard_verkiezingen.png" alt="Verkiezingsdashboard screenshot" loading="lazy">
+          </div>
+          <div class="dashboard-card__body">
+            <p class="dashboard-card__title">Verkiezingsdashboard</p>
+            <p class="dashboard-card__desc">Interactieve analyse van gemeenteraadsverkiezingen: zetelverdeling, stemgedrag per wijk en vergelijking tussen jaren.</p>
+            <span class="dashboard-card__link">Bekijk dashboard <span class="dashboard-card__arrow">→</span></span>
+          </div>
+        </a>
+
+        <a href="/inhetnieuws/" class="dashboard-card">
+          <div class="dashboard-card__preview" style="display:flex; align-items:center; justify-content:center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="rgba(255,255,255,0.25)" viewBox="0 0 24 24"><path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/></svg>
+          </div>
+          <div class="dashboard-card__body">
+            <p class="dashboard-card__title">In het Nieuws</p>
+            <p class="dashboard-card__desc">Automatisch bijgehouden overzicht van regionale nieuwsartikelen over mijn werk in Baarn. Elke 4 uur vernieuwd.</p>
+            <span class="dashboard-card__link">Bekijk nieuws <span class="dashboard-card__arrow">→</span></span>
+          </div>
+        </a>
+
+      </div>
     </div>
 
-    <!-- ===== DASHBOARDS SHOWCASE ===== -->
-    <h2 class="archive__subtitle">Open Data Dashboards</h2>
-    <p class="section-subtitle">Transparantie door data: interactieve tools om Baarnse informatie toegankelijk te maken voor iedereen.</p>
-
-    <div class="dashboard-grid">
-
-      <a href="/localdashboard/" class="dashboard-card">
-        <div class="dashboard-card__header">
-          <div class="dashboard-card__icon">🗺️</div>
-          <h3>Wijkdata Dashboard</h3>
-        </div>
-        <div class="dashboard-card__body">
-          <p>Interactieve kaart met CBS-wijkstatistieken voor alle buurten en wijken in Baarn. Verken demografische gegevens, woningmarkt en meer per wijk.</p>
-          <span class="dashboard-card__link">Bekijk dashboard <span class="dashboard-card__arrow">→</span></span>
-        </div>
-      </a>
-
-      <a href="/electiondashboard/" class="dashboard-card">
-        <div class="dashboard-card__header">
-          <div class="dashboard-card__icon">🗳️</div>
-          <h3>Verkiezingsdashboard</h3>
-        </div>
-        <div class="dashboard-card__body">
-          <p>Interactieve analyse van gemeenteraadsverkiezingen in Baarn: zetelverdeling, stemgedrag per wijk en vergelijking tussen verkiezingsjaren.</p>
-          <span class="dashboard-card__link">Bekijk dashboard <span class="dashboard-card__arrow">→</span></span>
-        </div>
-      </a>
-
-      <a href="/inhetnieuws/" class="dashboard-card">
-        <div class="dashboard-card__header">
-          <div class="dashboard-card__icon">📰</div>
-          <h3>In het Nieuws</h3>
-        </div>
-        <div class="dashboard-card__body">
-          <p>Automatisch bijgehouden overzicht van nieuwsartikelen uit regionale media. Elke 4 uur vernieuwd met berichten over mijn werk in Baarn.</p>
-          <span class="dashboard-card__link">Bekijk nieuws <span class="dashboard-card__arrow">→</span></span>
-        </div>
-      </a>
-
-    </div>
-
-    <!-- ===== LAATSTE NIEUWSBERICHTEN ===== -->
-    <div class="news-teaser">
-      <h2 class="archive__subtitle">Laatste Nieuwsberichten</h2>
+    <!-- ========================================
+         NIEUWS TEASER — donkere sectie
+         ======================================== -->
+    <div class="news-teaser home-section">
+      <span class="section-eyebrow">&#10022; Media</span>
+      <h2 class="archive__subtitle">Laatste nieuwsberichten</h2>
       <p class="section-subtitle">Recent nieuws over mijn werk als wethouder, automatisch verzameld uit regionale media.</p>
 
       <div class="news-teaser__grid">
@@ -103,7 +117,7 @@ header:
         {% endfor %}
       </div>
 
-      <div class="section-cta" style="margin-bottom: 0.5rem;">
+      <div class="section-cta">
         <a href="/inhetnieuws/" class="btn btn--primary">Alle nieuwsberichten &rarr;</a>
       </div>
     </div>

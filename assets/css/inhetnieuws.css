@@ -1,95 +1,101 @@
-/* ============================================
-   IN HET NIEUWS - CARD GRID LAYOUT
-   ============================================ */
+/* ================================================================
+   IN HET NIEUWS — card grid, inshur-stijl
+   ================================================================ */
 
 .content-wrapper {
-  max-width: 1160px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* ============================================
+/* ================================================================
    PAGINAKOP
-   ============================================ */
+   ================================================================ */
+
 .news-page-header {
-  background: linear-gradient(135deg, #004a8f 0%, #1a6bb5 100%);
+  background: #0d1928;
   color: white;
-  padding: 2.5rem 2rem;
-  border-radius: 12px;
+  padding: 2.8rem 2.5rem;
+  border-radius: 16px;
   margin-bottom: 2rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
 }
 
 .news-page-header h1 {
   color: white !important;
   margin: 0 0 0.4rem;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 800;
+  letter-spacing: -0.025em;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
 }
 
 .news-page-header p {
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.68);
   margin: 0;
   font-size: 0.95rem;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
-/* ============================================
+/* ================================================================
    FILTER BALK
-   ============================================ */
+   ================================================================ */
+
 .news-controls {
-  background: #f7f9fc;
-  border: 1px solid #edf2f7;
-  border-radius: 10px;
+  background: #f5f7fa;
+  border: 1px solid #e8edf3;
+  border-radius: 12px;
   padding: 1.2rem 1.5rem;
   margin-bottom: 2rem;
 }
 
 #article-counter {
-  font-weight: 600;
-  color: #2d3748;
-  margin: 0 0 0.8rem;
-  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.75rem;
+  font-size: 0.92rem;
 }
 
 #filter-container strong {
-  font-size: 0.85rem;
-  color: #4a5568;
+  font-size: 0.82rem;
+  color: #64748b;
+  font-weight: 600;
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 .filter-btn {
-  background-color: #ffffff;
-  border: 1px solid #cbd5e0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
-  padding: 6px 14px;
-  margin-right: 7px;
-  margin-bottom: 7px;
+  padding: 5px 14px;
+  margin-right: 6px;
+  margin-bottom: 6px;
   cursor: pointer;
   font-size: 0.82rem;
-  font-weight: 500;
-  color: #4a5568;
-  transition: background 0.18s, border-color 0.18s, color 0.18s;
+  font-weight: 600;
+  color: #475569;
+  transition: all 0.15s ease;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
 }
 
 .filter-btn:hover {
-  background-color: #ebf4ff;
+  background: #eff6ff;
   border-color: #004a8f;
   color: #004a8f;
 }
 
 .filter-btn.active {
-  background-color: #004a8f;
+  background: #004a8f;
   color: white;
   border-color: #004a8f;
 }
 
-/* ============================================
-   NIEUWS GRID
-   ============================================ */
+/* ================================================================
+   NIEUWS CARD GRID
+   ================================================================ */
+
 ul#news-list {
   padding-left: 0;
   margin: 0;
@@ -99,31 +105,32 @@ ul#news-list {
   list-style: none;
 }
 
-/* ============================================
+/* ================================================================
    NIEUWS KAART
-   ============================================ */
+   ================================================================ */
+
 .news-item {
   list-style: none;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 74, 143, 0.07);
-  border: 1px solid #edf2f7;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  border: 1px solid #e8edf3;
   overflow: hidden;
-  transition: transform 0.22s ease, box-shadow 0.22s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s;
   display: flex;
   flex-direction: column;
-  padding: 0;
 }
 
 .news-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 74, 143, 0.14);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.11);
+  border-color: #c8d6e8;
 }
 
 /* Afbeelding bovenaan de kaart */
 #news-list .news-item .news-image {
   width: 100%;
-  height: 175px;
+  height: 170px;
   object-fit: cover;
   margin: 0;
   border-radius: 0;
@@ -131,24 +138,26 @@ ul#news-list {
   display: block;
 }
 
-/* Tekstinhoud */
+/* Inhoud */
 .news-content {
-  padding: 1.1rem 1.2rem 1.2rem;
+  padding: 1.1rem 1.25rem 1.25rem;
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .news-content h3 {
-  margin-top: 0;
-  margin-bottom: 0.8rem;
-  font-size: 0.95rem;
+  margin: 0 0 auto;
+  font-size: 0.93rem;
   line-height: 1.45;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  padding-bottom: 0.75rem;
 }
 
 .news-content h3 a {
-  color: #2d3748;
+  color: #0f172a;
   text-decoration: none;
 }
 
@@ -156,46 +165,43 @@ ul#news-list {
   color: #004a8f;
 }
 
-/* Omschrijving (eerste alinea na h3) */
+/* Meta info (bron, auteur, datum) */
 .news-content p {
-  font-size: 0.82rem;
-  color: #718096;
-  margin: 0 0 0.5rem;
-  line-height: 1.55;
-}
-
-/* Bron/datum meta (laatste alinea) */
-.news-content p:last-of-type {
-  margin-top: auto;
-  padding-top: 0.8rem;
-  border-top: 1px solid #edf2f7;
   font-size: 0.78rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.5;
+  padding-top: 0.75rem;
+  border-top: 1px solid #f1f5f9;
 }
 
 .news-content p strong {
-  color: #4a5568;
+  color: #64748b;
+  font-weight: 600;
 }
 
-/* Badge voor nieuwe artikelen */
+/* Nieuw badge */
 .new-badge {
-  background-color: #004a8f;
+  background: #004a8f;
   color: white;
   padding: 2px 8px;
   margin-left: 8px;
-  border-radius: 10px;
-  font-size: 0.72rem;
+  border-radius: 8px;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.03em;
+  vertical-align: middle;
 }
 
-/* ============================================
+/* ================================================================
    RSS KNOP
-   ============================================ */
+   ================================================================ */
+
 .rss-button-container {
   text-align: center;
   margin-top: 3rem;
   padding-top: 2rem;
-  border-top: 1px solid #edf2f7;
+  border-top: 1px solid #e8edf3;
 }
 
 .rss-button {
@@ -203,38 +209,36 @@ ul#news-list {
   align-items: center;
   justify-content: center;
   padding: 10px 22px;
-  background-color: #e8620a;
+  background: #e8620a;
   color: white;
   text-decoration: none;
   border-radius: 20px;
-  font-weight: 600;
-  font-size: 0.88rem;
-  transition: background-color 0.2s, transform 0.15s;
+  font-weight: 700;
+  font-size: 0.87rem;
+  transition: background 0.2s, transform 0.15s;
+  font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
 }
 
 .rss-button:hover {
-  background-color: #cc5409;
+  background: #cc5409;
   transform: translateY(-2px);
   color: white;
 }
 
-.rss-button svg {
-  margin-right: 8px;
-}
+.rss-button svg { margin-right: 8px; }
 
-/* ============================================
+/* ================================================================
    MOBILE
-   ============================================ */
+   ================================================================ */
+
 @media (max-width: 640px) {
-  ul#news-list {
-    grid-template-columns: 1fr;
-  }
+  ul#news-list { grid-template-columns: 1fr; }
 
   .news-page-header {
-    padding: 1.5rem;
+    padding: 1.8rem 1.5rem;
   }
 
   .news-page-header h1 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 }
