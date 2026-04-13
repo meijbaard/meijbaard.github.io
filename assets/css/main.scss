@@ -4,34 +4,33 @@
 @import "minimal-mistakes";
 
 /* ================================================================
-   INSHUR-INSPIRED DESIGN VOOR MARKEIJBAARD.NL
+   MARK EIJBAARD — Licht, toegankelijk design
    Kleurenpalet:
-     --ink:     #0d1928  (zeer donker marineblauw — nav/footer)
      --navy:    #004a8f  (Baarn blauw — links, accenten)
-     --yellow:  #fec400  (Baarn geel — primaire CTA, eyebrows)
-     --white:   #ffffff
-     --surface: #f5f7fa  (lichtgrijze sectieachtergrond)
-     --text:    #0f172a  (bijna zwart)
+     --yellow:  #fec400  (Baarn geel — highlights, CTA)
+     --surface: #f8f9fb  (lichtgrijs — achtergrond)
+     --text:    #1a2332  (bijna zwart)
+     --muted:   #5a6a7e  (grijs)
    ================================================================ */
 
 :root {
-  --ink:        #0d1928;
-  --ink-2:      #162238;
   --navy:       #004a8f;
   --navy-l:     #1a6bb5;
+  --navy-xl:    #e8f0fb;
   --yellow:     #fec400;
   --yellow-d:   #e5b000;
+  --yellow-l:   #fffaeb;
   --white:      #ffffff;
-  --surface:    #f5f7fa;
-  --border:     #e8edf3;
-  --text:       #0f172a;
-  --muted:      #64748b;
-  --shadow-xs:  0 1px 4px rgba(0,0,0,0.06);
-  --shadow-sm:  0 4px 16px rgba(0,0,0,0.07);
-  --shadow-md:  0 12px 40px rgba(0,0,0,0.11);
-  --shadow-lg:  0 24px 64px rgba(0,0,0,0.13);
-  --r:          12px;
-  --r-lg:       20px;
+  --surface:    #f8f9fb;
+  --surface-2:  #eef2f7;
+  --border:     #e2e8f0;
+  --text:       #1a2332;
+  --muted:      #5a6a7e;
+  --shadow-xs:  0 1px 3px rgba(26,35,50,0.06), 0 1px 2px rgba(26,35,50,0.04);
+  --shadow-sm:  0 4px 14px rgba(26,35,50,0.08);
+  --shadow-md:  0 8px 32px rgba(26,35,50,0.10);
+  --r:          10px;
+  --r-lg:       16px;
 }
 
 /* ================================================================
@@ -41,12 +40,11 @@
 body,
 .page__content,
 .page__meta,
-.author__bio,
-.author__urls,
 .sidebar {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont,
                "Segoe UI", Roboto, sans-serif;
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -58,23 +56,54 @@ h1, h2, h3, h4, h5, h6,
                "Segoe UI", Roboto, sans-serif;
   font-weight: 800;
   color: var(--text);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 /* ================================================================
-   MASTHEAD  — donker marineblauw, geen bodembalk
+   LAYOUT — GEEN SIDEBAR, ÉÉN KOLOM
+   ================================================================ */
+
+.sidebar,
+.sidebar--right {
+  display: none !important;
+}
+
+#main {
+  display: block !important;
+  float: none !important;
+  padding: 0 !important;
+}
+
+#main .archive,
+#main > article.page,
+#main > article {
+  float: none !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Single post: begrensde leeskolom centreren */
+.page__inner-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+/* ================================================================
+   MASTHEAD — wit, subtiel schaduw
    ================================================================ */
 
 .masthead {
-  background: var(--ink) !important;
-  border-bottom: none !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.06) !important;
+  background: var(--white) !important;
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-xs) !important;
 }
 
 .masthead__inner-wrap {
   background: transparent !important;
-  padding-top: 0.55rem !important;
-  padding-bottom: 0.55rem !important;
+  padding-top: 0.6rem !important;
+  padding-bottom: 0.6rem !important;
 }
 
 .greedy-nav {
@@ -82,17 +111,17 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .greedy-nav a.site-title {
-  color: #ffffff !important;
+  color: var(--navy) !important;
   font-weight: 800 !important;
-  font-size: 1.1rem !important;
+  font-size: 1.08rem !important;
   letter-spacing: -0.03em;
 
-  &:hover { color: var(--yellow) !important; }
+  &:hover { color: var(--navy-l) !important; }
 }
 
 .greedy-nav .visible-links a {
-  color: rgba(255,255,255,0.78) !important;
-  font-weight: 500;
+  color: var(--muted) !important;
+  font-weight: 600;
   font-size: 0.875rem;
   padding: 0.45rem 0.8rem !important;
   border-radius: 6px;
@@ -101,98 +130,97 @@ h1, h2, h3, h4, h5, h6,
   &:before { display: none !important; }
 
   &:hover {
-    color: #ffffff !important;
-    background: rgba(255,255,255,0.09) !important;
+    color: var(--navy) !important;
+    background: var(--navy-xl) !important;
   }
 }
 
 .greedy-nav .hidden-links {
-  background: var(--ink-2) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
+  background: var(--white) !important;
+  border: 1px solid var(--border) !important;
   border-radius: var(--r) !important;
+  box-shadow: var(--shadow-md) !important;
 
   a {
-    color: rgba(255,255,255,0.82) !important;
+    color: var(--text) !important;
     &:hover {
-      color: #fff !important;
-      background: rgba(255,255,255,0.08) !important;
+      color: var(--navy) !important;
+      background: var(--navy-xl) !important;
     }
   }
 }
 
 .greedy-nav__toggle {
-  color: white !important;
-  svg { fill: white !important; }
+  color: var(--navy) !important;
+  svg { fill: var(--navy) !important; }
   .navicon,
   .navicon:before,
-  .navicon:after { background: white !important; }
+  .navicon:after { background: var(--navy) !important; }
 }
 
 .search__toggle {
-  color: rgba(255,255,255,0.78) !important;
-  &:hover { color: var(--yellow) !important; }
+  color: var(--muted) !important;
+  &:hover { color: var(--navy) !important; }
 }
 
 /* ================================================================
-   HERO — groot, donkere overlay, gele CTA
+   HERO — groot headerafbeelding
    ================================================================ */
 
 .page__hero--overlay {
-  min-height: 72vh;
+  min-height: 60vh;
 
   .wrapper {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
   }
 
   .page__title {
-    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
     font-weight: 800;
     letter-spacing: -0.035em;
     line-height: 1.1;
-    text-shadow: 0 2px 24px rgba(0,0,0,0.45);
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
     margin-bottom: 0.75rem;
   }
 
   .page__lead {
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
-    font-weight: 400;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
     line-height: 1.7;
-    text-shadow: 0 1px 10px rgba(0,0,0,0.35);
-    max-width: 600px;
-    opacity: 0.94;
-    margin-bottom: 2.2rem;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    max-width: 560px;
+    opacity: 0.95;
+    margin-bottom: 2rem;
   }
 
   .page__hero-caption {
     font-size: 0.7rem;
-    opacity: 0.45;
+    opacity: 0.4;
   }
 
-  /* Gele CTA knop in hero — kenmerkend inshur */
+  /* Gele CTA in hero */
   .btn--primary {
     background: var(--yellow) !important;
     border-color: var(--yellow) !important;
-    color: var(--ink) !important;
+    color: var(--text) !important;
+    font-weight: 700 !important;
 
     &:hover {
       background: var(--yellow-d) !important;
       border-color: var(--yellow-d) !important;
-      color: var(--ink) !important;
       transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(254,196,0,0.4) !important;
+      box-shadow: 0 6px 24px rgba(254,196,0,0.4) !important;
     }
   }
 
   .btn--inverse {
-    background: rgba(255,255,255,0.1) !important;
-    border-color: rgba(255,255,255,0.5) !important;
+    background: rgba(255,255,255,0.14) !important;
+    border-color: rgba(255,255,255,0.55) !important;
     color: white !important;
-    backdrop-filter: blur(4px);
 
     &:hover {
-      background: rgba(255,255,255,0.2) !important;
-      border-color: white !important;
+      background: rgba(255,255,255,0.24) !important;
+      border-color: rgba(255,255,255,0.85) !important;
     }
   }
 }
@@ -204,8 +232,8 @@ h1, h2, h3, h4, h5, h6,
 .btn {
   border-radius: 8px !important;
   font-weight: 700 !important;
-  font-size: 0.9rem !important;
-  padding: 0.7em 1.6em !important;
+  font-size: 0.88rem !important;
+  padding: 0.65em 1.5em !important;
   letter-spacing: 0.005em;
   transition: all 0.18s ease !important;
 }
@@ -216,51 +244,59 @@ h1, h2, h3, h4, h5, h6,
   color: white !important;
 
   &:hover {
-    background: var(--ink) !important;
-    border-color: var(--ink) !important;
-    color: white !important;
+    background: #003b75 !important;
+    border-color: #003b75 !important;
     transform: translateY(-2px);
-    box-shadow: 0 6px 22px rgba(0,74,143,0.32) !important;
+    box-shadow: 0 5px 18px rgba(0,74,143,0.28) !important;
   }
 }
 
 /* ================================================================
-   EYEBROW LABELS — inshur kenmerk: kleine tekst boven sectiehoofd
+   EYEBROW LABELS
    ================================================================ */
 
 .section-eyebrow {
-  display: block;
-  font-size: 0.72rem;
+  display: inline-block;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   color: var(--navy);
-  margin-bottom: 0.6rem;
+  background: var(--navy-xl);
+  padding: 0.25em 0.75em;
+  border-radius: 20px;
+  margin-bottom: 0.85rem;
 }
 
 /* ================================================================
-   SECTIE-LAYOUT
+   HOMEPAGE SECTIE-LAYOUT
    ================================================================ */
+
+.archive {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
 
 .archive__subtitle,
 h2.section-title {
-  font-size: clamp(1.6rem, 3.5vw, 2rem) !important;
+  font-size: clamp(1.45rem, 2.8vw, 1.85rem) !important;
   font-weight: 800 !important;
   color: var(--text) !important;
   border-bottom: none !important;
   padding-bottom: 0 !important;
-  letter-spacing: -0.03em;
-  line-height: 1.18;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
   margin-bottom: 0.4rem !important;
   display: block !important;
 }
 
 .section-subtitle {
   color: var(--muted);
-  font-size: 1rem;
+  font-size: 0.97rem;
   line-height: 1.7;
-  max-width: 600px;
-  margin: 0 0 2.5rem;
+  max-width: 580px;
+  margin: 0 0 2rem;
 }
 
 .section-cta {
@@ -268,9 +304,9 @@ h2.section-title {
   margin-top: 2.5rem;
 }
 
-/* Intro blok */
+/* Intro blok — warm geel */
 .intro-section {
-  background: var(--surface);
+  background: var(--yellow-l);
   border-radius: var(--r-lg);
   padding: 2rem 2.5rem;
   margin-bottom: 4.5rem;
@@ -278,23 +314,24 @@ h2.section-title {
 }
 
 .intro-text {
-  font-size: 1.08rem;
-  line-height: 1.82;
+  font-size: 1.05rem;
+  line-height: 1.85;
   color: var(--text);
   margin: 0;
 }
 
-/* Lege ruimte tussen homepage-blokken */
 .home-section {
   margin-bottom: 4.5rem;
 }
 
 /* ================================================================
-   BLOG GRID KAARTEN
+   BLOG GRID KAARTEN — 3 per rij
    ================================================================ */
 
 .grid__wrapper {
-  gap: 1.4rem !important;
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1.25rem !important;
   margin-bottom: 0 !important;
 }
 
@@ -309,25 +346,24 @@ h2.section-title {
   border: 1px solid var(--border) !important;
   background: var(--white) !important;
   height: 100% !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease,
-              border-color 0.22s !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s !important;
 
   &:hover {
-    transform: translateY(-6px) !important;
+    transform: translateY(-4px) !important;
     box-shadow: var(--shadow-md) !important;
-    border-color: #c8d6e8 !important;
+    border-color: #b8cfe8 !important;
   }
 }
 
 .grid__wrapper .archive__item-body {
-  padding: 1.3rem 1.4rem 1.5rem !important;
+  padding: 1.25rem 1.35rem 1.4rem !important;
 }
 
 .archive__item-title {
-  font-size: 1.08rem !important;
+  font-size: 1rem !important;
   font-weight: 700 !important;
-  line-height: 1.3 !important;
-  letter-spacing: -0.018em;
+  line-height: 1.35 !important;
+  letter-spacing: -0.015em;
   margin-top: 0 !important;
 
   a {
@@ -339,51 +375,37 @@ h2.section-title {
 }
 
 .archive__item-excerpt {
-  font-size: 0.88rem !important;
+  font-size: 0.85rem !important;
   color: var(--muted) !important;
-  line-height: 1.65 !important;
-  margin-top: 0.45rem !important;
+  line-height: 1.62 !important;
+  margin-top: 0.4rem !important;
 }
 
 /* Blog lijst (posts-pagina) */
 .archive__item--list {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.4rem;
-  margin-bottom: 1.2rem;
-  padding: 1.3rem;
+  padding: 1.25rem;
   border-radius: var(--r);
   background: var(--white);
   box-shadow: var(--shadow-xs);
   border: 1px solid var(--border);
+  margin-bottom: 1rem;
   transition: transform 0.2s, box-shadow 0.2s;
 
   &:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
   }
 }
 
-.archive__item--list .archive__item-teaser {
-  flex: 0 0 200px;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.archive__item--list h2.archive__item-title {
-  font-size: 1.12rem;
-  margin-top: 0;
-}
-
 /* ================================================================
-   DASHBOARD KAARTEN — donker, screenshot preview
+   DASHBOARD KAARTEN — 3 per rij
    ================================================================ */
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 1.4rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 1.5rem;
 }
 
 .dashboard-card {
@@ -396,69 +418,58 @@ h2.section-title {
   overflow: hidden;
   text-decoration: none !important;
   color: inherit;
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
 
   &:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
     box-shadow: var(--shadow-md);
     border-color: var(--navy);
     text-decoration: none !important;
 
-    .dashboard-card__arrow { transform: translateX(5px); }
+    .dashboard-card__arrow { transform: translateX(4px); }
+    .dashboard-card__preview img { transform: scale(1.04); }
   }
 
   &__preview {
-    height: 160px;
+    height: 150px;
     overflow: hidden;
-    background: var(--ink);
+    background: var(--navy-xl);
     position: relative;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top;
-      opacity: 0.88;
-      transition: opacity 0.2s, transform 0.3s;
+      transition: transform 0.3s;
     }
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 50%;
-      background: linear-gradient(to bottom, transparent, rgba(13,25,40,0.6));
-      pointer-events: none;
-    }
-  }
-
-  &:hover &__preview img {
-    opacity: 1;
-    transform: scale(1.03);
+    svg { color: var(--navy); opacity: 0.35; }
   }
 
   &__body {
-    padding: 1.3rem 1.4rem 1.5rem;
+    padding: 1.25rem 1.35rem 1.4rem;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
+    gap: 0.35rem;
   }
 
   &__title {
-    font-size: 1rem;
+    font-size: 0.97rem;
     font-weight: 700;
     color: var(--text);
     margin: 0;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.013em;
   }
 
   &__desc {
     color: var(--muted);
-    font-size: 0.87rem;
+    font-size: 0.84rem;
     line-height: 1.6;
     flex: 1;
     margin: 0;
@@ -470,9 +481,9 @@ h2.section-title {
     gap: 0.3rem;
     color: var(--navy) !important;
     font-weight: 700;
-    font-size: 0.87rem;
+    font-size: 0.84rem;
     text-decoration: none !important;
-    margin-top: 0.6rem;
+    margin-top: 0.5rem;
   }
 
   &__arrow {
@@ -482,115 +493,84 @@ h2.section-title {
 }
 
 /* ================================================================
-   NIEUWS TEASER — donkere sectie zoals inshur donker-blokken
+   NIEUWS TEASER — LICHT (niet meer donker)
    ================================================================ */
 
 .news-teaser {
-  background: var(--ink);
+  background: var(--surface);
   border-radius: var(--r-lg);
-  padding: 3.5rem 3rem 3rem;
+  padding: 3rem 2.5rem 2.5rem;
+  border: 1px solid var(--border);
 
   .archive__subtitle {
-    color: var(--white) !important;
+    color: var(--text) !important;
   }
 
   .section-eyebrow {
-    color: var(--yellow);
+    color: var(--navy);
+    background: var(--navy-xl);
   }
 
   .section-subtitle {
-    color: rgba(255,255,255,0.62);
+    color: var(--muted);
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.1rem;
-    margin-bottom: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
 
   &__item {
-    background: rgba(255,255,255,0.06);
-    border-radius: 10px;
-    padding: 1.2rem 1.4rem;
-    border: 1px solid rgba(255,255,255,0.09);
+    background: var(--white);
+    border-radius: var(--r);
+    padding: 1.15rem 1.3rem;
+    border: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
-    transition: background 0.2s, border-color 0.2s;
+    box-shadow: var(--shadow-xs);
+    transition: box-shadow 0.2s, border-color 0.2s;
 
     &:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.18);
+      box-shadow: var(--shadow-sm);
+      border-color: #b8cfe8;
     }
   }
 
   &__source {
-    font-size: 0.7rem;
+    font-size: 0.67rem;
     font-weight: 700;
-    color: var(--yellow);
+    color: var(--navy);
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    background: var(--navy-xl);
+    display: inline-block;
+    padding: 0.15em 0.6em;
+    border-radius: 10px;
+    align-self: flex-start;
   }
 
   &__item h4 {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 600;
     margin: 0;
     line-height: 1.45;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.008em;
 
     a {
-      color: rgba(255,255,255,0.88) !important;
+      color: var(--text) !important;
       text-decoration: none !important;
 
-      &:hover { color: var(--yellow) !important; }
+      &:hover { color: var(--navy) !important; }
     }
   }
 
   &__date {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.38);
+    font-size: 0.73rem;
+    color: var(--muted);
   }
-
-  .section-cta .btn--primary {
-    background: var(--yellow) !important;
-    border-color: var(--yellow) !important;
-    color: var(--ink) !important;
-
-    &:hover {
-      background: var(--yellow-d) !important;
-      border-color: var(--yellow-d) !important;
-    }
-  }
-}
-
-/* ================================================================
-   SIDEBAR & AUTEURSPROFIEL
-   ================================================================ */
-
-.author__avatar img {
-  border: 3px solid var(--yellow) !important;
-  box-shadow: 0 4px 18px rgba(13,25,40,0.2) !important;
-}
-
-.author__name {
-  font-weight: 800 !important;
-  letter-spacing: -0.025em !important;
-}
-
-.author__bio {
-  font-size: 0.87rem !important;
-  line-height: 1.7 !important;
-  color: var(--muted) !important;
-}
-
-.author__urls a {
-  color: var(--text) !important;
-  font-size: 0.88rem !important;
-  font-weight: 500 !important;
-
-  &:hover { color: var(--navy) !important; }
 }
 
 /* ================================================================
@@ -599,10 +579,10 @@ h2.section-title {
 
 .page__content {
   h2 {
-    font-size: 1.45rem;
+    font-size: 1.4rem;
     font-weight: 800;
-    letter-spacing: -0.022em;
-    margin-top: 2rem;
+    letter-spacing: -0.02em;
+    margin-top: 2.2rem;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--border);
   }
@@ -611,12 +591,12 @@ h2.section-title {
     color: var(--navy);
     font-weight: 500;
 
-    &:hover { color: var(--ink); }
+    &:hover { color: #003b75; }
   }
 
   p {
     line-height: 1.82;
-    color: #1e293b;
+    color: #1e2d3d;
   }
 }
 
@@ -663,28 +643,28 @@ nav.breadcrumbs {
 }
 
 /* ================================================================
-   FOOTER — dezelfde donkere kleur als nav
+   FOOTER — licht, niet donker
    ================================================================ */
 
 .page__footer {
-  background: var(--ink) !important;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  background: var(--surface) !important;
+  border-top: 1px solid var(--border) !important;
 
-  footer { color: rgba(255,255,255,0.5) !important; }
+  footer { color: var(--muted) !important; }
 
   a {
-    color: rgba(255,255,255,0.65) !important;
-    &:hover { color: var(--yellow) !important; }
+    color: var(--navy) !important;
+    &:hover { color: #003b75 !important; }
   }
 
   .page__footer-copyright {
-    color: rgba(255,255,255,0.35) !important;
+    color: var(--muted) !important;
     font-size: 0.78rem !important;
   }
 }
 
 /* ================================================================
-   ZOEKRESULTATEN
+   ZOEKEN
    ================================================================ */
 
 .search-content .search-input {
@@ -692,7 +672,7 @@ nav.breadcrumbs {
 }
 
 /* ================================================================
-   FONT AWESOME FONT DISPLAY
+   FONT DISPLAY
    ================================================================ */
 
 @font-face {
@@ -719,26 +699,20 @@ nav.breadcrumbs {
    MOBILE
    ================================================================ */
 
-@media (max-width: 768px) {
-  .dashboard-grid         { grid-template-columns: 1fr; }
-  .news-teaser__grid      { grid-template-columns: 1fr; }
-  .news-teaser            { padding: 2rem 1.5rem; }
+@media (max-width: 900px) {
+  .grid__wrapper       { grid-template-columns: repeat(2, 1fr) !important; }
+  .dashboard-grid      { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .grid__wrapper       { grid-template-columns: 1fr !important; }
+  .dashboard-grid      { grid-template-columns: 1fr; }
+  .archive             { padding: 1.5rem 1rem 3rem; }
+  .news-teaser         { padding: 2rem 1.25rem; }
+  .intro-section       { padding: 1.5rem; }
 
   .page__hero--overlay {
-    min-height: 55vh;
-    .wrapper { padding: 3.5rem 1rem; }
+    min-height: 50vh;
+    .wrapper { padding: 3rem 1rem; }
   }
-
-  .archive__item--list {
-    flex-direction: column;
-
-    .archive__item-teaser {
-      flex: none;
-      width: 100%;
-      max-height: 200px;
-      overflow: hidden;
-    }
-  }
-
-  .intro-section { padding: 1.5rem 1.5rem; }
 }
