@@ -325,6 +325,83 @@ h2.section-title {
 }
 
 /* ================================================================
+   AUTEURSPROFIEL — horizontale kaart op homepage
+   ================================================================ */
+
+.home-author-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.75rem 2rem;
+  margin-bottom: 4.5rem;
+  box-shadow: var(--shadow-xs);
+
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid var(--yellow);
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 0.3rem;
+    letter-spacing: -0.02em;
+  }
+
+  &__bio {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 0.85rem;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__link {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--navy) !important;
+    background: var(--navy-xl);
+    border-radius: 20px;
+    padding: 0.25em 0.85em;
+    text-decoration: none !important;
+    transition: background 0.15s, color 0.15s;
+
+    &:hover {
+      background: var(--navy);
+      color: white !important;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .home-author-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+
+    &__links { justify-content: center; }
+  }
+}
+
+/* ================================================================
    BLOG GRID KAARTEN — 3 per rij
    ================================================================ */
 
