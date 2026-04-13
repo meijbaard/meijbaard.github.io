@@ -410,10 +410,15 @@ h2.section-title {
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 1.25rem !important;
   margin-bottom: 0 !important;
+  float: none !important;
+  width: 100% !important;
 }
 
 .grid__wrapper .grid__item {
-  margin-bottom: 0 !important;
+  width: 100% !important;
+  float: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .grid__wrapper .archive__item {
