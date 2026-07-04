@@ -6,7 +6,7 @@ main:
     description: 'Vind hier een overzicht van alle artikelen die online zijn verschenen op verschillende nieuwssites.'
   - title: "Projecten"
     url: /projecten/
-    description: 'Een overzicht van de projecten waar ik aan werk of heb gewerkt, variërend van open-source dashboards tot beleidsinitiatieven in Baarn'
+    description: 'Een overzicht van de projecten waar ik aan werk of heb gewerkt, variërend van open-source dashboards tot beleidsinitiatieven'
   - title: "Over mij"
     url: /over/
   - title: "Contact"

@@ -8,8 +8,8 @@ tags:
   - zorg
   - lokaal team
 header:
-  image: /assets/images/eemkracht.png
-  teaser: /assets/images/eemkracht.png
+  image: /assets/images/eemkracht.webp
+  teaser: /assets/images/eemkracht.webp
 ---
 Een nieuw jaar markeert vaak een nieuw begin. Voor ons in het sociaal domein is dat dit jaar letterlijk het geval. Per 1 januari is de uitvoeringsorganisatie BBS (Gemeenschappelijke regeling sociaal domein Baarn/Bunschoten/Soest) officieel getransformeerd naar **Eemkracht**.
 

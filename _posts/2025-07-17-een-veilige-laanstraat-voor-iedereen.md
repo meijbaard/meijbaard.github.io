@@ -1,5 +1,7 @@
 ---
-title: "Een duidelijke en veilige Laanstraat voor iedereen 🚶↔️🚲"
+title: "Een duidelijke en veilige Laanstraat voor iedereen"
+redirect_from:
+  - /blog/een-veilige-laantsraat-voor-iedereen/
 date: 2025-07-17 16:30:00 +0200
 categories:
   - blog
@@ -8,8 +10,8 @@ tags:
   - verkeer
   - centrum
 header:
-  image: /assets/images/header_laanstraat.png
-  teaser: /assets/images/teaser_laanstraat.png
+  image: /assets/images/header_laanstraat.webp
+  teaser: /assets/images/teaser_laanstraat.webp
 ---
 
 Dagelijks zie ik vanuit mijn werkkamer in het gemeentehuis de Brink. Ik zie de dynamiek, de ontmoetingen, maar ik zie ook de onduidelijkheid en de ergernis. Fietsers die slalommen, auto’s die de winkelstraat in rijden. Als raadslid heb ik me hier al vaak druk over gemaakt en als wethouder voel ik de urgentie om nu door te pakken.

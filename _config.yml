@@ -14,14 +14,15 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 locale: "nl-NL"
-title: "Mark Eijbaard | Wethouder Gemeente Baarn | Persoonlijke Blog & Inzichten"
-subtitle: "Met een Baarnse blik..."
+title: "Mark Eijbaard | Wethouder Gemeente Woudenberg | Persoonlijke Blog & Inzichten"
+subtitle: "Met een Woudenbergse blik..."
 name: "Mark Eijbaard"
 email: "info@markeijbaard.nl"
+url: "https://markeijbaard.nl" # nodig voor correcte canonical URLs, og:url en sitemap
 description: >- # this means to ignore newlines until "baseurl:"
-  "Betrokken bestuurder met oog voor pragmatische en toekomstgerichte oplossingen.
-  Op deze website deel ik mijn reflecties, de achtergronden bij beleid en de inzichten die ik opdoe. 
-  Een persoonlijke en transparante blik op mijn werk, met als doel de dialoog aan te gaan en te laten zien hoe we samen werken aan het beste voor Baarn."
+  Betrokken bestuurder met oog voor pragmatische en toekomstgerichte oplossingen.
+  Als wethouder in Woudenberg deel ik op deze website mijn reflecties, de achtergronden bij beleid en de inzichten die ik opdoe.
+  Een persoonlijke en transparante blik op mijn werk, met als doel de dialoog aan te gaan.
 twitter_username: meijbaard
 github_username: meijbaard
 minimal_mistakes_skin: air
@@ -85,12 +86,16 @@ plugins:
   - jemoji
   - jekyll-include-cache
   - jekyll-seo-tag
+  - jekyll-redirect-from
+
+# Standaardafbeelding voor social shares (og:image) als een pagina geen eigen afbeelding heeft
+og_image: /assets/images/meijbaard.webp
 
 author:
   name   : "Mark Eijbaard"
   avatar : "/assets/images/meijbaard.webp"
-  bio    : "**Wethouder Gemeente Baarn** \ _Betrokken bestuurder met oog voor pragmatische en toekomstgerichte oplossingen_"
-  location: "Baarn"
+  bio    : "**Wethouder Gemeente Woudenberg** \ _Betrokken bestuurder met oog voor pragmatische en toekomstgerichte oplossingen_"
+  location: "Woudenberg"
   links:
     - label: "Contact"
       icon: "fas fa-fw fa-comment-dots"

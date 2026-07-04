@@ -9,8 +9,8 @@ tags:
   - boeren
   - landelijk gebied
 header:
-  image: /assets/images/header_landelijkgebied.png
-  teaser: /assets/images/teaser_landelijkgebied.png
+  image: /assets/images/header_landelijkgebied.webp
+  teaser: /assets/images/teaser_landelijkgebied.webp
 ---
 
 Het Ontwerp-Utrechts Programma Landelijk Gebied (UPLG) ligt er. Een lijvig pakket, maar het doel is helder: de natuur moet herstellen, zodat de vergunningverlening in onze provincie weer op gang komt. Want alleen als de natuur robuust is, kan de samenleving – en dus ook Baarn – weer van het slot.

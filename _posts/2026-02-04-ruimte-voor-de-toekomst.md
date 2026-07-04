@@ -9,8 +9,8 @@ tags:
   - boeren
   - landelijk gebied
 header:
-  image: /assets/images/teaser_landelijkgebied.png
-  teaser: /assets/images/teaser_landelijkgebied.png
+  image: /assets/images/teaser_landelijkgebied.webp
+  teaser: /assets/images/teaser_landelijkgebied.webp
 ---
 
 ## Onderweg in Baarn

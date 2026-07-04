@@ -14,7 +14,7 @@ description: "Ontdek de verhalen achter de cijfers. Verken mijn interactieve, op
 # === FEATURE ROW DEFINITIES ===
 # Elk item hieronder wordt een visueel blok op de pagina
 feature_row:
-  - image_path: /assets/images/dashboard_spotconverter.png
+  - image_path: /assets/images/dashboard_spotconverter.webp
     alt: "Spotconverter voor de Bentheimer-whatsappgroep"
     title: "Spotconverter Pro"
     excerpt: "Transformeer **cryptische WhatsApp-berichten**…"
@@ -23,7 +23,7 @@ feature_row:
     btn_class: "btn--primary"
     new_tab: true
 
-  - image_path: /assets/images/dashboard_verkiezingen.png
+  - image_path: /assets/images/dashboard_verkiezingen.webp
     alt: "Dashboard met verkiezingsgegevens van Baarn"
     title: "Verkiezingsdashboard Baarn"
     excerpt: "Analyseer de uitslagen…"
@@ -32,7 +32,7 @@ feature_row:
     btn_class: "btn--primary"
     new_tab: true
 
-  - image_path: /assets/images/dashboard_lokaal.png
+  - image_path: /assets/images/dashboard_lokaal.webp
     alt: "CBS gegevens Baarn 2024"
     title: "CBS gegevens Baarn 2024"
     excerpt: "Krijg een helder beeld…"

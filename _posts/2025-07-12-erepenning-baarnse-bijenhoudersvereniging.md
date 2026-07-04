@@ -8,8 +8,8 @@ tags:
   - groen
   - natuur
 header:
-  image: /assets/images/header_bijenvereniging.png
-  teaser: /assets/images/teaser_bijenvereniging.png
+  image: /assets/images/header_bijenvereniging.webp
+  teaser: /assets/images/teaser_bijenvereniging.webp
   caption: '<a href="https://casparhuurdeman.nl" target="_blank" rel="noopener noreferrer">foto: Caspar Huurdeman</a>'
 ---
 

@@ -11,9 +11,9 @@ tags:
   - stedelijke ontwikkeling
   - STOMP
 header:
-  image: /assets/images/header_mobiliteit_baarn.png # Voorstel: pas deze afbeelding aan naar een geschikte header voor het blogbericht
+  image: /assets/images/header_mobiliteit_baarn.webp # Voorstel: pas deze afbeelding aan naar een geschikte header voor het blogbericht
   caption: 'Station Baarn, Baarn heeft goede treinverbindingen naar de hele randstad.' # Voorstel voor bijschrift
-  teaser: /assets/images/teaser_mobiliteit_baarn.png # Voorstel: pas deze afbeelding aan naar een geschikte teaser voor het blogbericht
+  teaser: /assets/images/teaser_mobiliteit_baarn.webp # Voorstel: pas deze afbeelding aan naar een geschikte teaser voor het blogbericht
 ---
 
 Afgelopen week mocht ik bij RTV Eemland in gesprek over een onderwerp dat mij na aan het hart ligt en waar we in Baarn veel mee bezig zijn: **mobiliteit**. 🚶‍♀️🚴‍♂️ Het was een mooie gelegenheid om te delen hoe we de toekomst van onze openbare ruimte zien, en wat dat betekent voor iedereen die in Baarn woont, werkt en recreëert. Het gesprek deed me weer eens beseffen hoe cruciaal het is om niet alleen *over* mobiliteit te praten, maar vooral *met* elkaar. 🤝

@@ -1,6 +1,6 @@
 ---
-title: "Perspectief voor de toekomst: een mooie stap voor Baarn! 🌿✨"
-date: 2025-01-28 16:30:00 +0200
+title: "Perspectief voor de toekomst: een mooie stap voor Baarn"
+date: 2026-01-28 16:30:00 +0100
 categories:
   - blog
 tags:
@@ -8,8 +8,8 @@ tags:
   - armoede
   - baarnsteun
 header:
-  image: /assets/images/header_baarn.png
-  teaser: /assets/images/teaser_baarn.png
+  image: /assets/images/header_baarn.webp
+  teaser: /assets/images/header_baarn.webp
 ---
 
 Goed nieuws voor onze inwoners: op 28 januari is ons nieuwe **Beleidsplan Geldzorgen 2026 - 2030** aangenomen. Hiermee kiezen we in Baarn heel bewust voor een koers waarin rust, vertrouwen en bestaanszekerheid centraal staan. 📄✅

@@ -4,33 +4,41 @@
 @import "minimal-mistakes";
 
 /* ================================================================
-   MARK EIJBAARD — Licht, toegankelijk design
-   Kleurenpalet:
-     --navy:    #004a8f  (Baarn blauw — links, accenten)
-     --yellow:  #fec400  (Baarn geel — highlights, CTA)
-     --surface: #f8f9fb  (lichtgrijs — achtergrond)
-     --text:    #1a2332  (bijna zwart)
-     --muted:   #5a6a7e  (grijs)
+   MARK EIJBAARD — Warm, natuurlijk design (Woudenberg)
+   Kleurenpalet "Heuvelrug":
+     --green:   #37543F  (donker pastel bosgroen — links, accenten)
+     --ochre:   #E5C069  (zachte oker/geel — highlights, CTA)
+     --mint:    #E4EFE6  (licht mintgroen — zachte vlakken)
+     --cream:   #FAF4E2  (zacht geelwit — intro/vlakken)
+     --surface: #F5F3EB  (warm papier — achtergrond)
+     --text:    #24312A  (groenzwart)
    ================================================================ */
 
 :root {
-  --navy:       #004a8f;
-  --navy-l:     #1a6bb5;
-  --navy-xl:    #e8f0fb;
-  --yellow:     #fec400;
-  --yellow-d:   #e5b000;
-  --yellow-l:   #fffaeb;
-  --white:      #ffffff;
-  --surface:    #f8f9fb;
-  --surface-2:  #eef2f7;
-  --border:     #e2e8f0;
-  --text:       #1a2332;
-  --muted:      #5a6a7e;
-  --shadow-xs:  0 1px 3px rgba(26,35,50,0.06), 0 1px 2px rgba(26,35,50,0.04);
-  --shadow-sm:  0 4px 14px rgba(26,35,50,0.08);
-  --shadow-md:  0 8px 32px rgba(26,35,50,0.10);
+  --green:      #37543F;
+  --green-d:    #2A4232;
+  --green-l:    #5B7D66;
+  --mint:       #E4EFE6;
+  --mint-d:     #CBDFD2;
+  --ochre:      #E5C069;
+  --ochre-d:    #D4AC4F;
+  --cream:      #FAF4E2;
+  --white:      #FFFDF8;
+  --surface:    #F5F3EB;
+  --surface-2:  #ECE9DE;
+  --border:     #E2DFD2;
+  --text:       #24312A;
+  --muted:      #5C6B60;
+  --shadow-xs:  0 1px 3px rgba(36,49,42,0.06), 0 1px 2px rgba(36,49,42,0.04);
+  --shadow-sm:  0 4px 14px rgba(36,49,42,0.08);
+  --shadow-md:  0 8px 32px rgba(36,49,42,0.10);
   --r:          10px;
   --r-lg:       16px;
+}
+
+/* Warme papierachtergrond i.p.v. hard wit */
+body {
+  background: var(--surface);
 }
 
 /* ================================================================
@@ -111,12 +119,12 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .greedy-nav a.site-title {
-  color: var(--navy) !important;
+  color: var(--green) !important;
   font-weight: 800 !important;
   font-size: 1.08rem !important;
   letter-spacing: -0.03em;
 
-  &:hover { color: var(--navy-l) !important; }
+  &:hover { color: var(--green-l) !important; }
 }
 
 .greedy-nav .visible-links a {
@@ -130,8 +138,8 @@ h1, h2, h3, h4, h5, h6,
   &:before { display: none !important; }
 
   &:hover {
-    color: var(--navy) !important;
-    background: var(--navy-xl) !important;
+    color: var(--green) !important;
+    background: var(--mint) !important;
   }
 }
 
@@ -144,23 +152,23 @@ h1, h2, h3, h4, h5, h6,
   a {
     color: var(--text) !important;
     &:hover {
-      color: var(--navy) !important;
-      background: var(--navy-xl) !important;
+      color: var(--green) !important;
+      background: var(--mint) !important;
     }
   }
 }
 
 .greedy-nav__toggle {
-  color: var(--navy) !important;
-  svg { fill: var(--navy) !important; }
+  color: var(--green) !important;
+  svg { fill: var(--green) !important; }
   .navicon,
   .navicon:before,
-  .navicon:after { background: var(--navy) !important; }
+  .navicon:after { background: var(--green) !important; }
 }
 
 .search__toggle {
   color: var(--muted) !important;
-  &:hover { color: var(--navy) !important; }
+  &:hover { color: var(--green) !important; }
 }
 
 /* ================================================================
@@ -200,16 +208,16 @@ h1, h2, h3, h4, h5, h6,
 
   /* Gele CTA in hero */
   .btn--primary {
-    background: var(--yellow) !important;
-    border-color: var(--yellow) !important;
+    background: var(--ochre) !important;
+    border-color: var(--ochre) !important;
     color: var(--text) !important;
     font-weight: 700 !important;
 
     &:hover {
-      background: var(--yellow-d) !important;
-      border-color: var(--yellow-d) !important;
+      background: var(--ochre-d) !important;
+      border-color: var(--ochre-d) !important;
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(254,196,0,0.4) !important;
+      box-shadow: 0 6px 24px rgba(229,192,105,0.45) !important;
     }
   }
 
@@ -239,15 +247,15 @@ h1, h2, h3, h4, h5, h6,
 }
 
 .btn--primary {
-  background: var(--navy) !important;
-  border-color: var(--navy) !important;
+  background: var(--green) !important;
+  border-color: var(--green) !important;
   color: white !important;
 
   &:hover {
-    background: #003b75 !important;
-    border-color: #003b75 !important;
+    background: var(--green-d) !important;
+    border-color: var(--green-d) !important;
     transform: translateY(-2px);
-    box-shadow: 0 5px 18px rgba(0,74,143,0.28) !important;
+    box-shadow: 0 5px 18px rgba(55,84,63,0.28) !important;
   }
 }
 
@@ -261,8 +269,8 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--navy);
-  background: var(--navy-xl);
+  color: var(--green);
+  background: var(--mint);
   padding: 0.25em 0.75em;
   border-radius: 20px;
   margin-bottom: 0.85rem;
@@ -304,13 +312,13 @@ h2.section-title {
   margin-top: 2.5rem;
 }
 
-/* Intro blok — warm geel */
+/* Intro blok — warm geelwit dat zacht overloopt naar mint */
 .intro-section {
-  background: var(--yellow-l);
+  background: linear-gradient(135deg, var(--cream) 0%, var(--mint) 130%);
   border-radius: var(--r-lg);
   padding: 2rem 2.5rem;
   margin-bottom: 4.5rem;
-  border-left: 4px solid var(--yellow);
+  border-left: 4px solid var(--ochre);
 }
 
 .intro-text {
@@ -345,7 +353,7 @@ h2.section-title {
     border-radius: 50%;
     object-fit: cover;
     flex-shrink: 0;
-    border: 3px solid var(--yellow);
+    border: 3px solid var(--ochre);
   }
 
   &__content {
@@ -377,15 +385,15 @@ h2.section-title {
   &__link {
     font-size: 0.78rem;
     font-weight: 700;
-    color: var(--navy) !important;
-    background: var(--navy-xl);
+    color: var(--green) !important;
+    background: var(--mint);
     border-radius: 20px;
     padding: 0.25em 0.85em;
     text-decoration: none !important;
     transition: background 0.15s, color 0.15s;
 
     &:hover {
-      background: var(--navy);
+      background: var(--green);
       color: white !important;
     }
   }
@@ -433,7 +441,7 @@ h2.section-title {
   &:hover {
     transform: translateY(-4px) !important;
     box-shadow: var(--shadow-md) !important;
-    border-color: #b8cfe8 !important;
+    border-color: var(--mint-d) !important;
   }
 }
 
@@ -452,7 +460,7 @@ h2.section-title {
     color: var(--text) !important;
     text-decoration: none !important;
 
-    &:hover { color: var(--navy) !important; }
+    &:hover { color: var(--green) !important; }
   }
 }
 
@@ -505,7 +513,7 @@ h2.section-title {
   &:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-md);
-    border-color: var(--navy);
+    border-color: var(--green);
     text-decoration: none !important;
 
     .dashboard-card__arrow { transform: translateX(4px); }
@@ -515,7 +523,7 @@ h2.section-title {
   &__preview {
     height: 150px;
     overflow: hidden;
-    background: var(--navy-xl);
+    background: var(--mint);
     position: relative;
     flex-shrink: 0;
     display: flex;
@@ -530,7 +538,7 @@ h2.section-title {
       transition: transform 0.3s;
     }
 
-    svg { color: var(--navy); opacity: 0.35; }
+    svg { color: var(--green); opacity: 0.35; }
   }
 
   &__body {
@@ -549,6 +557,22 @@ h2.section-title {
     letter-spacing: -0.013em;
   }
 
+  // Klein label om dashboards uit de Baarn-periode te markeren
+  &__badge {
+    display: inline-block;
+    margin-left: 0.4rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--mint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    vertical-align: middle;
+  }
+
   &__desc {
     color: var(--muted);
     font-size: 0.84rem;
@@ -561,7 +585,7 @@ h2.section-title {
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
-    color: var(--navy) !important;
+    color: var(--green) !important;
     font-weight: 700;
     font-size: 0.84rem;
     text-decoration: none !important;
@@ -579,18 +603,19 @@ h2.section-title {
    ================================================================ */
 
 .news-teaser {
-  background: var(--surface);
+  /* Zachte tonale overgang van mint naar crème */
+  background: linear-gradient(165deg, var(--mint) 0%, var(--cream) 100%);
   border-radius: var(--r-lg);
   padding: 3rem 2.5rem 2.5rem;
-  border: 1px solid var(--border);
+  border: none;
 
   .archive__subtitle {
     color: var(--text) !important;
   }
 
   .section-eyebrow {
-    color: var(--navy);
-    background: var(--navy-xl);
+    color: var(--green);
+    background: var(--mint);
   }
 
   .section-subtitle {
@@ -617,17 +642,17 @@ h2.section-title {
 
     &:hover {
       box-shadow: var(--shadow-sm);
-      border-color: #b8cfe8;
+      border-color: var(--mint-d);
     }
   }
 
   &__source {
     font-size: 0.67rem;
     font-weight: 700;
-    color: var(--navy);
+    color: var(--green);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    background: var(--navy-xl);
+    background: var(--mint);
     display: inline-block;
     padding: 0.15em 0.6em;
     border-radius: 10px;
@@ -645,7 +670,7 @@ h2.section-title {
       color: var(--text) !important;
       text-decoration: none !important;
 
-      &:hover { color: var(--navy) !important; }
+      &:hover { color: var(--green) !important; }
     }
   }
 
@@ -670,15 +695,15 @@ h2.section-title {
   }
 
   a:not(.btn) {
-    color: var(--navy);
+    color: var(--green);
     font-weight: 500;
 
-    &:hover { color: #003b75; }
+    &:hover { color: var(--green-d); }
   }
 
   p {
     line-height: 1.82;
-    color: #1e2d3d;
+    color: #2A362E;
   }
 }
 
@@ -697,7 +722,7 @@ nav.breadcrumbs {
 
   ol { font-size: 0.82rem !important; }
   a {
-    color: var(--navy) !important;
+    color: var(--green) !important;
     font-weight: 600 !important;
   }
 }
@@ -718,8 +743,8 @@ nav.breadcrumbs {
   a { color: var(--muted) !important; }
 
   &:hover {
-    background: var(--navy) !important;
-    border-color: var(--navy) !important;
+    background: var(--green) !important;
+    border-color: var(--green) !important;
     a { color: white !important; }
   }
 }
@@ -735,8 +760,8 @@ nav.breadcrumbs {
   footer { color: var(--muted) !important; }
 
   a {
-    color: var(--navy) !important;
-    &:hover { color: #003b75 !important; }
+    color: var(--green) !important;
+    &:hover { color: var(--green-d) !important; }
   }
 
   .page__footer-copyright {
@@ -772,7 +797,7 @@ nav.breadcrumbs {
    ================================================================ */
 
 .cc-btn.cc-allow {
-  background-color: var(--navy) !important;
+  background-color: var(--green) !important;
   color: white !important;
   border-radius: 6px !important;
 }

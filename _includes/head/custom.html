@@ -53,3 +53,27 @@
   <script src="https://cdn.tailwindcss.com" defer></script>
   <link rel="stylesheet" href="/assets/css/meetingparser.css">
 {% endif %}
+
+<!-- Structured data: Person (schema.org) voor betere zichtbaarheid in zoekmachines -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mark Eijbaard",
+  "url": "https://markeijbaard.nl",
+  "image": "https://markeijbaard.nl/assets/images/meijbaard.webp",
+  "jobTitle": "Wethouder",
+  "worksFor": {
+    "@type": "GovernmentOrganization",
+    "name": "Gemeente Woudenberg",
+    "url": "https://www.woudenberg.nl"
+  },
+  "knowsAbout": ["Sociaal domein", "Werk en inkomen", "Volksgezondheid", "Afval en duurzaamheid", "Vitaal platteland", "Open data", "Lokaal bestuur"],
+  "sameAs": [
+    "https://www.linkedin.com/in/markeijbaard/",
+    "https://x.com/meijbaard",
+    "https://github.com/meijbaard",
+    "https://instagram.com/markvandegemeente"
+  ]
+}
+</script>

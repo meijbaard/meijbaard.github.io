@@ -1,6 +1,6 @@
 ---
 title: "In het Nieuws | Mark Eijbaard | Media-overzicht"
-description: "Een compleet overzicht van nieuwsartikelen en media-optredens. Volg mijn werk als wethouder in Baarn via de lokale en regionale pers."
+description: "Een compleet overzicht van nieuwsartikelen en media-optredens. Volg mijn werk als wethouder via de lokale en regionale pers."
 permalink: /inhetnieuws/
 author_profile: false
 layout: default
@@ -11,7 +11,7 @@ layout: default
   <div class="news-page-header">
     <div>
       <h1>Mark Eijbaard in het nieuws</h1>
-      <p>Een automatisch bijgehouden overzicht van nieuwsartikelen en media-optredens. Elke 4 uur vernieuwd met berichten van regionale en lokale media over mijn werk als wethouder in Baarn.</p>
+      <p>Een automatisch bijgehouden overzicht van nieuwsartikelen en media-optredens. Elke 4 uur vernieuwd met berichten van regionale en lokale media over mijn werk als bestuurder — eerst in Baarn, nu in Woudenberg.</p>
     </div>
   </div>
 

@@ -11,4 +11,4 @@ Disallow: /tags/
 # ===============
 # Verwijzing naar de sitemap
 # ===============
-Sitemap: https://www.markeijbaard.nl/sitemap.xml
+Sitemap: https://markeijbaard.nl/sitemap.xml
