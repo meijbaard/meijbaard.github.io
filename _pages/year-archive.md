@@ -1,5 +1,5 @@
 ---
-title: "Blog | Mark Eijbaard | Inzichten over Bestuur en Beleid in Baarn"
+title: "Blog"
 pagetitle: "Blog"
 permalink: /posts/
 layout: posts

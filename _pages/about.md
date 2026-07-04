@@ -1,6 +1,6 @@
 ---
 permalink: /over/
-title: "Over Mij | Mark Eijbaard | Wethouder in Woudenberg"
+title: "Over mij"
 description: "Maak kennis met Mark Eijbaard, wethouder in Woudenberg met de portefeuilles sociaal domein, afval en duurzaamheid en vitaal platteland. Ontdek mijn achtergrond en pragmatische aanpak."
 pagetitle: "Over mij"
 layout: single

@@ -1,6 +1,6 @@
 ---
 layout: single
-title: "Contact | Mark Eijbaard | Vragen of opmerkingen?"
+title: "Contact"
 pagetitle: "Neem contact op met mij"
 description: "Heb je een vraag, opmerking of wil je in gesprek gaan? Neem direct contact op via het formulier. Ik hoor graag van je."
 permalink: /contact/

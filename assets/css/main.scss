@@ -446,15 +446,15 @@ h2.section-title {
 }
 
 .grid__wrapper .archive__item-body {
-  padding: 1.25rem 1.35rem 1.4rem !important;
+  padding: 1.4rem 1.5rem 1.6rem !important;
 }
 
 .archive__item-title {
   font-size: 1rem !important;
   font-weight: 700 !important;
-  line-height: 1.35 !important;
+  line-height: 1.45 !important;
   letter-spacing: -0.015em;
-  margin-top: 0 !important;
+  margin: 0 !important;
 
   a {
     color: var(--text) !important;
@@ -467,8 +467,8 @@ h2.section-title {
 .archive__item-excerpt {
   font-size: 0.85rem !important;
   color: var(--muted) !important;
-  line-height: 1.62 !important;
-  margin-top: 0.4rem !important;
+  line-height: 1.7 !important;
+  margin: 0.65rem 0 0 !important;
 }
 
 /* Blog lijst (posts-pagina) */
@@ -632,7 +632,7 @@ h2.section-title {
   &__item {
     background: var(--white);
     border-radius: var(--r);
-    padding: 1.15rem 1.3rem;
+    padding: 1.35rem 1.5rem;
     border: 1px solid var(--border);
     display: flex;
     flex-direction: column;

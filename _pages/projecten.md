@@ -1,5 +1,5 @@
 ---
-title: "Projecten | Een overzicht van mijn werk"
+title: "Projecten"
 pagetitle: "Mijn Projecten"
 permalink: /projecten/
 layout: splash
