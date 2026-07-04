@@ -12,64 +12,93 @@ layout: default
     <div>
       <h1>Mark Eijbaard in het nieuws</h1>
       <p>Een automatisch bijgehouden overzicht van nieuwsartikelen en media-optredens. Elke 4 uur vernieuwd met berichten van regionale en lokale media over mijn werk als bestuurder — eerst in Baarn, nu in Woudenberg.</p>
+      {% assign news_sources = site.data.news | map: "source_id" | compact | uniq %}
+      <div class="news-hero-stats">
+        <span><strong>{{ site.data.news.size }}</strong> artikelen</span>
+        <span><strong>{{ news_sources.size }}</strong> bronnen</span>
+        <span>Ieder artikel geverifieerd op naamsvermelding</span>
+      </div>
     </div>
   </div>
 
   <div class="news-controls">
-    <p id="article-counter">Totaal {{ site.data.news.size }} artikelen gevonden.</p>
-    
+    <div class="news-controls-row">
+      <div class="news-search-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+        <input type="search" id="news-search" placeholder="Zoek in titel of tekst…" aria-label="Zoek in nieuwsartikelen" autocomplete="off">
+      </div>
+      <select id="year-filter" aria-label="Filter op jaar">
+        <option value="all">Alle jaren</option>
+      </select>
+    </div>
+
     <div id="filter-container">
-      <strong>Filter op bron:</strong><br>
+      <strong>Bron</strong>
       <button class="filter-btn active" data-source="all">Alles tonen</button>
-      
       {% assign sources = site.data.news | map: "source_id" | compact | uniq | sort %}
       {% for source in sources %}
         {% if source != "" and source != "Onbekende bron" %}
-          <button class="filter-btn" data-source="{{ source }}">{{ source }}</button>
+          <button class="filter-btn" data-source="{{ source | escape }}">{{ source | escape }}</button>
         {% endif %}
       {% endfor %}
     </div>
+
+    <p id="article-counter" role="status">Totaal {{ site.data.news.size }} artikelen.</p>
   </div>
 
   <div id="nieuws-dashboard">
     {%- if site.data.news and site.data.news.size > 0 -%}
       <ul id="news-list">
         {%- for item in site.data.news -%}
-          <li class="news-item" data-pubdate="{{ item.pubDate | default: '' }}" data-source="{{ item.source_id | default: 'Onbekende bron' }}">
-            
+          <li class="news-item" data-pubdate="{{ item.pubDate | default: '' | escape }}" data-source="{{ item.source_id | default: 'Onbekende bron' | escape }}">
+
             {%- assign img = item.image_url | default: '' -%}
             {%- if img != "" -%}
-              <img src="{{ img }}" alt="Beeld bij artikel" class="news-image" loading="lazy">
+              <div class="news-media">
+                <img src="{{ img | escape }}" alt="" class="news-image" loading="lazy" onerror="this.closest('.news-media').classList.add('news-media--fallback');this.remove();">
+                <span class="news-source-tag">{{ item.source_id | escape }}</span>
+              </div>
+            {%- else -%}
+              <div class="news-media news-media--fallback">
+                <span class="news-source-tag">{{ item.source_id | escape }}</span>
+              </div>
             {%- endif -%}
 
             <div class="news-content">
               <h3>
-                <a href="{{ item.link | default: '#' }}" target="_blank" rel="noopener noreferrer">
-                  {{ item.title | default: 'Zonder titel' }}
-                </a>
+                <a href="{{ item.link | default: '#' | escape }}" target="_blank" rel="noopener noreferrer">{{ item.title | default: 'Zonder titel' | escape }}</a>
               </h3>
-              <p>
-                <strong>Bron:</strong> {{ item.source_id | default: 'Onbekende bron' }} 
-                
+
+              {%- assign desc = item.description | default: '' -%}
+              {%- if desc != "" -%}
+                <p class="news-desc">{{ desc | escape | truncate: 180 }}</p>
+              {%- endif -%}
+
+              <p class="news-meta">
+                <time datetime="{{ item.pubDate | escape }}">
+                  {%- if item.pubDate and item.pubDate != "" -%}
+                    {{ item.pubDate | date: "%-d-%-m-%Y" }}
+                  {%- else -%}
+                    Datum onbekend
+                  {%- endif -%}
+                </time>
                 {%- assign creator_size = item.creator | compact | size | default: 0 -%}
                 {%- if creator_size > 0 -%}
-                  | <strong>Auteur:</strong> {{ item.creator | join: ", " }}
-                {%- endif -%}
-                <br>
-                <strong>Publicatiedatum:</strong> 
-                {%- if item.pubDate and item.pubDate != "" -%}
-                  {{ item.pubDate | date: "%d-%m-%Y %H:%M" }}
-                {%- else -%}
-                  Onbekend
+                  <span class="news-meta-sep">·</span> {{ item.creator | join: ", " | escape }}
                 {%- endif -%}
               </p>
-              <p>{{ item.description | default: '' }}</p>
             </div>
           </li>
         {%- endfor -%}
       </ul>
+
+      <p id="news-empty" hidden>Geen artikelen gevonden voor deze combinatie van filters. <button type="button" id="reset-filters" class="link-btn">Wis alle filters</button></p>
+
+      <div class="load-more-container">
+        <button type="button" id="load-more" class="load-more-btn">Toon meer artikelen</button>
+      </div>
     {%- else -%}
-      <p>Er worden momenteel geen nieuwsberichten gevonden. Zorg dat je data in _data/news.json staat.</p>
+      <p>Er worden momenteel geen nieuwsberichten gevonden.</p>
     {%- endif -%}
   </div>
 

@@ -5,6 +5,8 @@ on:
   push:
     branches: [ "main" ]   # pas aan indien nodig
   workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-newsdashboard]   # herbouw na elke nieuwsupdate
 
 permissions:
   contents: read

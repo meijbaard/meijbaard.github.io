@@ -32,13 +32,17 @@ jobs:
       - name: Fetch and process news
         env:
           RSS_FEED_URL: ${{ secrets.RSS_FEED_URL }}
-        run: |
-          mkdir -p _data
-          node .github/scripts/update_news.js
+          NEWS_CONFIG: .github/news.config.json
+        run: node .github/scripts/update_news.js
+
+      - name: Validate news data (poortwachter)
+        env:
+          NEWS_CONFIG: .github/news.config.json
+        run: node .github/scripts/validate_news.js
 
       - name: Commit and push if there are changes
         run: |
-          git add _data/news.json
+          git add _data/news.json .github/cache/
           git diff --staged --quiet || git commit -m "Nieuwe artikelen toegevoegd aan archief"
           git push
 

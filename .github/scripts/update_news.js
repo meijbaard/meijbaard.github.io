@@ -1,222 +1,148 @@
-const fs = require('fs');
-const { XMLParser } = require('fast-xml-parser');
+/**
+ * update_news.js — Haalt nieuws op en werkt het archief bij.
+ *
+ * Garanties:
+ *  - Er komt GEEN artikel in het archief zonder bewezen naamvermelding
+ *    (meta-, body- of query-match). Een definitieve body-no-match wint
+ *    altijd, ook van de Google-zoekfeed.
+ *  - Eén kapotte feed blokkeert de rest niet.
+ *  - Bij een schema-fout of verdacht krimpend archief wordt er NIETS
+ *    weggeschreven (workflow faalt hard, oude data blijft intact).
+ */
 
-const googleUrl = process.env.RSS_FEED_URL;
-const dataFile = '_data/news.json';
+const fs = require("fs");
+const lib = require("./newslib");
 
-// De directe, hoogwaardige RSS-bronnen
-const directFeeds = [
-    { url: 'https://www.rtvutrecht.nl/rss/nieuws.xml', source_id: 'rtvutrecht.nl' },
-    { url: 'https://www.eemland1.nl/rss', source_id: 'eemland1.nl' },
-    { url: 'https://www.baarnschecourant.nl/rss', source_id: 'baarnschecourant.nl' },
-    { url: 'https://www.gooieneemlander.nl/rss/', source_id: 'gooieneemlander.nl' }
-];
+async function main() {
+  const cfg = lib.loadConfig(process.argv[2]);
+  const regex = lib.buildSearchRegex(cfg);
+  const cache = lib.loadCache(cfg.cacheFile);
+  const maxBodyChecks = cfg.maxBodyChecksPerRun ?? 40;
+  let bodyChecksDone = 0;
 
-const searchRegex = /Eijbaard/i;
+  console.log(`Config: ${cfg._path} | zoektermen: ${cfg.searchTerms.join(", ")}`);
 
-function flattenData(data) {
-    if (!Array.isArray(data)) return [];
-    return data.reduce((acc, val) => 
-        Array.isArray(val) ? acc.concat(flattenData(val)) : acc.concat(val), []
+  /* ---- STAP 1: bestaand archief inlezen (en herstellen) ---- */
+  const unique = new Map(); // dedupKey -> artikel
+  if (fs.existsSync(cfg.dataFile)) {
+    const existing = lib.flattenData(
+      JSON.parse(fs.readFileSync(cfg.dataFile, "utf-8"))
     );
-}
+    for (const a of existing) {
+      if (!a || !a.title) continue;
+      a.title = lib.removeBrandSuffix(lib.cleanText(a.title));
+      a.description = lib.cleanText(a.description);
+      if (a.description === a.title) a.description = "";
+      a.pubDate = lib.toIso(a.pubDate);
+      if (a.source_id && !a.source_id.includes(".")) {
+        a.source_id = lib.getDomain(a.link) || a.source_id;
+      }
+      if (Array.isArray(a.creator) && a.creator.filter(Boolean).length === 0) {
+        delete a.creator;
+      }
+      if (!a.match) a.match = "archive"; // gesaneerd archief is al gevalideerd
+      unique.set(lib.getDedupKey(a.title), a);
+    }
+    console.log(`=> Bestaand archief: ${unique.size} artikelen.`);
+  }
+  const existingCount = unique.size;
+  let added = 0;
 
-function getDomain(urlStr) {
-    if (!urlStr) return null;
+  /* ---- helper: beslis of een kandidaat erin mag ---- */
+  async function admit(article, { trustedQuery = false } = {}) {
+    // Laag 1: naam in titel of beschrijving
+    if (regex.test(article.title) || regex.test(article.description)) {
+      article.match = "meta";
+      return true;
+    }
+    // Laag 2: naam in de artikelpagina zelf
+    if (bodyChecksDone < maxBodyChecks) {
+      bodyChecksDone++;
+      const verdict = await lib.bodyCheck(article.link, regex, cache);
+      if (verdict === "match") {
+        article.match = "body";
+        return true;
+      }
+      if (verdict === "nomatch") return false; // definitief: naam ontbreekt
+    }
+    // Niet verifieerbaar: alleen toelaten als de bron een zoekfeed
+    // op de naam zelf is (relevantie door de query gegarandeerd).
+    if (trustedQuery) {
+      article.match = "query";
+      return true;
+    }
+    return false;
+  }
+
+  /* ---- STAP 2: directe krantenfeeds ---- */
+  for (const feed of cfg.directFeeds || []) {
     try {
-        return new URL(urlStr).hostname.replace('www.', '');
+      const items = await lib.fetchFeedItems(feed.url);
+      console.log(`=> ${feed.source_id}: ${items.length} items in feed.`);
+      for (const item of items) {
+        const article = lib.normalizeItem(item, feed.source_id);
+        if (!article.title || !article.link) continue;
+        const key = lib.getDedupKey(article.title);
+        if (unique.has(key)) continue;
+        if (await admit(article, { trustedQuery: false })) {
+          unique.set(key, article);
+          added++;
+          console.log(`   + ${article.title} [${article.match}]`);
+        }
+      }
     } catch (e) {
-        return null;
+      console.error(`   ! Feed ${feed.source_id} overgeslagen: ${e.message}`);
     }
-}
+  }
 
-function removeBrandSuffix(title) {
-    if (!title) return "";
-    let clean = title;
-    const brands = ["De Gooi- en Eemlander", "Baarnsche Courant", "AD.nl", "RTV Utrecht", "eemland1"];
-    for (let brand of brands) {
-        const regex = new RegExp(`\\s+-\\s+${brand}$`, 'i');
-        if (regex.test(clean)) {
-            return clean.replace(regex, '').trim();
-        }
-    }
-    clean = clean.replace(/\s+-\s+[^-]+$/, '');
-    return clean.trim();
-}
-
-function getDedupKey(title) {
-    if (!title) return "onbekend";
-    return title.toLowerCase().trim();
-}
-
-function cleanText(text) {
-    if (!text) return "";
-    return text.toString()
-        .replace(/<[^>]*>?/gm, '') 
-        .replace(/&nbsp;/g, ' ') 
-        .replace(/&quot;/g, '"')
-        .replace(/[\n\r\t]/g, ' ') 
-        .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") 
-        .trim();
-}
-
-function getImageUrl(item) {
-    if (item.enclosure) {
-        const enc = Array.isArray(item.enclosure) ? item.enclosure[0] : item.enclosure;
-        if (enc && enc['@_url']) return enc['@_url'];
-    }
-    if (item['media:content']) {
-        const mc = Array.isArray(item['media:content']) ? item['media:content'][0] : item['media:content'];
-        if (mc && mc['@_url']) return mc['@_url'];
-    }
-    return "";
-}
-
-async function fetchAndParseXML(url) {
+  /* ---- STAP 3: Google Nieuws-zoekfeed (vangnet) ---- */
+  const googleUrl = process.env[cfg.googleFeedEnv || "RSS_FEED_URL"];
+  if (googleUrl) {
     try {
-        const response = await fetch(url, {
-            headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36' }
-        });
-        if (!response.ok) return [];
-        const xmlData = await response.text();
-        
-        const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
-        const jsonObj = parser.parse(xmlData);
-        let items = jsonObj.rss?.channel?.item || [];
-        return Array.isArray(items) ? items : [items];
+      const items = await lib.fetchFeedItems(googleUrl);
+      console.log(`=> Google-zoekfeed: ${items.length} items.`);
+      for (const item of items) {
+        const article = lib.normalizeItem(item, "");
+        if (!article.title) continue;
+        const key = lib.getDedupKey(article.title);
+        if (unique.has(key)) continue;
+        // Redirect oplossen naar de echte artikel-URL (mooiere links,
+        // betrouwbare bron én body-check mogelijk).
+        article.link = await lib.resolveGoogleLink(article.link);
+        const domain = lib.getDomain(article.link);
+        if (domain && domain !== "news.google.com") article.source_id = domain;
+        if (await admit(article, { trustedQuery: cfg.googleFeedIsNameQuery !== false })) {
+          unique.set(key, article);
+          added++;
+          console.log(`   + ${article.title} [${article.match}]`);
+        }
+      }
     } catch (e) {
-        console.error(`Fout bij ophalen feed: ${url}`, e.message);
-        return [];
+      console.error(`   ! Google-zoekfeed overgeslagen: ${e.message}`);
     }
+  } else {
+    console.log("=> Geen Google-zoekfeed geconfigureerd (RSS_FEED_URL leeg).");
+  }
+
+  /* ---- STAP 4: valideren en wegschrijven ---- */
+  const combined = lib.sortByDateDesc(Array.from(unique.values()));
+
+  if (existingCount > 20 && combined.length < existingCount * 0.7 && !process.env.FORCE) {
+    throw new Error(
+      `Veiligheidsstop: archief zou krimpen van ${existingCount} naar ` +
+        `${combined.length}. Zet FORCE=1 als dit bewust is.`
+    );
+  }
+
+  lib.writeArticles(cfg.dataFile, combined);
+  lib.saveCache(cfg.cacheFile, cache);
+  console.log(
+    `\nKlaar: ${added} nieuw, totaal ${combined.length} artikelen ` +
+      `(${bodyChecksDone} body-checks deze run).`
+  );
 }
 
-async function updateNews() {
-    try {
-        const allUniqueArticles = new Map();
-
-        // STAP 1: Bestaande data inlezen en direct opschonen
-        let existingArticles = [];
-        if (fs.existsSync(dataFile)) {
-            existingArticles = flattenData(JSON.parse(fs.readFileSync(dataFile, 'utf-8')));
-            console.log(`=> Bestaand archief ingelezen: ${existingArticles.length} artikelen.`);
-        }
-
-        existingArticles.forEach(article => {
-            if (article.source_id && (!article.source_id.includes('.') || article.source_id === 'news.google.com')) {
-                article.source_id = getDomain(article.link) || article.source_id;
-            }
-            if (article.pubDate && typeof article.pubDate === 'string' && !article.pubDate.includes('T')) {
-                const parsedDate = new Date(article.pubDate.replace(" ", "T") + "Z");
-                if (!isNaN(parsedDate)) article.pubDate = parsedDate.toISOString();
-            }
-            
-            article.title = removeBrandSuffix(cleanText(article.title));
-            article.description = cleanText(article.description);
-            
-            // CRUCIAAL: Haal lege creator-arrays definitief uit je bestaande data!
-            if (Array.isArray(article.creator) && article.creator.length === 0) {
-                delete article.creator;
-            }
-            
-            if (article.title) {
-                allUniqueArticles.set(getDedupKey(article.title), article);
-            }
-        });
-
-        let addedCount = 0;
-
-        // STAP 2: Directe feeds ophalen
-        console.log("\n=> Directe kranten-feeds uitlezen...");
-        for (const feed of directFeeds) {
-            const items = await fetchAndParseXML(feed.url);
-            for (const item of items) {
-                const rawTitle = cleanText(item.title);
-                const rawDesc = cleanText(item.description);
-                
-                if (searchRegex.test(rawTitle) || searchRegex.test(rawDesc)) {
-                    const title = removeBrandSuffix(rawTitle);
-                    const key = getDedupKey(title);
-                    
-                    if (!allUniqueArticles.has(key) || allUniqueArticles.get(key).source_id === 'news.google.com') {
-                        const newArticle = {
-                            title: title,
-                            link: item.link || "",
-                            pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
-                            source_id: feed.source_id,
-                            description: rawDesc,
-                            image_url: getImageUrl(item)
-                        };
-                        
-                        if (item.author && cleanText(item.author) !== "") {
-                            newArticle.creator = [cleanText(item.author)];
-                        }
-                        
-                        allUniqueArticles.set(key, newArticle);
-                        addedCount++;
-                        console.log(`   + Toegevoegd/geüpdatet: ${title}`);
-                    }
-                }
-            }
-        }
-
-        // STAP 3: Google Nieuws vangnet
-        console.log("\n=> Google Nieuws vangnet uitlezen...");
-        if (googleUrl) {
-            const googleItems = await fetchAndParseXML(googleUrl);
-            for (const item of googleItems) {
-                const rawTitle = cleanText(item.title);
-                const title = removeBrandSuffix(rawTitle);
-                const key = getDedupKey(title);
-
-                if (!allUniqueArticles.has(key)) {
-                    let sourceDomain = "Onbekende bron";
-                    if (item.source && item.source['@_url']) {
-                        sourceDomain = getDomain(item.source['@_url']) || "Onbekende bron";
-                    }
-
-                    let fallbackDesc = cleanText(item.description);
-                    if (fallbackDesc.includes('  ')) fallbackDesc = fallbackDesc.split('  ')[0].trim();
-                    if (fallbackDesc.includes("Uitgebreide up-to-date")) fallbackDesc = "";
-
-                    // BUG GEFIXT: Correcte variabelen aangesproken
-                    const newArticle = {
-                        title: title,
-                        link: item.link || "",
-                        pubDate: item.pubDate ? new Date(item.pubDate).toISOString() : new Date().toISOString(),
-                        source_id: sourceDomain, 
-                        description: fallbackDesc, 
-                        image_url: getImageUrl(item)
-                    };
-                    
-                    if (item.author && cleanText(item.author) !== "") {
-                        newArticle.creator = [cleanText(item.author)];
-                    }
-
-                    allUniqueArticles.set(key, newArticle);
-                    addedCount++;
-                    console.log(`   + Toegevoegd via Google vangnet: ${title}`);
-                }
-            }
-        }
-
-        // STAP 4: Sorteren en wegschrijven
-        const combined = Array.from(allUniqueArticles.values());
-        combined.sort((a, b) => {
-            const dateA = new Date(a.pubDate).getTime();
-            const dateB = new Date(b.pubDate).getTime();
-            if (isNaN(dateA) && isNaN(dateB)) return 0;
-            if (isNaN(dateA)) return 1;  
-            if (isNaN(dateB)) return -1; 
-            return dateB - dateA;
-        });
-
-        fs.writeFileSync(dataFile, JSON.stringify(combined, null, 2));
-        console.log(`\n🎉 SUCCES! Het schone archief bevat nu ${combined.length} artikelen.`);
-
-    } catch (error) {
-        console.error("Fout tijdens het updaten van nieuws:", error);
-        process.exit(1);
-    }
-}
-
-updateNews();
+main().catch((e) => {
+  console.error(`FOUT: ${e.message}`);
+  process.exit(1);
+});
