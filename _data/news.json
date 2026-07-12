@@ -1242,6 +1242,15 @@
     "match": "body"
   },
   {
+    "title": "Wethouder Mark Veldhuizen legt zijn taken tijdelijk neer",
+    "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQNXo0NEh6bDc2WWU1dkVHOUlWck5FQzFtMk5feGpLYjByVGs0OXl6b0gxbTA5S2c0VWRGSGRVNm00RVl1ZFQxSm9Va2lDYllBVEp2ZGhXTDhabGFtWUs4VlFKSG9IWWVpcXZ3cXVsa3R4dDBWMXBYaWM1d2Fvd2pDaWhFQ0VoZUVTcU15d3hLU0Q2NEpGdjdWM0ExYmlCbWlocS1CbU9zdGl0Q05pVWZLZk9B?oc=5",
+    "pubDate": "2024-12-03T08:00:00.000Z",
+    "source_id": "baarnschecourant.nl",
+    "description": "",
+    "image_url": "",
+    "match": "query"
+  },
+  {
     "title": "Troelstralaan wordt groener; 37 bomen voor nieuwe woonwijk",
     "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNbF9SY20wb28xUmZXTlVVNEtQQXR4elBDaW9KcF9DbTh1YzFOSmtGa2xJekdBVmoxNTJfSDkwWGZGZzdWV0hudHB0RHVDMHdwOTR3Smp1UG1qbVFoSExaY0xhN0VHWTJDVS1mXy1INU5ET01GTTZuNUZhR1pOc00wYVNTWHpIRjktVXRlbkJvYk9yMmNCd1ZOYm1CX2ZlRjlESHFRdTVsNlczZzg5VmFpS09ZdnpLTkczaFlGRnVB?oc=5",
     "pubDate": "2024-11-26T08:00:00.000Z",
@@ -2363,6 +2372,15 @@
     "pubDate": "2017-09-22T07:00:00.000Z",
     "source_id": "gooieneemlander.nl",
     "description": "Integraal kindcentrum Villa Vrolik opent deuren De Gooi- en Eemlander",
+    "image_url": "",
+    "match": "query"
+  },
+  {
+    "title": "Baarnsche Courant - BaarnscheCourant.nl | Nieuws uit de regio Baarn",
+    "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE1lSGxZNjZsVXg0X0pMbDBxZDNDaE1xQ0diZ29Rb0cteVRISTBRZlQzLURDUjRUX3NMal9ibmZfWndXRHItN25R?oc=5",
+    "pubDate": "2017-08-24T14:46:01.000Z",
+    "source_id": "baarnschecourant.nl",
+    "description": "",
     "image_url": "",
     "match": "query"
   },
