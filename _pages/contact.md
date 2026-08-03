@@ -10,6 +10,13 @@ author_profile: false
 Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo snel mogelijk contact met u op.
 
 <form id="contact-form" action="https://hook.eu1.make.com/1vcvgttjf3wnycjyehwpp4f7181jtyxp" method="POST">
+  <!-- Honeypot: onzichtbaar voor mensen, bots vullen dit veld wel in -->
+  <div style="position: absolute; left: -9999px;" aria-hidden="true">
+    <label for="website">Website (niet invullen)</label>
+    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+  </div>
+  <input type="hidden" id="form-loaded-at" name="form_loaded_at" value="">
+
   <div style="margin-bottom: 15px;">
     <label for="name">Naam:</label><br>
     <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
@@ -25,8 +32,8 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
     <textarea id="message" name="message" required rows="6" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
   </div>
   
-  <!-- GOOGLE reCAPTCHA WIDGET -->
-  <div class="g-recaptcha" data-sitekey="6Lc_wKcrAAAAAGS4J2TW9abGVOnWULJVI71k81CF"></div>
+  <!-- CLOUDFLARE TURNSTILE WIDGET -->
+  <div class="cf-turnstile" data-sitekey="0x4AAAAAAEFjtV-o7ev4_Mhu" data-language="nl"></div>
   <br>
   
   <div>
@@ -34,14 +41,24 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
   </div>
 </form>
 
-<!-- GOOGLE reCAPTCHA SCRIPT -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- CLOUDFLARE TURNSTILE SCRIPT -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <script>
   // Dit script zorgt voor een naadloze verzending en doorverwijzing naar de bedankpagina
   const form = document.getElementById('contact-form');
+  document.getElementById('form-loaded-at').value = Date.now();
+
   form.addEventListener("submit", function(e) {
-    e.preventDefault(); 
+    e.preventDefault();
+
+    // Blokkeer verzenden zolang de Turnstile-check niet is afgerond
+    const turnstileToken = form.querySelector('[name="cf-turnstile-response"]');
+    if (!turnstileToken || !turnstileToken.value) {
+      alert("Een moment geduld a.u.b. — de anti-spamcontrole is nog niet afgerond.");
+      return;
+    }
+
     const data = new FormData(form);
     const submitButton = document.getElementById('submit-button');
     
