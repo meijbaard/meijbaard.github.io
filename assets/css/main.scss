@@ -177,10 +177,13 @@ h1, h2, h3, h4, h5, h6,
 
 .page__hero--overlay {
   min-height: 60vh;
+  position: relative;
 
   .wrapper {
     padding-top: 5.5rem;
     padding-bottom: 5.5rem;
+    position: relative;
+    z-index: 2;
   }
 
   .page__title {
@@ -231,6 +234,41 @@ h1, h2, h3, h4, h5, h6,
       border-color: rgba(255,255,255,0.85) !important;
     }
   }
+}
+
+/* ================================================================
+   HERO SLIDESHOW — foto's uit assets/slideshow/
+   ================================================================ */
+
+.hero-slides {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-slides__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+
+  &.is-active { opacity: 1; }
+}
+
+.hero-slides__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.42);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slides__img { transition: none; }
 }
 
 /* ================================================================

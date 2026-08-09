@@ -18,9 +18,32 @@
 
 {% assign image_description = image_description | markdownify | strip_html | strip_newlines | escape_once %}
 
+{% comment %}
+  Slideshow: elke afbeelding in de opgegeven map wordt automatisch een slide.
+  Een foto toevoegen = het bestand in de map zetten, verder niets.
+{% endcomment %}
+{% if page.header.slideshow %}
+  {% assign slide_extensions = ".webp,.jpg,.jpeg,.png,.avif,.WEBP,.JPG,.JPEG,.PNG,.AVIF" %}
+  {% assign slides = site.static_files
+       | where_exp: "f", "f.path contains page.header.slideshow"
+       | where_exp: "f", "slide_extensions contains f.extname"
+       | sort: "path" %}
+{% endif %}
+
 <div class="page__hero{% if page.header.overlay_color or page.header.overlay_image %}--overlay{% endif %}"
-  style="{% if page.header.overlay_color %}background-color: {{ page.header.overlay_color | default: 'transparent' }};{% endif %} {% if overlay_img_path %}background-image: {% if overlay_filter %}{{ overlay_filter }}, {% endif %}url('{{ overlay_img_path }}');{% endif %}"
+  style="{% if page.header.overlay_color %}background-color: {{ page.header.overlay_color | default: 'transparent' }};{% endif %} {% if page.header.overlay_image %}background-image: {% if overlay_filter %}{{ overlay_filter }}, {% endif %}url('{{ overlay_img_path }}');{% endif %}"
 >
+  {% if slides.size > 0 %}
+    <div class="hero-slides" aria-hidden="true">
+      {% for slide in slides %}
+        <img class="hero-slides__img{% if forloop.first %} is-active{% endif %}"
+          {% if forloop.first %}src="{{ slide.path | relative_url }}" fetchpriority="high"{% else %}data-src="{{ slide.path | relative_url }}"{% endif %}
+          alt="">
+      {% endfor %}
+    </div>
+    <div class="hero-slides__scrim"{% if page.header.overlay_filter %} style="background: rgba(0, 0, 0, {{ page.header.overlay_filter }});"{% endif %}></div>
+  {% endif %}
+
   {% if page.header.overlay_color or page.header.overlay_image %}
     <div class="wrapper">
       <h1 id="page-title" class="page__title" itemprop="headline">

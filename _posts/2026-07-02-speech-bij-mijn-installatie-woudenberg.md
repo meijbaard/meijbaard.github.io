@@ -1,5 +1,5 @@
 ---
-title: "Speech bij mijn installatie als wethouder van Woudenberg"
+title: Speech bij mijn installatie als wethouder van Woudenberg
 date: 2026-07-02 21:00:00 +0200
 categories:
   - blog
@@ -7,9 +7,10 @@ tags:
   - speech
   - woudenberg
   - installatie
+header:
 ---
 
-*Op 2 juli 2026 werd ik geïnstalleerd als wethouder van Woudenberg. Dit is de speech die ik die avond uitsprak in De Schimmel.*
+*Op 2 juli 2026 werd ik geïnstalleerd als wethouder van Woudenberg. Dit is de speech die ik die avond uitsprak tijdens de raadsvergadering.*
 
 Voorzitter, leden van de raad, inwoners van Woudenberg,
 

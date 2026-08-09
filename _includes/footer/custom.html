@@ -56,6 +56,11 @@ if (document.cookie.indexOf('cookieconsent_status=allow') > -1) {
 });
 </script>
 
+<!-- Toevoeging voor de hero-slideshow -->
+{% if page.header.slideshow %}
+  <script src="/assets/js/hero-slideshow.js"></script>
+{% endif %}
+
 <!-- Toevoeging voor Election Dashboard -->
 {% if page.permalink == '/electiondashboard/' %}
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
