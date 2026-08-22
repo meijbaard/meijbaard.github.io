@@ -5,14 +5,14 @@ permalink: /sitemap/
 author_profile: false
 ---
 
-A list of all the posts and pages found on the site. For you robots out there is an [XML version]({{ "sitemap.xml" | relative_url }}) available for digesting as well.
+Een overzicht van alle pagina's en berichten op deze site. Voor zoekmachines is er ook een [XML-versie]({{ "sitemap.xml" | relative_url }}).
 
-<h2>Pages</h2>
+<h2>Pagina's</h2>
 {% for post in site.pages %}
   {% include archive-single.html %}
 {% endfor %}
 
-<h2>Posts</h2>
+<h2>Berichten</h2>
 {% for post in site.posts %}
   {% include archive-single.html %}
 {% endfor %}

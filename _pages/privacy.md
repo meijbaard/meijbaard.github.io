@@ -16,7 +16,7 @@ author_profile: false
 
 <div class="content-wrapper" markdown="1">
 
-**Laatst bijgewerkt: 16 augustus 2025**
+**Laatst bijgewerkt: 22 augustus 2026**
 
 Ik hecht veel waarde aan de privacy van de bezoekers van mijn website, markeijbaard.nl. In dit privacybeleid leg ik uit welke gegevens ik verzamel en voor welk doel.
 
@@ -42,7 +42,13 @@ De verwerking van deze gegevens is gebaseerd op uw **toestemming**. U geeft deze
 De verzamelde gegevens worden verwerkt door Google en opgeslagen op hun servers, die zich ook buiten de Europese Unie kunnen bevinden. Ik heb een verwerkersovereenkomst met Google gesloten en de instelling 'gegevens delen met Google' uitgezet om uw privacy verder te waarborgen.
 
 ### Uw rechten
-U heeft het recht om uw persoonsgegevens in te zien, te corrigeren of te laten verwijderen. Omdat de via Google Analytics verzamelde gegevens geanonimiseerd zijn, is dit in de praktijk lastig. U kunt het gebruik van cookies echter volledig beheren via de instellingen van uw browser of door uw eerdere keuze in de cookiebanner te herzien.
+U heeft het recht om uw persoonsgegevens in te zien, te corrigeren of te laten verwijderen. Omdat de via Google Analytics verzamelde gegevens geanonimiseerd zijn, is dit in de praktijk lastig. U kunt het gebruik van cookies echter volledig beheren via de instellingen van uw browser of door uw eerder gegeven toestemming in te trekken via de cookiemelding.e keuze in de cookiebanner te herzien.
+
+### Contactformulier
+Vult u het contactformulier in, dan worden uw naam, e-mailadres en bericht verstuurd naar een automatiseringsdienst (Make) die ze als e-mail bij mij aflevert. Ik gebruik deze gegevens uitsluitend om uw bericht te beantwoorden en bewaar ze niet langer dan daarvoor nodig is. Om spam tegen te gaan gebruikt het formulier Cloudflare Turnstile; die controle verwerkt technische kenmerken van uw browser, maar vraagt u niet om puzzels op te lossen en plaatst geen trackingcookies.
+
+### Lettertypen en externe scripts
+De site laadt lettertypen van Google Fonts en het cookie-toestemmingsscript van jsDelivr. Daarbij wordt uw IP-adres technisch doorgegeven aan die dienst om het bestand te kunnen leveren; er worden geen gegevens over uw bezoek mee gedeeld.
 
 ### Contact
 Voor vragen over dit privacybeleid kunt u contact opnemen via de contactgegevens op deze website.

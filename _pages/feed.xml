@@ -8,7 +8,7 @@ layout: null
     <description>Recente nieuwsberichten waarin Mark Eijbaard wordt genoemd, automatisch verzameld.</description>
     <link>{{ site.url }}{{ site.baseurl }}/inhetnieuws/</link>
     <atom:link href="{{ site.url }}{{ site.baseurl }}/feed.xml" rel="self" type="application/rss+xml" />
-    {% for item in site.data.news[0] limit:20 %}
+    {% for item in site.data.news limit:20 %}
       <item>
         <title>{{ item.title | xml_escape }}</title>
         <description>{{ item.description | xml_escape }}</description>
