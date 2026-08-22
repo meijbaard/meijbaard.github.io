@@ -18,26 +18,23 @@ feature_row:
     alt: "Verkiezingsdashboard Baarn"
     title: "Verkiezingsdashboard Baarn"
     excerpt: "Uitslagen van gemeenteraads-, Tweede Kamer- en Europese verkiezingen per stembureau en buurt, met zetelverdeling en vergelijking tussen jaren."
-    btn_link: "https://verkiezingen.markeijbaard.nl"
+    url: "https://verkiezingen.markeijbaard.nl"
     btn_label: "Open het dashboard"
     btn_class: "btn--primary"
-    new_tab: true
   - image_path: /assets/images/dashboard_lokaal.webp
     alt: "Wijkdata Dashboard Baarn"
     title: "Wijkdata Dashboard"
     excerpt: "CBS-kerncijfers per buurt op de kaart: bevolking, huishoudens, woningen, inkomen en voorzieningen. Klik op een buurt en zie hoe die zich verhoudt tot de rest van Baarn."
-    btn_link: "https://cbs.markeijbaard.nl"
+    url: "https://cbs.markeijbaard.nl"
     btn_label: "Open het dashboard"
     btn_class: "btn--primary"
-    new_tab: true
   - image_path: /assets/images/dashboard_spotconverter.webp
     alt: "Spotconverter Pro"
     title: "Spotconverter Pro"
     excerpt: "Een hobbyproject: plak een WhatsApp-bericht van treinspotters en krijg de route, geschatte doorkomsttijden en materieelinfo terug. Voor de Bentheimer-groep gebouwd."
-    btn_link: "https://spotconverter.markeijbaard.nl"
+    url: "https://spotconverter.markeijbaard.nl"
     btn_label: "Open Spotconverter"
     btn_class: "btn--primary"
-    new_tab: true
 ---
 
 Deze drie dashboards bouwde ik tijdens mijn periode als wethouder in Baarn, vanuit de overtuiging dat **transparantie begint bij toegankelijke data**. Cijfers die in rapporten verstopt zitten, zeggen inwoners weinig; dezelfde cijfers op een kaart of in een grafiek wél. De dashboards zijn open source, de data komt van de Kiesraad, het CBS en openbare bronnen.
