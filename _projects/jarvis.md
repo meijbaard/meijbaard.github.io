@@ -1,6 +1,6 @@
 ---
 # === FRONT MATTER ===
-title: "Jarvis | Mijn persoonlijke commandoscherm | Mark Eijbaard"
+title: "Jarvis | Mijn persoonlijke commandoscherm"
 pagetitle: "Jarvis"
 excerpt: "Een persoonlijk commandoscherm dat elke ochtend laat zien wat er speelt: acties over datum, politiek gevoelige punten, de routines die draaien — en een assistent die vragen over mijn kennisbank beantwoordt."
 date: 2026-08-22
@@ -8,7 +8,7 @@ author_profile: true
 layout: single
 header:
   overlay_image: /assets/images/jarvis.webp
-  overlay_filter: 0.35
+  overlay_filter: 0.6
   caption: "Het commandoscherm van Jarvis (weergave met fictieve gegevens)"
 tags:
   - Jarvis

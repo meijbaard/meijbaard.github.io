@@ -1,5 +1,6 @@
 ---
 layout: null
+permalink: /inhetnieuws/feed.xml
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -7,7 +8,7 @@ layout: null
     <title>Mark Eijbaard in het nieuws</title>
     <description>Recente nieuwsberichten waarin Mark Eijbaard wordt genoemd, automatisch verzameld.</description>
     <link>{{ site.url }}{{ site.baseurl }}/inhetnieuws/</link>
-    <atom:link href="{{ site.url }}{{ site.baseurl }}/feed.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ site.url }}{{ site.baseurl }}/inhetnieuws/feed.xml" rel="self" type="application/rss+xml" />
     {% for item in site.data.news limit:20 %}
       <item>
         <title>{{ item.title | xml_escape }}</title>

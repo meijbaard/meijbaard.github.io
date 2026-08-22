@@ -1,6 +1,6 @@
 ---
 # === FRONT MATTER ===
-title: "Begrotingsblik | Grip op gemeentelijke financiën | Mark Eijbaard"
+title: "Begrotingsblik | Grip op gemeentelijke financiën"
 pagetitle: "Begrotingsblik"
 excerpt: "Een bestuurlijk dashboard dat de cijfers uit begrotingen en jaarstukken van gemeenten doorzoekbaar, vergelijkbaar en bevraagbaar maakt — gebouwd met AI, zonder softwarehuis."
 date: 2026-08-22
@@ -8,7 +8,7 @@ author_profile: true
 layout: single
 header:
   overlay_image: /assets/images/begrotingsblik.webp
-  overlay_filter: 0.35
+  overlay_filter: 0.6
   caption: "Begrotingsblik — begrotingsblik.nl"
   actions:
     - label: "Naar begrotingsblik.nl"
