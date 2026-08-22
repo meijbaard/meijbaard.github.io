@@ -26,9 +26,13 @@ Dit is de meest ingrijpende aanpassing. Dit bestand is aangepast om twee verschi
 
 ## 2. Aangepaste Stijlen (`assets/css/main.scss`)
 
-Dit bestand is aangepast om de layout van de `/posts/` pagina correct op te maken.
+Dit bestand bevat de volledige eigen huisstijl (kleuren, typografie, homepage-secties, dashboard-kaarten, hero) én de lijstweergave van `/posts/`, categorieën en tags (blok `LIJSTWEERGAVE`): afbeelding links (200px), tekst rechts, op mobiel gestapeld.
 
-* **Doel van de aanpassing:**
-    * De layout forceren naar een "afbeelding links, tekst rechts"-model.
-    * De breedte van de afbeelding beperken tot 200px.
-    * De lettergrootte van de titels op de overzichtspagina verkleinen.
+* **Conflict bij een update:** geen — `main.scss` is een eigen bestand dat het thema importeert. Controleer na een thema-update wel of de klassennamen (`.archive__item--list`, `.page__hero--overlay`, `.list__item`) nog bestaan.
+
+---
+
+## 3. Wat géén aanpassing (meer) is
+
+* `feature_row`: de pagina's `/projecten/` en `/projects/dashboards/` gebruiken de standaard `feature_row`-include van het thema. Gebruik in de front matter dus `url:` (niet `btn_link:`). Een eigen `_includes/feature_row.html` heeft geen effect en is op 22 augustus 2026 verwijderd.
+* De dashboards draaien op eigen subdomeinen; `/spotconverter/`, `/localdashboard/` en `/electiondashboard/` zijn alleen nog redirects (`redirect_to` in de front matter).
