@@ -37,7 +37,7 @@ Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo s
   <br>
   
   <div>
-    <button id="submit-button" type="submit" style="padding: 10px 20px; border: none; background-color: #52adc8; color: white; cursor: pointer; border-radius: 4px;">Verzenden</button>
+    <button id="submit-button" type="submit" class="btn btn--primary">Verzenden</button>
   </div>
 </form>
 

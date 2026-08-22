@@ -1,4 +1,5 @@
 ---
+sitemap: false
 layout: single
 title: "Bedankt voor je bericht!"
 permalink: /bedankt/

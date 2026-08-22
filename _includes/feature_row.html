@@ -16,9 +16,10 @@
         </div>
       {% endif %}
 
-      {% if feature.btn_label and (feature.btn_link or feature.url) %}
-        {% assign link = feature.btn_link | default: feature.url %}
-        {% assign is_external = link contains '://' and (link contains site.url) == false %}
+      {% assign link = feature.btn_link | default: feature.url %}
+      {% if feature.btn_label and link %}
+        {% assign is_external = false %}
+        {% if link contains '://' %}{% unless link contains site.url %}{% assign is_external = true %}{% endunless %}{% endif %}
         <p>
           <a href="{{ link }}"
              class="btn {{ feature.btn_class }}"

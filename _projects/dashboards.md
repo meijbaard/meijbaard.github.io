@@ -1,52 +1,49 @@
 ---
-# === FRONT MATTER ===
-# Titel voor Google en browser-tab
-title: "Open-Source Dashboards | Data & Inzichten over Baarn | Mark Eijbaard"
-# Nette, korte titel die op de pagina zelf wordt getoond
-pagetitle: "Data Dashboards"
-# Gebruikte layout
+title: "Open-data dashboards"
+pagetitle: "Open-data dashboards"
+excerpt: "Drie open-source dashboards uit mijn Baarnse periode: verkiezingsuitslagen per buurt, CBS-wijkcijfers op de kaart en een hulpmiddel voor treinspotters."
+description: "Open-source dashboards van Mark Eijbaard: het Verkiezingsdashboard Baarn, het CBS Wijkdata Dashboard en Spotconverter Pro. Transparant en datagedreven."
+date: 2025-08-24
 layout: splash
-# Toon je profiel in de sidebar
-author_profile: true
-# Metabeschrijving voor Google
-description: "Ontdek de verhalen achter de cijfers. Verken mijn interactieve, open-source dashboards over verkiezingsdata, CBS-statistieken en meer. Transparant en datagedreven."
-
-# === FEATURE ROW DEFINITIES ===
-# Elk item hieronder wordt een visueel blok op de pagina
+author_profile: false
+header:
+  overlay_image: /assets/images/header_baarn.webp
+  overlay_filter: 0.45
+  caption: "Baarn"
+  actions:
+    - label: "Bekijk Begrotingsblik"
+      url: "/projects/begrotingsblik/"
 feature_row:
-  - image_path: /assets/images/dashboard_spotconverter.webp
-    alt: "Spotconverter voor de Bentheimer-whatsappgroep"
-    title: "Spotconverter Pro"
-    excerpt: "Transformeer **cryptische WhatsApp-berichten**…"
-    btn_link: "https://spotconverter.markeijbaard.nl"   # ← i.p.v. url
-    btn_label: "Bekijk Spotconverter"
-    btn_class: "btn--primary"
-    new_tab: true
-
   - image_path: /assets/images/dashboard_verkiezingen.webp
-    alt: "Dashboard met verkiezingsgegevens van Baarn"
+    alt: "Verkiezingsdashboard Baarn"
     title: "Verkiezingsdashboard Baarn"
-    excerpt: "Analyseer de uitslagen…"
-    btn_link: "https://verkiezingen.markeijbaard.nl"    # ← i.p.v. url
-    btn_label: "Bekijk Verkiezingsdashboard"
+    excerpt: "Uitslagen van gemeenteraads-, Tweede Kamer- en Europese verkiezingen per stembureau en buurt, met zetelverdeling en vergelijking tussen jaren."
+    btn_link: "https://verkiezingen.markeijbaard.nl"
+    btn_label: "Open het dashboard"
     btn_class: "btn--primary"
     new_tab: true
-
   - image_path: /assets/images/dashboard_lokaal.webp
-    alt: "CBS gegevens Baarn 2024"
-    title: "CBS gegevens Baarn 2024"
-    excerpt: "Krijg een helder beeld…"
-    btn_link: "https://cbs.markeijbaard.nl"             # ← i.p.v. url
-    btn_label: "Bekijk Lokaal dashboard"
+    alt: "Wijkdata Dashboard Baarn"
+    title: "Wijkdata Dashboard"
+    excerpt: "CBS-kerncijfers per buurt op de kaart: bevolking, huishoudens, woningen, inkomen en voorzieningen. Klik op een buurt en zie hoe die zich verhoudt tot de rest van Baarn."
+    btn_link: "https://cbs.markeijbaard.nl"
+    btn_label: "Open het dashboard"
     btn_class: "btn--primary"
     new_tab: true
-
+  - image_path: /assets/images/dashboard_spotconverter.webp
+    alt: "Spotconverter Pro"
+    title: "Spotconverter Pro"
+    excerpt: "Een hobbyproject: plak een WhatsApp-bericht van treinspotters en krijg de route, geschatte doorkomsttijden en materieelinfo terug. Voor de Bentheimer-groep gebouwd."
+    btn_link: "https://spotconverter.markeijbaard.nl"
+    btn_label: "Open Spotconverter"
+    btn_class: "btn--primary"
+    new_tab: true
 ---
 
-### 📊 Check deze handige tools!
+Deze drie dashboards bouwde ik tijdens mijn periode als wethouder in Baarn, vanuit de overtuiging dat **transparantie begint bij toegankelijke data**. Cijfers die in rapporten verstopt zitten, zeggen inwoners weinig; dezelfde cijfers op een kaart of in een grafiek wél. De dashboards zijn open source, de data komt van de Kiesraad, het CBS en openbare bronnen.
 
-Deze dashboards bouwde ik tijdens mijn periode als wethouder in Baarn. Voor Woudenberg en de regio is er inmiddels [Begrotingsblik](/projects/begrotingsblik/).
+Ze draaien op hun eigen adres en worden daar bijgehouden. Voor Woudenberg en de regio is er inmiddels [Begrotingsblik](/projects/begrotingsblik/), dat dezelfde gedachte doortrekt naar de gemeentelijke financiën.
 
-Als onderdeel van mijn streven naar **transparantie en datagedreven werken**, ontwikkel ik *open-source dashboards* om complexe informatie toegankelijk te maken. Deze tools bieden unieke inzichten, van **lokale statistieken** tot **verkiezingsdata** en zelfs de **analyse van specialistisch jargon**. Duik in de data en ontdek de verhalen die de cijfers vertellen.
+{% include feature_row %}
 
-**{% include feature_row id="feature_row" %}**
+De broncode van alle drie staat op [GitHub](https://github.com/meijbaard).

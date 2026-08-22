@@ -8,8 +8,9 @@ author_profile: false
 Een overzicht van alle pagina's en berichten op deze site. Voor zoekmachines is er ook een [XML-versie]({{ "sitemap.xml" | relative_url }}).
 
 <h2>Pagina's</h2>
-{% for post in site.pages %}
-  {% include archive-single.html %}
+{% assign sitemap_pages = site.pages | where_exp: "p", "p.sitemap != false" | where_exp: "p", "p.title" | sort: "title" %}
+{% for post in sitemap_pages %}
+  {% unless post.redirect_to %}{% include archive-single.html %}{% endunless %}
 {% endfor %}
 
 <h2>Berichten</h2>

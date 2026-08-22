@@ -1,8 +1,9 @@
 ---
 # === FRONT MATTER ===
 # Titel voor Google en browser-tab
-title: "Project UPLG | De Toekomst van het Buitengebied van Baarn"
+title: "De toekomst van het buitengebied (UPLG)"
 # Nette, korte titel die op de pagina zelf wordt getoond
+description: "Wat het Utrechts Programma Landelijk Gebied (UPLG) betekent voor natuur, water en landbouw in Baarn — een overzicht uit mijn periode als wethouder in Baarn."
 pagetitle: "De Toekomst van ons Buitengebied"
 # Korte samenvatting voor de projectenlijst en Google
 excerpt: "Een diepgaande blik op het Utrechts Programma Landelijk Gebied (UPLG) en wat dit betekent voor de natuur, het water en de landbouw in Baarn."
@@ -26,6 +27,9 @@ tags:
   - Baarn
   - Provincie Utrecht
 ---
+
+> **Uit mijn Baarnse periode.** Deze pagina schreef ik in 2025 als wethouder van Baarn. Het UPLG volg ik nu vanuit Woudenberg, waar het onder mijn portefeuille vitaal platteland valt; de analyse hieronder laat ik staan zoals ze toen was.
+{: .notice--info}
 
 ## Samenvatting: Een Toekomst voor het Baarnse Buitengebied
 

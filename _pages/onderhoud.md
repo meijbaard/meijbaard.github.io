@@ -1,4 +1,5 @@
 ---
+sitemap: false
 title: "Website in Onderhoud"
 permalink: /onderhoud/
 layout: single

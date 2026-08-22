@@ -1,6 +1,7 @@
 ---
 # === FRONT MATTER ===
-title: "Begrotingsblik | Grip op gemeentelijke financiën"
+title: "Begrotingsblik"
+description: "Begrotingsblik maakt de cijfers uit begrotingen en jaarstukken van gemeenten doorzoekbaar, vergelijkbaar en bevraagbaar. Een initiatief van Mark Eijbaard, gebouwd met AI."
 pagetitle: "Begrotingsblik"
 excerpt: "Een bestuurlijk dashboard dat de cijfers uit begrotingen en jaarstukken van gemeenten doorzoekbaar, vergelijkbaar en bevraagbaar maakt — gebouwd met AI, zonder softwarehuis."
 date: 2026-08-22

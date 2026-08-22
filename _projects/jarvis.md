@@ -1,6 +1,7 @@
 ---
 # === FRONT MATTER ===
-title: "Jarvis | Mijn persoonlijke commandoscherm"
+title: "Jarvis"
+description: "Jarvis is het persoonlijke commandoscherm van Mark Eijbaard: acties, gevoelige dossiers en routines van zijn AI-werksysteem op één pagina."
 pagetitle: "Jarvis"
 excerpt: "Een persoonlijk commandoscherm dat elke ochtend laat zien wat er speelt: acties over datum, politiek gevoelige punten, de routines die draaien — en een assistent die vragen over mijn kennisbank beantwoordt."
 date: 2026-08-22

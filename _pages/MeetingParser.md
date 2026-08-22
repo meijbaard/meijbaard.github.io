@@ -1,10 +1,6 @@
 ---
+title: "MeetingParser"
 permalink: /meetingparser/
-layout: dashboard
-title: MeetingParser
-author_profile: false
-classes:
-  - bg-gray-50
+redirect_to: /projecten/
+sitemap: false
 ---
-
-<div id="root"></div>
