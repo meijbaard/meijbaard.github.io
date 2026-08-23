@@ -892,67 +892,6 @@ nav.breadcrumbs {
 }
 
 /* ================================================================
-   TRAININGEN — Van Drukte naar Regie
-   ================================================================ */
-
-.training-intro {
-  max-width: 760px;
-  margin: 0 auto 2.5rem;
-  font-size: 1.05rem;
-  line-height: 1.75;
-}
-
-.training-steps,
-.training-sjablonen {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
-  margin: 1.5rem 0 2.5rem;
-}
-
-.training-step,
-.training-sjabloon {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 1.5rem 1.5rem 1.4rem;
-  box-shadow: var(--shadow-xs);
-
-  h3 { font-size: 1.05rem; margin: 0.6rem 0 0.5rem; letter-spacing: -0.01em; }
-  p  { font-size: 0.92rem; color: var(--muted); line-height: 1.65; margin: 0; }
-}
-
-.training-step__nr {
-  display: inline-grid;
-  place-items: center;
-  width: 2.1rem; height: 2.1rem;
-  border-radius: 999px;
-  background: var(--green);
-  color: var(--white);
-  font-weight: 800;
-  font-size: 0.95rem;
-}
-
-.training-sjabloon { border-top: 4px solid var(--ochre); }
-
-.training-cta {
-  margin: 3rem 0 1rem;
-  padding: 1.75rem 1.75rem 1.5rem;
-  background: var(--mint);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-
-  h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
-  p  { margin: 0 0 0.75rem; }
-  &__knoppen { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin: 0 !important; }
-  &__terug { margin-left: auto; font-weight: 700; font-size: 0.9rem; }
-}
-
-@media (max-width: 900px) {
-  .training-steps, .training-sjablonen { grid-template-columns: 1fr; }
-}
-
-/* ================================================================
    MOBILE
    ================================================================ */
 

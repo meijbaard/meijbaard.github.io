@@ -73,7 +73,6 @@ exclude:
   - vendor/ruby/
   - aanpassingen_tov_standaard.md # Uw eigen bestand
   - github_jekyll_spiekbriefje.md
-  - _parkeer/ # geparkeerd werk (o.a. Van Drukte naar Regie), niet publiceren
 
 # Activate Mermaid diagrams
 mermaid: true
