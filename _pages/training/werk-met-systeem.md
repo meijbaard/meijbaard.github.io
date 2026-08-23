@@ -1,12 +1,12 @@
 ---
 title: "Werk met systeem"
-pagetitle: "Training 1 — Werk met systeem"
+pagetitle: "1. Werk met systeem"
 permalink: /training/werk-met-systeem/
 layout: single
 toc: true
 toc_label: "Op deze pagina"
 toc_sticky: true
-description: "De basis van training 1 uit Van Drukte naar Regie: Second Brain, de PARA-methode en het GRIP-reviewritme, toegepast op het werk van raadsleden, bestuurders en ambtenaren."
+description: "Onderdeel 1 van Van Drukte naar Regie: Second Brain, de PARA-methode en het GRIP-reviewritme, toegepast op het werk van raadsleden, bestuurders en ambtenaren."
 header:
   overlay_image: /assets/images/woudenberg_gemeentehuis.webp
   overlay_filter: 0.55
@@ -15,11 +15,11 @@ header:
 
 > **De kern in één zin:** je hoofd is geen archief. Sla kennis op buiten je hoofd, zodat je brein vrij is om te denken.
 
-Dit is de basis van de eerste training. Lees het, pas het toe, en als je merkt dat je verder wilt: [de verdieping zit in de training](#verder-in-de-training).
+Dit is de basis van het eerste onderdeel. Lees het, pas het toe, en als je merkt dat je verder wilt: [de verdieping zit in de cursus bij het sjabloon](#verder-in-de-cursus).
 
 ## Waarom je hoofd geen archief is
 
-Je hersenen zijn gemaakt om te denken, niet om te onthouden. Elke vergadering, brief, motie of beleidsnotitie die je probeert te onthouden, kost aandacht die je nodig hebt voor het werk zelf. De kerngedachte van deze training is simpel: **het systeem onthoudt, jij beslist.**
+Je hersenen zijn gemaakt om te denken, niet om te onthouden. Elke vergadering, brief, motie of beleidsnotitie die je probeert te onthouden, kost aandacht die je nodig hebt voor het werk zelf. De kerngedachte is simpel: **het systeem onthoudt, jij beslist.**
 
 ## Second Brain: het principe
 
@@ -69,14 +69,14 @@ Kies er één en plan hem in je agenda:
 
 Perfectionisme is de vijand van implementatie. Eén echt project in je systeem is beter dan een perfect leeg systeem.
 
-## Verder in de training
+## Verder in de cursus
 
-Tot hier kun je het zelf. In de training gaan we verder waar de handout ophoudt:
+Tot hier kun je het zelf. De cursus bij het sjabloon gaat verder waar deze pagina ophoudt:
 
-- **De Notion Life-OS activeren** — een kant-en-klare omgeving met PARA en de drie reviews, ingericht voor het openbaar bestuur. Je bouwt niets van nul; je activeert en maakt hem eigen, live in de sessie.
+- **De Notion Life-OS activeren** — een kant-en-klare omgeving met PARA en de drie reviews, ingericht voor het openbaar bestuur. Je bouwt niets van nul; je activeert hem en maakt hem eigen, stap voor stap.
 - **Jouw portefeuille als Gebied** — hoe je een échte portefeuille, een fractie of een beleidsveld indeelt, inclusief de lastige gevallen (is een raadscyclus een project of een gebied?).
-- **De Weekly Review in de praktijk** — we doen hem samen, met jouw eigen dossiers, zodat je weet hoe 30 minuten voelen.
+- **De Weekly Review in de praktijk** — uitgewerkt met een echte portefeuille als voorbeeld, zodat je weet hoe 30 minuten eruitzien.
 - **Alternatieven voor Notion** — mappenstructuur, Obsidian of Microsoft 365, voor wie Notion te veel vindt of van zijn organisatie niet mag gebruiken.
-- **De koppeling met training 2 en 3** — hoe je masterprompt en kennisbank straks een plek krijgen in Bronnen.
+- **De koppeling met onderdeel 2 en 3** — hoe je masterprompt en kennisbank straks een plek krijgen in Bronnen.
 
 {% include training-cta.html sjabloon="Notion Life-OS" %}

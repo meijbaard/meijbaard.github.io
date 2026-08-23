@@ -4,7 +4,7 @@ main:
   - title: "In het nieuws"
     url: /inhetnieuws/
     description: 'Vind hier een overzicht van alle artikelen die online zijn verschenen op verschillende nieuwssites.'
-  - title: "Trainingen"
+  - title: "Werk met systeem"
     url: /training/
     description: 'Van Drukte naar Regie: werk met systeem, een AI-werkwijze en een kennisbank met AI — voor raadsleden, bestuurders en ambtenaren.'
   - title: "Projecten"

@@ -1,12 +1,12 @@
 ---
 title: "Kennisbank met AI"
-pagetitle: "Training 3 — Kennisbank met AI"
+pagetitle: "3. Kennisbank met AI"
 permalink: /training/kennisbank/
 layout: single
 toc: true
 toc_label: "Op deze pagina"
 toc_sticky: true
-description: "De basis van training 3 uit Van Drukte naar Regie: een kennisbank in drie lagen, de basisworkflow van document naar antwoord, en waarom markdown betere AI-antwoorden geeft dan PDF."
+description: "Onderdeel 3 van Van Drukte naar Regie: een kennisbank in drie lagen, de basisworkflow van document naar antwoord, en waarom markdown betere AI-antwoorden geeft dan PDF."
 header:
   overlay_image: /assets/images/begrotingsblik.webp
   overlay_filter: 0.6
@@ -15,7 +15,7 @@ header:
 
 > **De kern in één zin:** alles wat je nooit kunt lezen, werkt voortaan voor jou — de kennisbank leest het voor je.
 
-Dit is de basis van de derde training. Ermee beginnen kan vanmiddag; [de verdieping zit in de training](#verder-in-de-training).
+Dit is de basis van het derde onderdeel. Ermee beginnen kan vanmiddag; [de verdieping zit in de cursus bij het sjabloon](#verder-in-de-cursus).
 
 ## Wat een kennisbank is
 
@@ -67,11 +67,11 @@ PDF's zijn lastig voor AI: opmaakruis, verborgen kolommen, inconsistente structu
 
 Omzetten kan op drie manieren: kopiëren en plakken in een tekstbestand, een online converter, of AI zelf vragen *"zet dit om naar schone markdown zonder opmaak"*. Begin met kopiëren en plakken; dat werkt altijd.
 
-## Verder in de training
+## Verder in de cursus
 
-Tot hier kun je het zelf. In de training gaan we verder:
+Tot hier kun je het zelf. De cursus bij het sjabloon gaat verder:
 
-- **De kennisbank-basis activeren** — mappenstructuur, een uitgewerkt voorbeelddossier en het promptsjabloon waarmee je nieuwe wiki-artikelen maakt. Je richt ter plekke één eigen dossier in met drie documenten.
+- **De kennisbank-basis activeren** — mappenstructuur, een uitgewerkt voorbeelddossier en het promptsjabloon waarmee je nieuwe wiki-artikelen maakt. In de cursus richt je je eerste eigen dossier in met drie documenten.
 - **De volledige cyclus ervaren** — van vraag tot antwoord met bronverwijzing, op jouw eigen stukken.
 - **Wiki-artikelen die kloppen** — hoe je AI laat schrijven met bronvermelding per alinea, en hoe je een artikel bijwerkt als er een nieuw raadsstuk komt.
 - **Vertrouwelijkheid** — wat wel en niet in de kennisbank hoort, en hoe je gevoelig materiaal apart houdt zonder het systeem te breken.

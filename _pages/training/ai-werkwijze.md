@@ -1,12 +1,12 @@
 ---
 title: "AI-werkwijze"
-pagetitle: "Training 2 — AI-werkwijze"
+pagetitle: "2. AI-werkwijze"
 permalink: /training/ai-werkwijze/
 layout: single
 toc: true
 toc_label: "Op deze pagina"
 toc_sticky: true
-description: "De basis van training 2 uit Van Drukte naar Regie: hoe een taalmodel werkt, wat veilig is in de overheidscontext, de vier bouwstenen van een prompt en de masterprompt."
+description: "Onderdeel 2 van Van Drukte naar Regie: hoe een taalmodel werkt, wat veilig is in de overheidscontext, de vier bouwstenen van een prompt en de masterprompt."
 header:
   overlay_image: /assets/images/jarvis.webp
   overlay_filter: 0.6
@@ -15,7 +15,7 @@ header:
 
 > **De kern in één zin:** AI verandert niet wat je besluit — het verandert wat je kunt doen in een uur.
 
-Dit is de basis van de tweede training. Genoeg om morgen verantwoord aan de slag te gaan; [de verdieping zit in de training](#verder-in-de-training).
+Dit is de basis van het tweede onderdeel. Genoeg om morgen verantwoord aan de slag te gaan; [de verdieping zit in de cursus bij het sjabloon](#verder-in-de-cursus).
 
 ## Wat AI is, zonder jargon
 
@@ -73,12 +73,12 @@ Complexe vragen leveren matige resultaten op als je ze in één keer stelt. Spli
 
 Elk denkmodel dat je al kent — SWOT, voor/tegen/risico, stakeholderperspectief — werkt als frame: geef het mee en AI volgt het.
 
-## Verder in de training
+## Verder in de cursus
 
-Tot hier kun je het zelf. In de training gaan we verder:
+Tot hier kun je het zelf. De cursus bij het sjabloon gaat verder:
 
-- **Je masterprompt schrijven** — een persoonlijk protocol dat AI vertelt wie je bent, wat je doet, hoe je schrijft en wat er nooit in mag. Je vult hem in tijdens de sessie en gebruikt hem de volgende dag in elke tool.
-- **Atom of Thoughts op jouw dossier** — we pakken een echte casus uit jouw werk en knippen die samen op, zodat je het patroon in de vingers krijgt.
+- **Je masterprompt schrijven** — een persoonlijk protocol dat AI vertelt wie je bent, wat je doet, hoe je schrijft en wat er nooit in mag. Met het sjabloon vul je hem in één avond in en gebruik je hem de volgende dag in elke tool.
+- **Atom of Thoughts op een echt dossier** — een uitgewerkte casus uit het openbaar bestuur, stap voor stap opgeknipt, zodat je het patroon in de vingers krijgt.
 - **Strategische frameworks als gereedschap** — SWOT, Piramide-principe en SCQA voor raadsvoorstellen, moties en adviezen.
 - **De veiligheidsafweging per tool** — wat Copilot, Claude, Gemini en ChatGPT wel en niet doen met je data, en hoe je dat uitlegt aan je organisatie.
 - **Fouten herkennen** — hoe hallucinaties eruitzien in bestuurlijke teksten en hoe je ze systematisch opspoort.
