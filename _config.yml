@@ -74,6 +74,10 @@ exclude:
   - aanpassingen_tov_standaard.md # Uw eigen bestand
   - github_jekyll_spiekbriefje.md
 
+# Waar de Notion-sjablonen te koop zijn. Nu nog het contactformulier;
+# zodra er een winkel is, hier de URL invullen — alle knoppen volgen.
+sjablonen_url: /contact/
+
 # Activate Mermaid diagrams
 mermaid: true
 
