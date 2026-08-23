@@ -7,9 +7,9 @@ date: 2025-08-24
 layout: splash
 author_profile: false
 header:
-  overlay_image: /assets/images/header_baarn.webp
-  overlay_filter: 0.45
-  caption: "Baarn"
+  overlay_image: /assets/images/header_dashboards.webp
+  overlay_filter: 0.55
+  caption: "Het Sociaal Dashboard: Baarn en Woudenberg"
   actions:
     - label: "Bekijk Begrotingsblik"
       url: "/projects/begrotingsblik/"
