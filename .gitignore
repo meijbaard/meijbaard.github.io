@@ -3,3 +3,4 @@
 graphify-out/
 _site/
 .jekyll-cache/
+_data/secrets.yml

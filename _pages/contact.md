@@ -9,7 +9,7 @@ author_profile: false
 
 Heeft u een vraag of opmerking? Vul dan onderstaand formulier in en ik neem zo snel mogelijk contact met u op.
 
-<form id="contact-form" action="https://hook.eu1.make.com/1vcvgttjf3wnycjyehwpp4f7181jtyxp" method="POST">
+<form id="contact-form" action="{{ site.data.secrets.n8n_webhook_url }}" method="POST">
   <!-- Honeypot: onzichtbaar voor mensen, bots vullen dit veld wel in -->
   <div style="position: absolute; left: -9999px;" aria-hidden="true">
     <label for="website">Website (niet invullen)</label>
