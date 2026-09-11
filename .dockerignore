@@ -1,0 +1,6 @@
+# De buildcontext hoeft alleen de gebouwde site en de nginx-configuratie te
+# bevatten. Alles uitsluiten en daarna twee dingen terughalen is korter en
+# veiliger dan per map opsommen wat er niet in mag.
+*
+!_site
+!docker

@@ -73,6 +73,8 @@ exclude:
   - vendor/ruby/
   - aanpassingen_tov_standaard.md # Uw eigen bestand
   - github_jekyll_spiekbriefje.md
+  - Dockerfile # publicatie-image, hoort niet in de uitgeleverde site
+  - docker/ # nginx-configuratie voor de container
 
 # Activate Mermaid diagrams
 mermaid: true

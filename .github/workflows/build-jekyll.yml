@@ -1,17 +1,29 @@
 # .github/workflows/build-jekyll.yml
-name: Build & Deploy Jekyll to GitHub Pages
+#
+# De site wordt één keer gebouwd en naar twee plekken gepubliceerd:
+#
+#   1. GitHub Pages  — het huidige adres, blijft draaien tot de overstap rond is
+#   2. GHCR          — ghcr.io/meijbaard/markeijbaard-nl, het image dat de
+#                      homeserver draait
+#
+# De twee publicatiejobs staan bewust los van elkaar en hangen allebei alleen
+# aan 'build'. Gaat het duwen van het image mis, dan is de run rood en zie je
+# dat, maar de site op Pages wordt gewoon bijgewerkt — en andersom.
+#
+# Na de DNS-overstap naar de homeserver kunnen de job 'pages' en de stap
+# 'Artefact voor Pages' weg. Zolang beide draaien is terugvallen op Pages één
+# DNS-wijziging.
+name: Build & Deploy Jekyll
 
 on:
   push:
-    branches: [ "main" ]   # pas aan indien nodig
+    branches: [ "main" ]
   workflow_dispatch:
   repository_dispatch:
     types: [deploy-newsdashboard]   # herbouw na elke nieuwsupdate
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: "pages"
@@ -20,6 +32,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,19 +59,85 @@ jobs:
 
       - name: Build site
         run: bundle exec jekyll build --trace
-        # working-directory: ./docs   # uncomment als je site in een submap staat
 
-      - name: Upload artifact
+      - name: Artefact voor Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site             # pas aan als je submap gebruikt
+          path: ./_site
 
-  deploy:
+      - name: Artefact voor het container-image
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: ./_site
+          retention-days: 1
+          if-no-files-found: error
+
+  # --- publicatiedoel 1: GitHub Pages ---------------------------------------
+  pages:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # --- publicatiedoel 2: image voor de homeserver ---------------------------
+  image:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        # Nodig voor de Dockerfile en docker/nginx.conf; de gebouwde site komt
+        # uit het artefact hieronder, die wordt hier niet opnieuw gebouwd.
+
+      - name: Gebouwde site ophalen
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: ./_site
+
+      - name: Inloggen bij GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Imagenaam en tags bepalen
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/meijbaard/markeijbaard-nl
+          # 'main' is de tag die de server volgt; 'sha-<commit>' blijft staan en
+          # is waar je op terugvalt als een publicatie stukgaat.
+          tags: |
+            type=raw,value=main
+            type=sha
+
+      - name: Image bouwen en publiceren
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Meld welk image er klaarstaat
+        run: |
+          {
+            echo "### Image gepubliceerd"
+            echo '```'
+            echo "${{ steps.meta.outputs.tags }}"
+            echo '```'
+            echo "De homeserver pakt de tag \`main\` binnen tien minuten op."
+          } >> "$GITHUB_STEP_SUMMARY"
