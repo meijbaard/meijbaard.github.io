@@ -3126,6 +3126,15 @@
     "match": "meta"
   },
   {
+    "title": "Lintje voor Peter Blokker bij afscheid van raadsleden",
+    "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbzE0TzlnTVhQcFdmb0tVYk9OZFhfVXpsVS1TRTItUDNVR25jT2VhazI4SGVBZWpnY2xTVm5WR2FMWUN6LTVBSDBMN3BFZDhRbS1UUE52NEhMNHd2OEhsa3FJTTlOYU1uQUVQTjVDUVliSTREYmRzakF3a3R6S09UQktXTWZkVm5mRUZLZTBLcHBUQ0xOOFJVZFFOdFFVMTJTN285VWJidlZtQQ?oc=5",
+    "pubDate": "2022-03-30T07:00:00.000Z",
+    "source_id": "baarnschecourant.nl",
+    "description": "",
+    "image_url": "",
+    "match": "query"
+  },
+  {
     "title": "Leden nieuwe Baarnse gemeenteraad bekend",
     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPYnVSTmFuWk5rUEl2YzRmZndZaUpGQWtYX3Y3TE4yVVE0YlpJUktQVnlwN2I5Q3BYdnpNbXAxQWljOHd0NnZocF8zM2ktc2NjcTN0Wm9qUkttQUxpRFZpR0d3OW5UVy1McE93QlNQd2pFN3E0ZUQ0QjRhZ2JRRDVEamlYUE1OUi1tRUM1WG03eG15MHk0ckp1anJpNkxPYVc5ZWQ5a3QyY3FGUnlkcm5xZEFn?oc=5",
     "pubDate": "2022-03-22T07:00:00.000Z",
@@ -3324,7 +3333,7 @@
     "match": "query"
   },
   {
-    "title": "Baarnsche Courant - BaarnscheCourant.nl",
+    "title": "Baarnsche Courant",
     "link": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE1lSGxZNjZsVXg0X0pMbDBxZDNDaE1xQ0diZ29Rb0cteVRISTBRZlQzLURDUjRUX3NMal9ibmZfWndXRHItN25R?oc=5",
     "pubDate": "2017-08-24T14:46:01.000Z",
     "source_id": "baarnschecourant.nl",
